@@ -13,13 +13,19 @@ set clipboard=unnamed
 nnoremap n nzz
 nnoremap N Nzz
 
+nmap <Space>o :xccmd openQuickly<CR>
+
 nnoremap <C-h> <C-w>h<CR>
 nnoremap <C-l> <C-w>l<CR>
 
-inoremap jj <ESC>`^
-inoremap jk <ESC>`^
+inoremap jj <ESC>
+inoremap jk <ESC>
 
 
+nnoremap <space>f zc<CR>
+nnoremap <space>fa zM<CR>
+nnoremap <space>uf zo<CR>
+nnoremap <space>ufa zr<CR>
 " Search the string cursor to. Very useful
 map ,s viw:xccmd findSelectedTextInWorkspace<CR>
 " Mapping toggleBreakpoint
