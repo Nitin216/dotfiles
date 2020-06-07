@@ -73,6 +73,8 @@ nnoremap E $
 nnoremap $ <nop>
 nnoremap ^ <nop>
 
+inoremap jj <ESC>'^
+inoremap jk <ESC>'^
 " Mapping of buffer movement
 nnoremap <silent><leader>jj :bnext<CR>
 nnoremap <silent><leader>kk :bprevious<CR>
