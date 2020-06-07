@@ -1,0 +1,58 @@
+set debug
+set ignorecase
+set smartcase
+set hlsearch
+
+nnoremap <CR> :noh<CR>
+
+set number
+set relativenumber
+
+set clipboard=unnamed
+
+nnoremap n nzz
+nnoremap N Nzz
+
+nnoremap <C-h> <C-w>h<CR>
+nnoremap <C-l> <C-w>l<CR>
+
+inoremap jj <ESC>`^
+inoremap jk <ESC>`^
+
+
+" Search the string cursor to. Very useful
+map ,s viw:xccmd findSelectedTextInWorkspace<CR>
+" Mapping toggleBreakpoint
+nmap <space>b :xccmd toggleBreakpointAtCurrentLine<CR>
+" Save when esc
+ino <ESC> <ESC>:xcmenucmd Save<CR>
+
+" tab new
+map ,tn :xccmd newTab<CR>
+" tab close
+map ,tc :tabclose<CR>
+" tab pre
+map ,ti :xccmd selectPreviousTab<CR>
+" tab next
+map ,to :xccmd selectNextTab<CR>
+
+" Custom configs
+nnoremap B ^
+nnoremap E $
+nnoremap $ <nop>
+
+" Mapping of creating splits
+map - :split<CR>
+
+
+" Disable Arrow keys in Normal mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Disable Arrow keys in Insert mode
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
