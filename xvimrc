@@ -1,4 +1,4 @@
-set debug
+" set debug
 set ignorecase
 set smartcase
 set hlsearch

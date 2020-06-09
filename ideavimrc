@@ -1,0 +1,16 @@
+set surround
+set number
+set relativenumber
+
+" Mapping endings to B and E
+nnoremap B ^
+nnoremap E $
+nnoremap $ <nop>
+
+" Mapping jj to ESC 
+inoremap jj <ESC>
+inoremap jk <ESC>
+
+" Mapping for movement between tabs
+nnoremap <C-h> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
