@@ -75,18 +75,27 @@ nnoremap ^ <nop>
 
 inoremap jj <ESC>
 inoremap jk <ESC>
+
 " Mapping of buffer movement
-nnoremap <silent><leader>jj :bnext<CR>
-nnoremap <silent><leader>kk :bprevious<CR>
+nnoremap <silent><leader>l :bnext<CR>
+nnoremap <silent><leader>h :bprevious<CR>
 
 " Mapping of creating splits
 nnoremap <silent><bar> :vsplit<CR>
 nnoremap <silent>- :split<CR>
 
+" Mapping of movement in buffers
 nnoremap <silent><C-J> <C-W><C-J>
 nnoremap <silent><C-K> <C-W><C-K>
 nnoremap <silent><C-L> <C-W><C-L>
 nnoremap <silent><C-H> <C-W><C-H>
+
+command! BufOnly execute '%bdelete|edit #|normal `"'
+
+" Mapping of tabs addition and movement
+nnoremap <silent><C-T> :tabnew<CR>
+nnoremap <silent><leader>t :tabnext<CR>
+nnoremap <silent><leader>T :tabprev<CR>
 
 " Disable Arrow keys in Normal mode
 map <up> <nop>
