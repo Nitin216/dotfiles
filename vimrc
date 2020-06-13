@@ -24,6 +24,7 @@ set guifont=DroidSansMono_Nerd_Font:h11
 set wildmenu
 set wildmode=full
 set scrolloff=20
+set lazyredraw
 
 " Plugins added
 call plug#begin()
@@ -41,34 +42,34 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'palantir/tslint'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
-Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/vim-devicons'
 Plug 'keith/swift.vim'
 Plug 'scrooloose/syntastic'
 Plug 'takac/vim-hardtime'
 Plug 'udalov/kotlin-vim'
-Plug 'unkiwii/vim-nerdtree-sync'
 
 call plug#end()
 set termguicolors     " enable true colors support
+
+let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 set background=dark
 
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+"let g:NERDTreeIndicatorMapCustom = {
+"    \ "Modified"  : "✹",
+"    \ "Staged"    : "✚",
+"    \ "Untracked" : "✭",
+"    \ "Renamed"   : "➜",
+"    \ "Unmerged"  : "═",
+"    \ "Deleted"   : "✖",
+"    \ "Dirty"     : "✗",
+"    \ "Clean"     : "✔︎",
+"    \ 'Ignored'   : '☒',
+"    \ "Unknown"   : "?"
+"    \ }
 
 let g:hardtime_default_on = 1
 
@@ -111,16 +112,21 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
+" Mapping split width increase and decrease
+nnoremap <leader>+ :vertical resize +5<CR>
+nnoremap <leader>- :vertical resize -5<CR>
 " NERDTree configs
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 autocmd StdinReadPre * let s:std_in=1
 nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <silent><leader>n :NERDTreeFind<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-let g:nerdtree_sync_cursorline = 1
-" NERDTree sync
-autocmd BufEnter * lcd %:p:h
 " Vim-Airline confis
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
