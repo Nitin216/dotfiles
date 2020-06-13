@@ -50,6 +50,7 @@ Plug 'keith/swift.vim'
 Plug 'scrooloose/syntastic'
 Plug 'takac/vim-hardtime'
 Plug 'udalov/kotlin-vim'
+Plug 'valloric/youcompleteme'
 
 call plug#end()
 set termguicolors     " enable true colors support
