@@ -2,15 +2,16 @@ set surround
 set number
 set relativenumber
 
-" Mapping endings to B and E
-nnoremap B ^
-nnoremap E $
-nnoremap $ <nop>
-
-" Mapping jj to ESC 
-inoremap jj <ESC>
-inoremap jk <ESC>
-
 " Mapping for movement between tabs
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
+
+" Mapping custom mapping
+nnoremap <space>r :action ReformatCode<CR>
+nnoremap <space>f :action HideAllWindows<CR>
+nnoremap <C-r> :action Run<CR>
+nnoremap <C-n> :action SelectInProjectView<CR>
+nnoremap <space>o :action SearchEverywhere<CR>
+" Mapping sourcing of this file
+nnoremap <C-s> :source ~/.ideavimrc<CR>
+
