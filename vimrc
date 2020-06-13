@@ -85,6 +85,14 @@ nnoremap gj j
 nnoremap k gk
 nnoremap gk k
 
+" Keep search result in center of screen"
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
 " Mapping of buffer movement
 nnoremap <silent><leader>l :bnext<CR>
 nnoremap <silent><leader>h :bprevious<CR>
