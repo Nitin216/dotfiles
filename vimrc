@@ -1,4 +1,4 @@
-" Setting basic stuff
+" etting basic stuff
 syntax enable
 set autoindent
 set cursorline 
@@ -50,7 +50,6 @@ Plug 'keith/swift.vim'
 Plug 'scrooloose/syntastic'
 Plug 'takac/vim-hardtime'
 Plug 'udalov/kotlin-vim'
-Plug 'valloric/youcompleteme'
 
 call plug#end()
 set termguicolors     " enable true colors support
@@ -79,6 +78,12 @@ let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
 
 " Setting leader key
 let mapleader=" "
+
+" Mapping jk to gj and gk"
+nnoremap j gj
+nnoremap gj j
+nnoremap k gk
+nnoremap gk k
 
 " Mapping of buffer movement
 nnoremap <silent><leader>l :bnext<CR>
