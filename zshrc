@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/usr/local/bin:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Users/i339130/.nvm/versions/node/v10.16.0/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/local/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/usr/local/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin
+export PATH=$HOME/bin:/usr/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/usr/local/bin:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Users/i339130/.nvm/versions/node/v10.16.0/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/local/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/usr/local/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
-
+#********************** Setup for Loca Hana Setup *****************************************#
 # Maven Options
 export MAVEN_OPTS=-XX:MaxPermSize=4096m
 
@@ -42,6 +42,13 @@ export REGI_INCREMENTAL_PROJECT_COMMIT=true
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 export PYTHON2_EXE=/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7
+
+#********************** End of Setup for Loca Hana Setup *****************************************#
+
+# Personal Setup Adding ssh keys to agent
+eval $(ssh-agent -s) > /dev/null 2>/dev/null
+ssh-add -K ~/.ssh/id_rsa > /dev/null 2>/dev/null
+ssh-add -K ~/.ssh/id_rsa_personal > /dev/null 2>/dev/null
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/i339130/.oh-my-zsh"
@@ -113,23 +120,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh

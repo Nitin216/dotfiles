@@ -23,6 +23,7 @@ set foldnestmax=10
 set guifont=DroidSansMono_Nerd_Font:h11
 set wildmenu
 set wildmode=full
+set scrolloff=20
 
 " Plugins added
 call plug#begin()
@@ -45,6 +46,11 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'ryanoasis/vim-devicons'
+Plug 'keith/swift.vim'
+Plug 'scrooloose/syntastic'
+Plug 'takac/vim-hardtime'
+Plug 'udalov/kotlin-vim'
+Plug 'unkiwii/vim-nerdtree-sync'
 
 call plug#end()
 set termguicolors     " enable true colors support
@@ -64,17 +70,13 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+let g:hardtime_default_on = 1
+
+" For using swiftlint and swift pm with syntatstic
+let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+
 " Setting leader key
 let mapleader=" "
-
-" Custom configs
-nnoremap B ^
-nnoremap E $
-nnoremap $ <nop>
-nnoremap ^ <nop>
-
-inoremap jj <ESC>
-inoremap jk <ESC>
 
 " Mapping of buffer movement
 nnoremap <silent><leader>l :bnext<CR>
@@ -116,7 +118,9 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-
+let g:nerdtree_sync_cursorline = 1
+" NERDTree sync
+autocmd BufEnter * lcd %:p:h
 " Vim-Airline confis
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
