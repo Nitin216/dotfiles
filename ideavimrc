@@ -1,6 +1,11 @@
 set surround
 set number
 set relativenumber
+set scrolloff=10
+
+" Normal mode mapping
+" Mapping for getting out of insert mode
+inoremap jk <esc>
 
 " Mapping for movement between tabs
 nnoremap <C-h> :tabprevious<CR>

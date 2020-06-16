@@ -25,7 +25,7 @@ set wildmenu
 set wildmode=full
 set scrolloff=20
 set lazyredraw
-
+set pyxversion=3
 " Plugins added
 call plug#begin()
 Plug 'preservim/NERDTree'
@@ -50,6 +50,8 @@ Plug 'keith/swift.vim'
 Plug 'scrooloose/syntastic'
 Plug 'takac/vim-hardtime'
 Plug 'udalov/kotlin-vim'
+Plug 'jordwalke/vim-reasonml' 
+Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 
 call plug#end()
 set termguicolors     " enable true colors support
@@ -73,12 +75,19 @@ set background=dark
 
 let g:hardtime_default_on = 1
 
+let g:vim_be_good_floating = 0
 " For using swiftlint and swift pm with syntatstic
 let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
 
 " Setting leader key
 let mapleader=" "
 
+" Opening vimrc and splitting
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+" Mapping jk to esc
+inoremap <esc> <nop>
+inoremap jk <esc> 
 " Mapping jk to gj and gk"
 nnoremap j gj
 nnoremap gj j

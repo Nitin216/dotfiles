@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/usr/local/bin:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Users/i339130/.nvm/versions/node/v10.16.0/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/local/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/usr/local/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts
+export PATH=$HOME/bin:/usr/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/usr/local/bin:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/local/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/usr/local/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-
+# :/Users/i339130/.nvm/versions/node/v10.16.0/bin
 #********************** Setup for Loca Hana Setup *****************************************#
 # Maven Options
 export MAVEN_OPTS=-XX:MaxPermSize=4096m
@@ -45,6 +45,9 @@ export PYTHON2_EXE=/Library/Frameworks/Python.framework/Versions/2.7/bin/python2
 
 #********************** End of Setup for Loca Hana Setup *****************************************#
 
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
 # Personal Setup Adding ssh keys to agent
 eval $(ssh-agent -s) > /dev/null 2>/dev/null
 ssh-add -K ~/.ssh/id_rsa > /dev/null 2>/dev/null
