@@ -48,7 +48,7 @@ Plug 'jremmen/vim-ripgrep'
 "Plug 'ryanoasis/vim-devicons'
 Plug 'keith/swift.vim'
 Plug 'scrooloose/syntastic'
-Plug 'takac/vim-hardtime'
+"Plug 'takac/vim-hardtime'
 Plug 'udalov/kotlin-vim'
 Plug 'jordwalke/vim-reasonml' 
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
@@ -72,18 +72,21 @@ set background=dark
 "    \ 'Ignored'   : '☒',
 "    \ "Unknown"   : "?"
 "    \ }
-
-let g:hardtime_default_on = 1
-
-let g:vim_be_good_floating = 0
-" For using swiftlint and swift pm with syntatstic
-let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
-
+"
 " Setting leader key
 let mapleader=" "
 
+"let g:hardtime_default_on = 1
+
+
+let g:vim_be_good_floating = 0
+nnoremap <leader>pr ggdG:VimBeGood<CR>
+" For using swiftlint and swift pm with syntatstic
+let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+
+
 " Opening vimrc and splitting
-nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>ev :vsplit ~/.vimrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 " Mapping jk to esc
 inoremap <esc> <nop>

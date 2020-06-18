@@ -5,7 +5,8 @@ set hlsearch
 set scrolloff=25
 
 nnoremap <CR> :noh<CR>
-
+inoremap jk <esc>
+nnoremap <esc> nop
 set number
 set relativenumber
 

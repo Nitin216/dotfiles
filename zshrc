@@ -48,6 +48,11 @@ export PYTHON2_EXE=/Library/Frameworks/Python.framework/Versions/2.7/bin/python2
 if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
+
+# Nvm setup
+nvm use default > /dev/null 2>&1;
+
+# Setup to always use 
 # Personal Setup Adding ssh keys to agent
 eval $(ssh-agent -s) > /dev/null 2>/dev/null
 ssh-add -K ~/.ssh/id_rsa > /dev/null 2>/dev/null
