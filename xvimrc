@@ -12,18 +12,10 @@ set relativenumber
 
 set clipboard=unnamed
 
-nnoremap n nzz
-nnoremap N Nzz
-
 nmap <Space>o :xccmd openQuickly<CR>
 nmap <C-r> :run<CR>
 
 nnoremap <C-s> :source ~/.xvimrc<CR>
-
-"nnoremap j gj
-"nnoremap gj j
-"nnoremap k gk
-"nnoremap gk k
 
 nnoremap <C-h> <C-w>h<CR>
 nnoremap <C-l> <C-w>l<CR>
