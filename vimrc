@@ -23,9 +23,9 @@ set foldnestmax=10
 set guifont=DroidSansMono_Nerd_Font:h11
 set wildmenu
 set wildmode=full
-set scrolloff=20
 set lazyredraw
 set pyxversion=3
+
 " Plugins added
 call plug#begin()
 Plug 'preservim/NERDTree'
@@ -45,33 +45,38 @@ Plug 'palantir/tslint'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
-"Plug 'ryanoasis/vim-devicons'
 Plug 'keith/swift.vim'
 Plug 'scrooloose/syntastic'
-"Plug 'takac/vim-hardtime'
 Plug 'udalov/kotlin-vim'
 Plug 'jordwalke/vim-reasonml' 
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
+
 set termguicolors     " enable true colors support
 
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 set background=dark
 
-"let g:NERDTreeIndicatorMapCustom = {
-"    \ "Modified"  : "✹",
-"    \ "Staged"    : "✚",
-"    \ "Untracked" : "✭",
-"    \ "Renamed"   : "➜",
-"    \ "Unmerged"  : "═",
-"    \ "Deleted"   : "✖",
-"    \ "Dirty"     : "✗",
-"    \ "Clean"     : "✔︎",
-"    \ 'Ignored'   : '☒',
-"    \ "Unknown"   : "?"
-"    \ }
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+"
+"
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 "
 " Setting leader key
 let mapleader=" "
@@ -98,20 +103,20 @@ nnoremap k gk
 nnoremap gk k
 
 " Keep search result in center of screen"
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
+"nnoremap n nzz
+"nnoremap N Nzz
+"nnoremap * *zz
+"nnoremap # #zz
+"nnoremap g* g*zz
+"nnoremap g# g#zz
 
 " Mapping of buffer movement
 nnoremap <silent><leader>l :bnext<CR>
 nnoremap <silent><leader>h :bprevious<CR>
 
 " Mapping of creating splits
-nnoremap <silent><bar> :vsplit<CR>
-nnoremap <silent>- :split<CR>
+nnoremap <silent><leader><bar> :vsplit<CR>
+nnoremap <silent><leader>- :split<CR>
 
 " Mapping of movement in buffers
 nnoremap <silent><C-J> <C-W><C-J>
