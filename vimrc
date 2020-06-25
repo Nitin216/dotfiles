@@ -17,9 +17,8 @@ set ttimeoutlen=100
 set incsearch
 set encoding=utf8
 filetype indent on
-set foldenable
-set foldlevelstart=10
-set foldnestmax=10
+set foldmethod=indent               " not as cool as syntax, but faster
+set foldlevelstart=99               " start unfolded
 set guifont=DroidSansMono_Nerd_Font:h11
 set wildmenu
 set wildmode=full
@@ -41,6 +40,7 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
+Plug 'wikitopian/hardmode'
 Plug 'palantir/tslint'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -53,12 +53,14 @@ Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'mileszs/ack.vim'
 
 call plug#end()
 
 set termguicolors     " enable true colors support
 
 let g:gruvbox_contrast_dark = 'hard'
+"let ayucolor="mirage"
 colorscheme gruvbox
 set background=dark
 
@@ -75,14 +77,13 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 "
-"
+" Hard mode enable on startup
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-"
+
 " Setting leader key
 let mapleader=" "
-
-"let g:hardtime_default_on = 1
-
 
 let g:vim_be_good_floating = 0
 nnoremap <leader>pr ggdG:VimBeGood<CR>
@@ -92,7 +93,7 @@ let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
 
 " Opening vimrc and splitting
 nnoremap <leader>ev :vsplit ~/.vimrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <silent><leader>sv :source $MYVIMRC<CR>
 " Mapping jk to esc
 inoremap <esc> <nop>
 inoremap jk <esc> 
