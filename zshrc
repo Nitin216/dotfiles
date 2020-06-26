@@ -1,3 +1,4 @@
+#zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/bin:/usr/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/usr/local/bin:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/local/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/usr/local/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts:/usr/bin:/bin:/usr/sbin:/sbin"
 
@@ -44,12 +45,32 @@ export PYTHON2_EXE=/Library/Frameworks/Python.framework/Versions/2.7/bin/python2
 
 #********************** End of Setup for Loca Hana Setup *****************************************#
 
-if type nvim > /dev/null 2>&1; then
+if which type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
 
+declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
+
+NODE_GLOBALS+=("node")
+NODE_GLOBALS+=("nvm")
+
+load_nvm () {
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+}
+
+for cmd in "${NODE_GLOBALS[@]}"; do
+    eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
+done
+
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
+
 # Nvm setup
-nvm use default > /dev/null 2>&1;
+#nvm use default > /dev/null 2>&1;
 
 # Setup to always use 
 # Personal Setup Adding ssh keys to agent
@@ -141,7 +162,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # opam configuration
-test -r /Users/i339130/.opam/opam-init/init.zsh && . /Users/i339130/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+#test -r /Users/i339130/.opam/opam-init/init.zsh && . /Users/i339130/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -155,12 +176,13 @@ test -r /Users/i339130/.opam/opam-init/init.zsh && . /Users/i339130/.opam/opam-i
 #        export PATH="/Users/i339130/opt/anaconda3/bin:$PATH"
 #    fi
 #fi
-unset __conda_setup
+#unset __conda_setup
 # <<< conda initialize <<<
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+#eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+#test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40%'
+#zprof
