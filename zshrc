@@ -1,6 +1,6 @@
 #zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
-export PATH="$HOME/bin:/usr/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/usr/local/bin:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/usr/local/bin:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/local/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/usr/local/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/Users/i339130/Documents/cliclick:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/node@10/bin"
 
 #********************** Setup for Loca Hana Setup *****************************************#
 # Maven Options
@@ -49,19 +49,6 @@ if which type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
 
-declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
-
-NODE_GLOBALS+=("node")
-NODE_GLOBALS+=("nvm")
-
-load_nvm () {
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-}
-
-for cmd in "${NODE_GLOBALS[@]}"; do
-    eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
-done
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
@@ -69,8 +56,6 @@ for dump in ~/.zcompdump(N.mh+24); do
 done
 compinit -C
 
-# Nvm setup
-#nvm use default > /dev/null 2>&1;
 
 # Setup to always use 
 # Personal Setup Adding ssh keys to agent
@@ -186,3 +171,63 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40%'
 #zprof
+#
+
+# 
+# Hooks
+#
+
+autoload -U add-zsh-hook
+
+function auto-ls-after-cd() {
+	emulate -L zsh
+	# Only in response to a user initiated `cd`, not indirectly (eg. via another
+	# function).
+	if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
+		ls -a
+	fi
+}
+
+add-zsh-hook chpwd auto-ls-after-cd
+
+CDPATH=.:~:~/git
+
+alias t=tmux
+alias v=nvim
+
+
+function tmux() {
+  emulate -L zsh
+
+  # Make sure even pre-existing tmux sessions use the latest SSH_AUTH_SOCK.
+  # (Inspired by: https://gist.github.com/lann/6771001)
+  if [[ -n "$@" ]]; then
+    env tmux "$@"
+    return
+  fi
+
+  # Check for .tmux file (poor man's Tmuxinator).
+  if [ -x .tmux ]; then
+    # Prompt the first time we see a given .tmux file before running it.
+	
+    local DIGEST="$(openssl sha1 -sha512 .tmux)"
+    if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
+      cat .tmux
+      read -k 1 -r \
+        'REPLY?Trust (and run) this .tmux file? (t = trust, otherwise = skip) '
+      echo
+      if [[ $REPLY =~ ^[Tt]$ ]]; then
+        echo "$DIGEST" >> ~/..tmux.digests
+        ./.tmux
+        return
+      fi
+    else
+      ./.tmux
+      return
+    fi
+  fi
+
+  # Attach to existing session, or create one, based on current directory.
+  SESSION_NAME=$(basename "$(pwd)")
+  env tmux new -A -s "$SESSION_NAME"
+}
