@@ -1,4 +1,4 @@
-" etting basic stuff
+"Setting basic stuff
 syntax enable
 set autoindent
 set cursorline 
@@ -19,7 +19,7 @@ set encoding=utf8
 filetype indent on
 set foldmethod=indent               " not as cool as syntax, but faster
 set foldlevelstart=99               " start unfolded
-set guifont=DroidSansMono_Nerd_Font:h11
+set guifont=Source\ Code\ Pro\ Light:h13
 set wildmenu
 set wildmode=full
 set lazyredraw
@@ -37,8 +37,8 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'quramy/tsuquyomi'
 Plug 'ayu-theme/ayu-vim'
 Plug 'gruvbox-community/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'wikitopian/hardmode'
 Plug 'palantir/tslint'
@@ -54,6 +54,10 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'mileszs/ack.vim'
+Plug 'wincent/pinnacle'
+Plug 'wincent/ferret'
+Plug 'chriskempson/base16-vim'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -168,8 +172,16 @@ let g:airline#extensions#branch#enabled = 1
 " FzF configs
 let g:fzf_preview_window = ''
 let g:fzf_preview_window = 'right:30%'
-nmap <silent><leader>; :GitFiles<CR>
-nmap <silent><leader>F :Files<CR>
+nnoremap <silent><leader>gf :GitFiles<CR>
+nnoremap <silent><leader>ff :Files<CR>
+nnoremap <silent><leader>h :Help<CR>
+
+"Base16-shell Integration
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 
 " COC.nvim configs
 " TextEdit might fail if hidden is not set.

@@ -1,4 +1,24 @@
 #zmodload zsh/zprof
+#
+# Global
+#
+
+# Create a hash table for globally stashing variables without polluting main
+# scope with a bunch of identifiers.
+typeset -A __NC
+
+__NC[ITALIC_ON]=$'\e[3m'
+__NC[ITALIC_OFF]=$'\e[23m'
+
+#
+# Tex H4xx
+#
+if [ "$(uname)" = "Darwin" ]; then
+	if [ -e /usr/local/share/zsh/site-functions/_git ]; then
+    mv -f /usr/local/share/zsh/site-functions/{,disabled.}_git
+  fi
+fi
+
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/Users/i339130/Documents/cliclick:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/node@10/bin"
 
@@ -50,6 +70,7 @@ if which type nvim > /dev/null 2>&1; then
 fi
 
 
+fpath=($HOME/.zsh/completion $fpath)
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
@@ -177,6 +198,9 @@ export FZF_DEFAULT_OPTS='--height 40%'
 # Hooks
 #
 
+autoload -U colors
+colors
+
 autoload -U add-zsh-hook
 
 function auto-ls-after-cd() {
@@ -190,11 +214,12 @@ function auto-ls-after-cd() {
 
 add-zsh-hook chpwd auto-ls-after-cd
 
-CDPATH=.:~:~/git
+CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/SearchToInsight
 
 alias t=tmux
 alias v=nvim
 
+source $HOME/.zsh/colors
 
 function tmux() {
   emulate -L zsh
