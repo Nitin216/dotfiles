@@ -1,3 +1,14 @@
+function s:RemoveBg(group)
+	if !nc#pinnacle#active()
+		return
+	endif
+
+	let l:highlight=filter(pinnacle#dump(a:group), 'v:key != "bg"')
+	execute 'highlight! clear ' . a:group
+	execute 'highlight! ' . a:group . ' ' . pinnacle#highlight(l:highlight)
+endfunction
+
+
 function s:CheckColorScheme()
 	if !has('termguicolors')
 		let g:base16colorspace=256
@@ -23,6 +34,64 @@ function s:CheckColorScheme()
 		set background=dark
 		colorscheme base16-default-dark
 	endif
+	if nc#pinnacle#active()
+		execute 'highlight Comment ' . pinnacle#italicize('Comment')
+	endif
+	highlight! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
+
+	if &background ==# 'light'
+		let s:conceal_term_fg=249
+		let s:conceal_gui_fg='Grey70'
+	else
+		let s:conceal_term_fg=239
+		let s:conceal_gui_fg='Grey30'
+	endif
+
+	highlight clear Conceal
+	execute 'highlight Conceal ' .
+		\ 'ctermfg=' . s:conceal_term_fg
+		\ 'guifg=' . s:conceal_gui_fg
+
+	"Sync with corresponding non-vim 'highlight' settings in 
+	" ~/.vim/plugin/settings.vim
+	highlight clear NonText
+	highlight link NonText Conceal
+
+	if nc#pinnacle#active() 
+		highlight clear CursorLineNr
+		execute 'highlight CursorLineNr ' . pinnacle#extract_highlight('DiffText')
+
+		highlight clear Pmenu
+		highlight link Pmenu Visual
+	endif
+
+	highlight clear DiffDelete
+	highlight link DiffDelete Conceal
+	highlight clear VertSplit
+	highlight link VertSplit LineNr
+
+	"Resolve clashes with ColorColumn.
+	"Instead of linking to Normal(which has a higher priority, link to
+	"nothing).
+	highlight link vimUserFunc None
+
+	for l:group in ['DiffAdded', 'DiffFile', 'DiffNewFile', 'DiffLine', 'DiffRemoved']
+		call s:RemoveBg(l:group)
+	endfor
+
+	" More subtle highlighting during merge conflict resolution
+	highlight clear DiffAnd
+	highlight clear DiffChange
+	highlight clear DiffText
+
+	if nc#pinnacle#active()
+		let l:highlight=pinnacle#italicize('ModeMsg')
+		execute 'highlight User8 ' . l:highlight
+	endif
+
+	"Allow for overrides:
+	" - `statusline.vim` will re-set User1, User2 etc.
+	" - `after/plugin/loupe.vim` will override Search.
 	doautocmd ColorScheme
 endfunction
 
@@ -31,6 +100,7 @@ if v:progname !=# 'vi'
 		augroup NcAutocolor
 			autocmd!
 			autocmd FocusGained * call s:CheckColorScheme()
+			autocmd FocusGained * echom 'FocusGained'
 		augroup END
 	endif
 

@@ -1,7 +1,7 @@
 "Setting basic stuff
-syntax enable
 set autoindent
 set cursorline 
+set textwidth=100
 set ts=4 sw=4
 set backspace=indent,eol,start
 set complete-=i
@@ -12,8 +12,6 @@ set noshowmode
 set nohls
 set cursorline
 set modeline
-set ttimeout
-set ttimeoutlen=100
 set incsearch
 set encoding=utf8
 filetype indent on
@@ -24,6 +22,14 @@ set wildmenu
 set wildmode=full
 set lazyredraw
 set pyxversion=3
+
+if !has('nvim')
+  " Sync with corresponding nvim :highlight commands in ~/.vim/plugin/autocmds.vim:
+  set highlight+=@:Conceal            " ~/@ at end of window, 'showbreak'
+  set highlight+=D:Conceal            " override DiffDelete
+  set highlight+=N:FoldColumn         " make current line number stand out a little
+  set highlight+=c:LineNr             " blend vertical separators with line numbers
+endif
 
 " Plugins added
 call plug#begin()
@@ -56,17 +62,19 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'mileszs/ack.vim'
 Plug 'wincent/pinnacle'
 Plug 'wincent/ferret'
+Plug 'wincent/loupe'
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/goyo.vim'
+Plug 'mbbill/undotree'
 
 call plug#end()
 
-set termguicolors     " enable true colors support
+"set termguicolors     " enable true colors support
 
-let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_contrast_dark = 'hard'
 "let ayucolor="mirage"
-colorscheme gruvbox
-set background=dark
+"colorscheme gruvbox
+"set background=dark
 
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
@@ -107,6 +115,8 @@ nnoremap gj j
 nnoremap k gk
 nnoremap gk k
 
+" Mapping leader q to quit
+nnoremap <leader>q :quit<CR>
 " Keep search result in center of screen"
 "nnoremap n nzz
 "nnoremap N Nzz
@@ -158,7 +168,7 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 autocmd StdinReadPre * let s:std_in=1
 nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <silent><leader>n :NERDTreeFind<CR>
+"nnoremap <silent><leader>n :NERDTreeFind<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

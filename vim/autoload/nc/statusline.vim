@@ -1,4 +1,4 @@
-scriptencoding utf-8
+scriptencodin utf-8
 
 function! nc#statusline#gutterpadding() abort
 	let l:signcolumn=0
@@ -116,8 +116,9 @@ function! nc#statusline#check_modified() abort
 		let s:nc_statusline_status_highlight=s:modified_lhs_color
 		call nc#statusline#update_highlight()
 	elseif !&modified
+
 		if s:async && s:nc_statusline_status_highlight != s:async_lhs_color
-			let s:nc_statusline_status_highlight=s:default_lhs_color
+			let s:nc_statusline_status_highlight=s:async_lhs_color
 			call nc#statusline#update_highlight()
 		elseif !s:async && s:nc_statusline_status_highlight != s:default_lhs_color
 			let s:nc_statusline_status_highlight=s:default_lhs_color
@@ -139,13 +140,13 @@ function! nc#statusline#update_highlight() abort
 	let l:highlight=pinnacle#italicize('MatchParen')
 	execute 'highlight User2 ' . l:highlight
 
-	" StatusLine + bold (used for filename
-	let l:highlight=pinnacle#italicize('StatusLine')
+	" StatusLine + bold (used for filenames).
+	let l:highlight=pinnacle#embolden('StatusLine')
 	execute 'highlight User3 ' . l:highlight
 
 	let l:fg=pinnacle#extract_fg(s:nc_statusline_status_highlight)
 	let l:bg=pinnacle#extract_bg('StatusLine')
-	execute 'highlight User4 ' . pinnacle#highlight({'bg': l:bg, 'fg': l:bg})
+	execute 'highlight User4 ' . pinnacle#highlight({'bg': l:bg, 'fg': l:fg})
 
 	" And opposite for the buffer number area
 	execute 'highlight User7 ' .
