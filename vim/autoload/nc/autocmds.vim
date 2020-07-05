@@ -1,5 +1,5 @@
 let g:NcColorColumnBufferNameBlacklist = []
-let g:NcColorColumnFileTypeBlacklist = ['fzf', 'diff', 'fugitiveblame', 'undotree', 'qf']
+let g:NcColorColumnFileTypeBlacklist = ['fzf', 'nerdtree', 'diff', 'fugitiveblame', 'undotree', 'qf']
 let g:NcCursorlineBlacklist = ['fzf']
 let g:NcMkviewFileTypeBlacklist = ['diff', 'gitcommit']
 
@@ -16,6 +16,10 @@ endfunction
 function! nc#autocmds#should_cursorline() abort
 	return index(g:NcCursorlineBlacklist, &filetype) == -1
 endfunction
+
+function! nc#autocmds#should_winhighlight() abort
+	return &filetype!='nerdtree'
+endfunction	
 
 function! s:get_spell_settings() abort
 	return { 'spell': &l:spell, 'spellcapcheck': &l:spellcapcheck, 'spellfile': &l:spellfile, 'spelllang': &l:spelllang }

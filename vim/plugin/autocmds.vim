@@ -14,7 +14,7 @@ if has('autocmd')
 
 			if exists('+winhighlight')
 				autocmd BufEnter,FocusGained,VimEnter,WinEnter * set winhighlight=
-				autocmd FocusLost,WinLeave * set winhighlight=CursorLineNr:LineNr,EndOfBuffer:ColorColumn,IncSearch:ColorColumn,Normal:ColorColumn,NormalNC:ColorColumn,SignColumn:ColorColumn
+				autocmd FocusLost,WinLeave * if nc#autocmds#should_winhighlight() | set winhighlight=CursorLineNr:LineNr,EndOfBuffer:ColorColumn,IncSearch:ColorColumn,Normal:ColorColumn,NormalNC:ColorColumn,SignColumn:ColorColumn
 				if exists('+colorcolumn')
 					autocmd BufEnter,FocusGained,VimEnter,WinEnter * if nc#autocmds#should_colorcolumn() | let &l:colorcolumn='+' . join(range(0, 254), ',+') | endif
 				endif

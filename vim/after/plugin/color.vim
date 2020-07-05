@@ -3,6 +3,7 @@ function s:RemoveBg(group)
 		return
 	endif
 
+	echom 'Remove background' . a:group
 	let l:highlight=filter(pinnacle#dump(a:group), 'v:key != "bg"')
 	execute 'highlight! clear ' . a:group
 	execute 'highlight! ' . a:group . ' ' . pinnacle#highlight(l:highlight)
@@ -100,7 +101,6 @@ if v:progname !=# 'vi'
 		augroup NcAutocolor
 			autocmd!
 			autocmd FocusGained * call s:CheckColorScheme()
-			autocmd FocusGained * echom 'FocusGained'
 		augroup END
 	endif
 

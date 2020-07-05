@@ -1,9 +1,7 @@
 function! s:SetupLoupeHighlight()
-	echom 'Setup Loupe'
 	if !nc#pinnacle#active()
 		return 
 	endif
-
 	execute 'highlight! QuickFixLine ' . pinnacle#extract_highlight('PmenuSel')
 
 	highlight! clear Search
