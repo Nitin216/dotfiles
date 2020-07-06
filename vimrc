@@ -36,8 +36,6 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'quramy/tsuquyomi'
 Plug 'ayu-theme/ayu-vim'
 Plug 'gruvbox-community/gruvbox'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'wikitopian/hardmode'
 Plug 'palantir/tslint'
@@ -148,7 +146,7 @@ imap <right> <nop>
 nnoremap <leader>+ :vertical resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
 " NERDTree configs
-let NERDTreeQuitOnOpen = 1
+"let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
 "let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1

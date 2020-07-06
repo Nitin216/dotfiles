@@ -22,7 +22,12 @@ function! nc#autocmds#should_winhighlight() abort
 endfunction	
 
 function! s:get_spell_settings() abort
-	return { 'spell': &l:spell, 'spellcapcheck': &l:spellcapcheck, 'spellfile': &l:spellfile, 'spelllang': &l:spelllang }
+	return { 
+		\'spell': &l:spell,
+		\'spellcapcheck': &l:spellcapcheck,
+		\'spellfile': &l:spellfile, 
+		\'spelllang': &l:spelllang 
+		\}
 endfunction
 
 function! s:set_spell_settings(settings) abort

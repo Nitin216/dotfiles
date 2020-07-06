@@ -85,7 +85,7 @@ ssh-add -K ~/.ssh/id_rsa > /dev/null 2>/dev/null
 ssh-add -K ~/.ssh/id_rsa_personal > /dev/null 2>/dev/null
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/i339130/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -168,18 +168,18 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # opam configuration
-#test -r /Users/i339130/.opam/opam-init/init.zsh && . /Users/i339130/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+#test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/Users/i339130/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#__conda_setup="$('$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 #if [ $? -eq 0 ]; then
 #    eval "$__conda_setup"
 #else
-#    if [ -f "/Users/i339130/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/Users/i339130/opt/anaconda3/etc/profile.d/conda.sh"
+#    if [ -f "$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+#        . "$HOME/opt/anaconda3/etc/profile.d/conda.sh"
 #    else
-#        export PATH="/Users/i339130/opt/anaconda3/bin:$PATH"
+#        export PATH="$HOME/opt/anaconda3/bin:$PATH"
 #    fi
 #fi
 #unset __conda_setup
