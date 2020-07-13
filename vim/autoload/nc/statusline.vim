@@ -132,7 +132,6 @@ function! nc#statusline#update_highlight() abort
     return
   endif
 
-  echom 'Updating Statusline highlight'
   " Update StatusLine to use italics (used for filetype)
   let l:highlight=pinnacle#italicize('StatusLine')
   execute 'highlight User1 ' . l:highlight
