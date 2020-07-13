@@ -216,9 +216,6 @@ add-zsh-hook chpwd auto-ls-after-cd
 
 CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/SearchToInsight
 
-alias t=tmux
-alias v=nvim
-
 source $HOME/.zsh/colors
 
 function tmux() {

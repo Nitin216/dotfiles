@@ -15,6 +15,17 @@ set clipboard=unnamed
 nmap <Space>o :xccmd openQuickly<CR>
 nmap <C-r> :run<CR>
 
+nnoremap L :xccmd goForwardInHistoryByCommand<CR>
+nnoremap H :xccmd goBackInHistoryByCommand<CR>
+
+" Mapping opening new editor in adjacent
+nnoremap <space>t :xccmd openInAdjacentEditorWithAlternate<CR>
+
+"nnoremap <space>q :xccmd removeAssistantEditor<CR>
+
+" Mapping full screen 
+nnoremap <space>ff :xccmd toggleFullScreen<CR>
+
 nnoremap <C-s> :source ~/.xvimrc<CR>
 
 nnoremap <C-h> <C-w>h<CR>
@@ -25,6 +36,8 @@ nnoremap <space>fa zM<CR>
 nnoremap <space>uf zo<CR>
 nnoremap <space>ufa zr<CR>
 
+nnoremap <space>w :write<CR>
+nnoremap <space>sv :source ~/.xvimrc<CR>
 " Search the string cursor to. Very useful
 map ,s viw:xccmd findSelectedTextInWorkspace<CR>
 " Mapping toggleBreakpoint
@@ -61,3 +74,4 @@ imap <up> <nop>
 imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
+

@@ -1,7 +1,7 @@
 set surround
 set number
 set relativenumber
-set scrolloff=10
+set scrolloff=3
 
 " Normal mode mapping
 " Mapping for getting out of insert mode
@@ -19,4 +19,4 @@ nnoremap <C-n> :action SelectInProjectView<CR>
 nnoremap <space>o :action SearchEverywhere<CR>
 " Mapping sourcing of this file
 nnoremap <C-s> :source ~/.ideavimrc<CR>
-
+nnoremap <space>w :write<CR>

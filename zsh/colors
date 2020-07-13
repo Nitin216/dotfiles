@@ -123,8 +123,8 @@ color() {
 function () {
 	emulate -L zsh
 
-	if [[ -s "$_NC[BASE16_CONFIG_PREVIOUS]" ]]; then
-		local SCHEME=$(head -1 "$__NC[BASE16_CONFIG_PREVIOUS]")
+	if [[ -s "$__NC[BASE16_CONFIG]" ]]; then
+		local SCHEME=$(head -1 "$__NC[BASE16_CONFIG]")
 		local BACKGROUND=$(sed -n -e '2 p' "$__NC[BASE16_CONFIG]")
 		if [ "$BACKGROUND" != 'dark' -a "$BACKGROUND" != 'light' ]; then
 			echo "warning: unknown background type in $__NC[BASE16_CONFIG]"
