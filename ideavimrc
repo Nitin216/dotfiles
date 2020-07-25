@@ -17,6 +17,7 @@ nnoremap <space>f :action HideAllWindows<CR>
 nnoremap <C-r> :action Run<CR>
 nnoremap <C-n> :action SelectInProjectView<CR>
 nnoremap <space>o :action SearchEverywhere<CR>
+
 " Mapping sourcing of this file
 nnoremap <C-s> :source ~/.ideavimrc<CR>
 nnoremap <space>w :write<CR>

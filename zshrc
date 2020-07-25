@@ -22,48 +22,9 @@ fi
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/Users/i339130/Documents/cliclick:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/node@10/bin"
 
-#********************** Setup for Loca Hana Setup *****************************************#
-# Maven Options
-export MAVEN_OPTS=-XX:MaxPermSize=4096m
-
-# Enable Maven Debug Mode
-# export BUILD_MODE=debug
-
-# Need to match your HANA settings
-export HANA_HOST=ininll322287d17.apj.global.corp.sap
-export HANA_PORT=30089
-export HANA_SYSTEM_USER=SYSTEM
-export HANA_SYSTEM_PASSWORD=Password321
-export HANA_INSTANCE_NUM=00
-export HANA_XS_PORT=8000
-export HANA_XS_HOST=$HANA_HOST
-# export HANA_XS_HTTPS=false
-
-# git user global config settings
-export GIT_USER_NAME=Nitin Chaudhary
-export GIT_USER_EMAIL=nitin.chaudhary@sap.com
-
-# Disables production code building for webpack
-export DEV_MODE=true
-
-# Enable Hana Debug Mode
-# export HANA_DEBUG=true
-
-# Use the shared master JAPP/DA instead of the local JAPP/DA for Orca
-export MICROSERVICES_SETUP=true
-export DEPLOY_SHARED_JAPP=true
-export DEPLOY_SHARED_DA=true
-
-export WEBPACK_SKIP_SOURCEMAPS=false
-export REGI_IGNORE_LOCKFILE=1
-export REGI_INCREMENTAL_PROJECT_COMMIT=true
 
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-
-export PYTHON2_EXE=/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7
-
-#********************** End of Setup for Loca Hana Setup *****************************************#
+source ~/.zsh/private/hana_config.zshrc
 
 if which type nvim > /dev/null 2>&1; then
   alias vim='nvim'
@@ -91,7 +52,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
