@@ -37,6 +37,7 @@ nnoremap <space>uf zo<CR>
 nnoremap <space>ufa zr<CR>
 
 nnoremap <space>w :write<CR>
+nnoremap <space>q :quit<CR>
 nnoremap <space>sv :source ~/.xvimrc<CR>
 " Search the string cursor to. Very useful
 map ,s viw:xccmd findSelectedTextInWorkspace<CR>

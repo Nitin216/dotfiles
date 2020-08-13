@@ -8,7 +8,7 @@ nnoremap <Leader>o :only<CR>
 nnoremap <Leader>r :call nc#mapping#leader#cycle_numbering()<CR>
 
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
-nnoremap <silent><leader>sv :source $myvimrc<cr>
+nnoremap <silent><leader>sv :source $MYVIMRC<cr>
 
 " <Leader>pr for practice using VimBeGood
 nnoremap <Leader>pr ggdG:VimBeGood<CR>
@@ -28,3 +28,6 @@ nnoremap <silent><leader>- :split<CR>
 " Mapping split width increase and decrease
 nnoremap <leader>+ :vertical resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
+
+" Mapping vim-commentary
+nnoremap <silent><leader>c :Commentary<CR>

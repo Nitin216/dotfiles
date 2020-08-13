@@ -41,6 +41,7 @@ color() {
 
     local SCHEME=$1
     local BASE16_DIR=~/.zsh/base16-shell/scripts
+    local BASE16_TMUX_DIR=~/tmux/base16-tmux/colors
     local BASE16_CONFIG_PREVIOUS="${__NC[BASE16_CONFIG]}.previous"
     local STATUS=0
 
@@ -65,12 +66,14 @@ color() {
                     sh "$FILE"
 
                     if [ -n "$TMUX" ]; then
+                      local TMUX_FILE="$BASE16_TMUX_DIR/base16-$SCHEME.conf"
                       local CC=$(grep color18= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
                         if [ -n "$BG" -a -n "$CC" ]; then
                           command tmux set -a window-active-style "bg=#$BG"
                             command tmux set -a window-style "bg=#$CC"
                             command tmux set -g pane-active-border-style "bg=#$CC"
                             command tmux set -g pane-border-style "bg=#$CC"
+                            command tmux source-file "$TMUX_FILE"
                             fi
                             fi
                         else

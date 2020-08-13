@@ -22,6 +22,7 @@ fi
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/Users/i339130/Documents/cliclick:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/node@10/bin"
 
+export MYVIMRC="~/.vimrc"
 
 
 source ~/.zsh/private/hana_config.zshrc
@@ -175,7 +176,7 @@ function auto-ls-after-cd() {
 
 add-zsh-hook chpwd auto-ls-after-cd
 
-CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/SearchToInsight
+CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/SearchToInsight:~/Desktop/Personal\ Work
 
 source $HOME/.zsh/colors
 
