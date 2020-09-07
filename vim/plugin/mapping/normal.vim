@@ -6,8 +6,6 @@ nnoremap <F6> <C-i>
 "Avoid unitentional switches to Ex mode.
 nnoremap Q <nop>
 
-nnoremap jk <Esc>
-
 noremap Y y$
 
 " mapping jk to gj and gk"
