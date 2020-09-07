@@ -7,6 +7,8 @@ nnoremap <Leader>o :only<CR>
 
 nnoremap <Leader>r :call nc#mapping#leader#cycle_numbering()<CR>
 
+nnoremap <silent><leader>re :NERDTreeFind<CR>
+
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 nnoremap <silent><leader>sv :source $MYVIMRC<cr>
 
@@ -14,7 +16,7 @@ nnoremap <silent><leader>sv :source $MYVIMRC<cr>
 nnoremap <Leader>pr ggdG:VimBeGood<CR>
 
 nnoremap <Leader>q :quit<CR>
-nnoremap <Leader>w: write<CR>
+nnoremap <Leader>w :write<CR>
 nnoremap <Leader>x :xit<CR>
 
 " Mapping of buffer movement

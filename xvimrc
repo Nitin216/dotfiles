@@ -13,7 +13,9 @@ set relativenumber
 set clipboard=unnamed
 
 nmap <Space>o :xccmd openQuickly<CR>
-nmap <C-r> :run<CR>
+nmap <Space>r :run<CR>
+
+nnoremap <space>rw :xccmd runActiveRunContextWithoutBuilding<CR>
 
 nnoremap L :xccmd goForwardInHistoryByCommand<CR>
 nnoremap H :xccmd goBackInHistoryByCommand<CR>
@@ -26,8 +28,6 @@ nnoremap <space>t :xccmd openInAdjacentEditorWithAlternate<CR>
 " Mapping full screen 
 nnoremap <space>ff :xccmd toggleFullScreen<CR>
 
-nnoremap <C-s> :source ~/.xvimrc<CR>
-
 nnoremap <C-h> <C-w>h<CR>
 nnoremap <C-l> <C-w>l<CR>
 
@@ -38,7 +38,18 @@ nnoremap <space>ufa zr<CR>
 
 nnoremap <space>w :write<CR>
 nnoremap <space>q :quit<CR>
+nnoremap <space>s :xccmd saveAllEditorDocuments<CR>
 nnoremap <space>sv :source ~/.xvimrc<CR>
+
+nnoremap <space>re :xccmd revealInProjectNavigator<CR>
+
+" Toggle like NerdTree in Xcode too
+nnoremap <C-n> :xccmd toggleNavigatorsVisibility<CR>
+
+nnoremap <space>- :xccmd toggleDebuggerVisibility<CR>
+
+nnoremap <space>- :xccmd toggleDebuggerVisibility<CR>
+
 " Search the string cursor to. Very useful
 map ,s viw:xccmd findSelectedTextInWorkspace<CR>
 " Mapping toggleBreakpoint
