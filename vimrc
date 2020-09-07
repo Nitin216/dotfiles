@@ -24,6 +24,8 @@ set cmdheight=2
 set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+" Mouse integration
+set mouse=a
 
 " plugins added
 call plug#begin()
@@ -72,6 +74,10 @@ Plug 'jparise/vim-graphql'
 
 call plug#end()
 
+"Coolest mapping by far"
+inoremap jk <Esc>
+""
+" Fugitive settings
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " setting leader key
@@ -80,23 +86,15 @@ let mapleader=" "
 let g:vim_be_good_floating = 0
 nnoremap <leader>pr ggdg:vimbegood<cr>
 
-" for using swiftlint and swift pm with syntatstic
-let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+" Syntastic settings
+" let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
 
-" mapping jk to esc
-inoremap <esc> <nop>
-inoremap jk <esc> 
 
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " Mapping of tabs addition and movement
 nnoremap <silent><C-T> :tabnew<CR>
-nnoremap <silent><leader>t :tabnext<CR>
-nnoremap <silent><leader>T :tabprev<CR>
 
-" Mapping split width increase and decrease
-nnoremap <leader>+ :vertical resize +5<CR>
-nnoremap <leader>- :vertical resize -5<CR>
 " NERDTree configs
 "let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
@@ -107,14 +105,14 @@ nnoremap <silent><C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeWinSize = 50
+let NERDTreeWinSize = 30
 
 " FzF configs
 let g:fzf_preview_window = ''
-let g:fzf_preview_window = 'right:30%'
+let g:fzf_preview_window = 'right:20%'
 nnoremap <silent><leader>gf :GitFiles<CR>
 nnoremap <silent><leader>ff :Files<CR>
-nnoremap <silent><leader>h :Help<CR>
+nnoremap <silent><leader>hh :Help<CR>
 nnoremap <silent><leader>f :Rg<CR>
 
 "Coc configs
@@ -202,6 +200,8 @@ let g:LoupeCenterResults=0
 map <Nop><F1> <Plug>(LoupeN)
 nmap <Nop><F2> <Plug>(Loupen)
 
+" Coc-setup""
+
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
 endif
@@ -210,9 +210,9 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
 
-
 " Python setup
 let g:python3_host_prog="/Library/Frameworks/Python.framework/Versions/3.7/bin/python3"
+
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')

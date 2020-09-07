@@ -33,3 +33,7 @@ nnoremap <leader>- :vertical resize -5<CR>
 
 " Mapping vim-commentary
 nnoremap <silent><leader>c :Commentary<CR>
+
+" Mapping tab navigation
+nnoremap <silent><leader>t :tabnext<CR>
+nnoremap <silent><leader>T :tabprev<CR>

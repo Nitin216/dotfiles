@@ -126,7 +126,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set textwidth=80
+set textwidth=150
 
 set updatecount=80                    "update swap file every 80 typed chars"
 set updatetime=2000                   "iursorHold interval
