@@ -20,10 +20,22 @@ if [ "$(uname)" = "Darwin" ]; then
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/Users/i339130/Documents/cliclick:/Applications/Charles.app/Contents/MacOS:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Applications/p4merge.app/Contents/MacOS:/Users/i339130/.opam/default/bin:/Users/i339130/opt/anaconda3/bin:/Users/i339130/opt/anaconda3/condabin:/Users/i339130/bin:/:/Users/i339130/Documents/cliclick:/Users/i339130/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/anaconda3/bin:/usr/bin/python:/bin:/usr/sbin:/sbin:/Users/i339130/xmake-0.9.3-33/bin:/Users/i339130/sapjvm_8/bin:/Users/i339130/Documents/cliclick:/Users/i339130/Library/Python/2.7/bin:/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:/Users/i339130/scripts:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/node@10/bin:/Users/i339130/.local/bin"
+export DEFAULT="$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbi|n:/sbin:$HOME/.local/bin"
 
 export MYVIMRC="~/.vimrc"
 export RUBYOPT="rubygems"
+
+export MYSCRIPTS="~/scripts"
+export CHARLES="/Applications/Charles.app/Contents/MacOS"
+export HANA_SETUP="/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:$HOME/sapjvm_8/bin"
+export P4MERGE="/Applications/p4merge.app/Contents/MacOS"
+export DATASCIENCE="$HOME/opt/anaconda3/bin:$HOME/opt/anaconda3/condabin:/anaconda3/bin:"
+export PYTHONS="/Library/Frameworks/Python.framework/Versions/3.7/bin:$HOME/Library/Python/2.7/bin"
+export NPM="$HOME/.npm-global/bin:/usr/local/opt/node@10/bin"
+export OPAMS="$HOME/.opam/default/bin"
+export XMAKE="$HOME/xmake-0.9.3-33/bin"
+
+export PATH=$DEFAULT:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$NPM:$OPAMS:$XMAKE
 
 
 source ~/.zsh/private/hana_config.zshrc
@@ -141,21 +153,21 @@ function tmux() {
 }
 
 # opam configuration
-test -r /Users/i339130/.opam/opam-init/init.zsh && . /Users/i339130/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/i339130/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/i339130/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/i339130/opt/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/opt/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/i339130/opt/anaconda3/bin:$PATH"
+        export PATH="$HOME/opt/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-[ -f "/Users/i339130/.ghcup/env" ] && source "/Users/i339130/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
