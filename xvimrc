@@ -8,20 +8,24 @@ nnoremap <CR> :noh<CR>
 inoremap jk <esc>
 nnoremap <esc> nop
 set number
-set relativenumber
 
 set clipboard=unnamed
 
 nmap <Space>o :xccmd openQuickly<CR>
 nmap <Space>r :run<CR>
+nnoremap <space>bp :xcmenucmd Build<CR>
+nnoremap <space>cp :xcmenucmd Clean<CR>
 
-nnoremap <space>rw :xccmd runActiveRunContextWithoutBuilding<CR>
+nnoremap <space>wb :xccmd runActiveRunContextWithoutBuilding<CR>
 
 nnoremap L :xccmd goForwardInHistoryByCommand<CR>
 nnoremap H :xccmd goBackInHistoryByCommand<CR>
 
+map ,tl :xccmd toggleNavigatorsVisibility<CR>
 " Mapping opening new editor in adjacent
 nnoremap <space>t :xccmd openInAdjacentEditorWithAlternate<CR>
+
+map zz
 
 "nnoremap <space>q :xccmd removeAssistantEditor<CR>
 
@@ -31,24 +35,26 @@ nnoremap <space>ff :xccmd toggleFullScreen<CR>
 nnoremap <C-h> <C-w>h<CR>
 nnoremap <C-l> <C-w>l<CR>
 
-nnoremap <space>f zc<CR>
-nnoremap <space>fa zM<CR>
-nnoremap <space>uf zo<CR>
-nnoremap <space>ufa zr<CR>
+" Fold
+nnoremap <Tab> :xccmd fold<CR>
+nnoremap zz :xccmd unfold<CR>
+nnoremap <space>fa :xccmd foldAllMethods<CR>
+nnoremap <space>ua :xccmd unfoldAllMethods<CR>
+" nnoremap <space>uf zo<CR>
+" nnoremap <space>ufa zr<CR>
 
 nnoremap <space>w :write<CR>
-nnoremap <space>q :quit<CR>
+nnoremap <space>q :xccmd closeDocument<CR>
 nnoremap <space>s :xccmd saveAllEditorDocuments<CR>
 nnoremap <space>sv :source ~/.xvimrc<CR>
 
 nnoremap <space>re :xccmd revealInProjectNavigator<CR>
 
 " Toggle like NerdTree in Xcode too
-nnoremap <C-n> :xccmd toggleNavigatorsVisibility<CR>
+nnoremap <space>th :xccmd toggleNavigatorsVisibility<CR>
 
-nnoremap <space>- :xccmd toggleDebuggerVisibility<CR>
-
-nnoremap <space>- :xccmd toggleDebuggerVisibility<CR>
+nnoremap <space>tj :xccmd toggleDebuggerVisibility<CR>
+nnoremap <space>tl :xccmd toggleUtilitiesVisibility<CR>
 
 " Search the string cursor to. Very useful
 map ,s viw:xccmd findSelectedTextInWorkspace<CR>
@@ -57,19 +63,15 @@ nmap <space>b :xccmd toggleBreakpointAtCurrentLine<CR>
 " Save when esc
 ino <ESC> <ESC>:xcmenucmd Save<CR>
 
-" tab new
-map ,tn :xccmd newTab<CR>
-" tab close
-map ,tc :tabclose<CR>
-" tab pre
-map ,ti :xccmd selectPreviousTab<CR>
-" tab next
-map ,to :xccmd selectNextTab<CR>
-
-" Custom configs
+" Tab navigation
+map <space>h :xccmd selectPreviousTab<CR>
+map <space>l :xccmd selectNextTab<CR>
+ " Custom configs
 nnoremap B ^
 nnoremap E $
 nnoremap $ <nop>
+
+nnoremap Y y$
 
 " Mapping of creating splits
 map - :split<CR>
@@ -87,3 +89,6 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
+" Custom Macros 
+" To make functions parameters split by ,
+nnoremap <space>ap ^f(f,a<CR><esc>

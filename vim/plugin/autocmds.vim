@@ -30,6 +30,9 @@ if has('autocmd')
       endif
       autocmd BufEnter,FocusGained,VimEnter,WinEnter * call nc#autocmds#focus_window()
       autocmd FocusLost,WinLeave * call nc#autocmds#blur_window()
+      if exists('##TextYankPost##') 
+        autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank('Substitute, 200')
+      endif
     augroup END
   endfunction
 
@@ -112,11 +115,6 @@ if has('autocmd')
 
   autocmd! User GoyoEnter nester call <SID>goyo_enter()
   autocmd! User GoyoLeave nester call <SID>goyo_leave()
-
-  augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
-  augroup END
 
   autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
   autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear

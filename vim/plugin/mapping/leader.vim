@@ -7,9 +7,7 @@ nnoremap <Leader>o :only<CR>
 
 nnoremap <Leader>r :call nc#mapping#leader#cycle_numbering()<CR>
 
-nnoremap <silent><leader>re :NERDTreeFind<CR>
-
-nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+" Sourcing vimrc
 nnoremap <silent><leader>sv :source $MYVIMRC<cr>
 
 " <Leader>pr for practice using VimBeGood
@@ -28,12 +26,18 @@ nnoremap <silent><leader><bar> :vsplit<CR>
 nnoremap <silent><leader>- :split<CR>
 
 " Mapping split width increase and decrease
-nnoremap <leader>+ :vertical resize +5<CR>
-nnoremap <leader>- :vertical resize -5<CR>
+nnoremap <C-+> :vertical resize +5<CR>
+nnoremap <C--> :vertical resize -5<CR>
 
 " Mapping vim-commentary
 nnoremap <silent><leader>c :Commentary<CR>
 
 " Mapping tab navigation
-nnoremap <silent><leader>t :tabnext<CR>
-nnoremap <silent><leader>T :tabprev<CR>
+nnoremap <silent><leader>nt :tabnext<CR>
+nnoremap <silent><leader>ptT:tabprev<CR>
+
+" Fzf mapping
+nnoremap <silent><leader>gf :GitFiles<CR>
+nnoremap <silent><leader>ff :Files<CR>
+nnoremap <silent><leader>hh :Help<CR>
+nnoremap <silent><leader>f :Rg<CR>

@@ -23,3 +23,7 @@ nnoremap <silent><C-H> <C-W><C-H>
 " Store relative line number jumps in the jumplist if they exceed a threshold.
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'
+
+" Mapping split width increase and decrease
+nnoremap ,+ :vertical resize +5<CR>
+nnoremap ,- :vertical resize -5<CR>
