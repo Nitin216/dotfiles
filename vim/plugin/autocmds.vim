@@ -30,8 +30,8 @@ if has('autocmd')
       endif
       autocmd BufEnter,FocusGained,VimEnter,WinEnter * call nc#autocmds#focus_window()
       autocmd FocusLost,WinLeave * call nc#autocmds#blur_window()
-      if exists('##TextYankPost##') 
-        autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank('Substitute, 200')
+      if exists('##TextYankPost')
+        autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 200}
       endif
     augroup END
   endfunction

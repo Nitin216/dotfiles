@@ -1,6 +1,5 @@
 "Setting basic stuff
 set autoindent
-" set textwidth
 set backspace=indent,eol,start
 set complete-=i
 set cursorline
@@ -63,7 +62,7 @@ call plug#end()
 "Coolest mapping by far"
 inoremap jk <Esc>
 ""
-" setting leader key
+" Setting leader key
 let mapleader=" "
 
 let g:vim_be_good_floating = 0
