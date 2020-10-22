@@ -1,9 +1,8 @@
 "Setting basic stuff
 set autoindent
-set textwidth=150
+" set textwidth
 set backspace=indent,eol,start
 set complete-=i
-set noshowmode
 set cursorline
 set modeline
 set encoding=utf8
