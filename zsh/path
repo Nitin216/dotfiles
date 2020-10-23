@@ -1,0 +1,24 @@
+# If you come from bash you might have to change your $PATH.
+SYSTEM_PASS=$PATH
+unset PATH
+
+PATH=$HOME/bin
+PATH=$PATH:/usr/local/bin
+PATH=$PATH:/bin
+PATH=$PATH:/usr/bin
+PATH=$PATH:/usr/sbin
+PATH=$PATH:/sbin
+PATH=$PATH:$HOME/.local/bin
+
+MYSCRIPTS=$HOME/scripts
+CHARLES=/Applications/Charles.app/Contents/MacOS
+HANA_SETUP=/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:$HOME/sapjvm_8/bin
+P4MERGE=/Applications/p4merge.app/Contents/MacOS
+DATASCIENCE=$HOME/opt/anaconda3/bin:$HOME/opt/anaconda3/condabin:/anaconda3/bin:
+PYTHONS=/Library/Frameworks/Python.framework/Versions/3.7/bin:$HOME/Library/Python/2.7/bin
+NPM=$HOME/.npm-global/bin:/usr/local/opt/node@10/bin
+OPAMS=$HOME/.opam/default/bin
+XMAKE=$HOME/xmake-0.9.3-33/bin
+
+PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$NPM:$OPAMS:$XMAKE
+export PATH

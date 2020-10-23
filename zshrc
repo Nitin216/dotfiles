@@ -19,25 +19,7 @@ if [ "$(uname)" = "Darwin" ]; then
   fi
 fi
 
-# If you come from bash you might have to change your $PATH.
-export DEFAULT="$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbi|n:/sbin:$HOME/.local/bin"
-
-export MYVIMRC="~/.vimrc"
-export RUBYOPT="rubygems"
-
-export MYSCRIPTS="~/scripts"
-export CHARLES="/Applications/Charles.app/Contents/MacOS"
-export HANA_SETUP="/Applications/sap/hdbclient:/usr/local/Cellar/maven/3.6.0/bin:$HOME/sapjvm_8/bin"
-export P4MERGE="/Applications/p4merge.app/Contents/MacOS"
-export DATASCIENCE="$HOME/opt/anaconda3/bin:$HOME/opt/anaconda3/condabin:/anaconda3/bin:"
-export PYTHONS="/Library/Frameworks/Python.framework/Versions/3.7/bin:$HOME/Library/Python/2.7/bin"
-export NPM="$HOME/.npm-global/bin:/usr/local/opt/node@10/bin"
-export OPAMS="$HOME/.opam/default/bin"
-export XMAKE="$HOME/xmake-0.9.3-33/bin"
-
-export PATH=$DEFAULT:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$NPM:$OPAMS:$XMAKE
-
-
+source ~/.zsh/path
 source ~/.zsh/private/hana_config.zshrc
 
 if which type nvim > /dev/null 2>&1; then
@@ -129,7 +111,6 @@ function tmux() {
   # Check for .tmux file (poor man's Tmuxinator).
   if [ -x .tmux ]; then
     # Prompt the first time we see a given .tmux file before running it.
-	
     local DIGEST="$(openssl sha1 -sha512 .tmux)"
     if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
       cat .tmux
