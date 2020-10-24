@@ -1,31 +1,5 @@
 scriptencodin utf-8
 
-function! nc#statusline#gutterpadding() abort
-  let l:signcolumn=0
-  if exists('+signcolumn')
-    if &signcolumn == 'yes'
-      let l:signcolumn=2
-    elseif &signcolumn == 'auto'
-      if exists('*execute')
-        let l:signs=execute('sign place buffer=' .bufnr('$'))
-      else
-        let l:signs=''
-        silent! redir => l:signs
-        silent execute 'sign place buffer=' .bufnr('$')
-        redir end
-      end
-      if match(l:signs, 'line=') != -1
-        let l:signcolumn=2
-      endif
-    endif
-  endif
-
-  let l:minwidth=2
-  let l:gutterwidth=max([strlen(line('$')) + 1, &numberwidth, l:minwidth]) + l:signcolumn
-  let l:padding=repeat(' ', l:gutterwidth - 1)
-  return l:padding
-endfunction
-
 function! nc#statusline#fileprefix() abort
   let l:basename=expand('%:h')
   if l:basename ==# '' || l:basename ==# '.'
@@ -53,13 +27,6 @@ function! nc#statusline#fenc() abort
     return ''
   endif
 endfunction
-
-function! nc#statusline#lhs() abort
-  let l:line=nc#statusline#gutterpadding()
-  let l:line.=&modified ? '✘ ' : '  '
-  return l:line
-endfunction
-
 
 function! nc#statusline#rhs() abort
   let l:rhs=' '

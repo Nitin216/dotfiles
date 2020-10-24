@@ -1,7 +1,7 @@
 "Setting basic stuff
 set autoindent
 set backspace=indent,eol,start
-set complete-=i
+" set complete-=i
 set cursorline
 set modeline
 set encoding=utf8
@@ -12,7 +12,7 @@ set guicursor=
 set clipboard=unnamedplus
 
 " TextEdit might fail if hidden is not set.
-set hidden
+" set hidden
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
@@ -56,6 +56,9 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+endif
 
 call plug#end()
 
@@ -68,9 +71,6 @@ let mapleader=" "
 let g:vim_be_good_floating = 0
 
 command! BufOnly execute '%bdelete|edit #|normal `"'
-
-" Mapping of tabs addition and movement
-nnoremap <silent><C-T> :tabnew<CR>
 
 " FzF configs
 let g:fzf_preview_window = ''

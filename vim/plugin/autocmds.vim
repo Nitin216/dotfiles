@@ -7,29 +7,31 @@ if has('autocmd')
 
       autocmd VimResized * execute "normal! \<c-w>="
 
-      autocmd VimEnter * autocmd WinEnter * let w:created=1
-      autocmd VimEnter * let w:created=1
-
       autocmd InsertLeave * set nopaste
+      
+      if exists('+colorcolumn') &&
+              \ exists('+winhighlight') &&
+              \ has('conceal') &&
+              \ has('folding') &&
+              \ has('mksession') &&
+              \ has('statusline') &&
+              \ has('nvim')
+        
+        autocmd BufEnter * lua require'nc.autocmds'.buf_enter()
+        autocmd BufLeave * lua require'nc.autocmds'.mkview()
+        autocmd BufWinEnter ?* lua require'nc.autocmds'.loadview()
+        autocmd BufWritePost ?* lua require'nc.autocmds'.mkview()
+        autocmd FocusGained * lua require'nc.autocmds'.focus_gained()
+        autocmd FocusLost * lua require'nc.autocmds'.focus_lost()
+        autocmd InsertEnter * lua require'nc.autocmds'.insert_enter()
+        autocmd InsertLeave * lua require'nc.autocmds'.insert_leave()
+        autocmd VimEnter * lua require'nc.autocmds'.vim_enter()
+        autocmd WinEnter * lua require'nc.autocmds'.vim_enter()
+        autocmd WinLeave * lua require'nc.autocmds'.win_leave()
+      endif
 
-      if exists('+winhighlight')
-        autocmd BufEnter,FocusGained,VimEnter,WinEnter * set winhighlight=
-        autocmd FocusLost,WinLeave * if nc#autocmds#should_winhighlight() | set winhighlight=CursorLineNr:LineNr,EndOfBuffer:ColorColumn,IncSearch:ColorColumn,Normal:ColorColumn,NormalNC:ColorColumn,SignColumn:ColorColumn
-        if exists('+colorcolumn')
-          autocmd BufEnter,FocusGained,VimEnter,WinEnter * if nc#autocmds#should_colorcolumn() | let &l:colorcolumn='+' . join(range(0, 254), ',+') | endif
-        endif
-      elseif exists('+colorcolumn')
-        autocmd BufEnter,FocusGained,VimEnter,WinEnter * if nc#autocmds#should_colorcolumn() | let &l:colorcolumn='+' . join(0, 254), ',+') | endif
-        autocmd FocusLost,WinLeave * if nc#autocmds#should_colorcolumn() | let &l:colorcolumn=join(range(1, 255), ',') | endif
-      endif
-      autocmd InsertLeave,VimEnter,WinEnter * if nc#autocmds#should_cursorline() | setlocal cursorline | endif
-      autocmd InsertEnter,WinLeave * if nc#autocmds#should_cursorline() | setlocal nocursorline | endif
-      if has('statusline')
-        autocmd BufEnter,FocusGained,VimEnter,WinEnter * call nc#autocmds#focus_statusline()
-        autocmd FocusLost,WinLeave * call nc#autocmds#blur_statusline()
-      endif
-      autocmd BufEnter,FocusGained,VimEnter,WinEnter * call nc#autocmds#focus_window()
-      autocmd FocusLost,WinLeave * call nc#autocmds#blur_window()
+      autocmd BufWritePost */spell/*.add silent! :mkspell! %
+      
       if exists('##TextYankPost')
         autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 200}
       endif
@@ -37,6 +39,15 @@ if has('autocmd')
   endfunction
 
   call s:NcAutocmds()
+
+
+  " Wait until  idle to run additional "boot" commands.
+  augroup NcIdleboot
+    autocmd!
+    if has('vim_starting')
+      autocmd CursorHold,CursorHoldI * call nc#autocmds#idleboot()
+    endif
+  augroup END
   "
   " Goyo
   "
