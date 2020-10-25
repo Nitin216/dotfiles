@@ -55,7 +55,8 @@ if has('nvim')
   Plug 'neovim/nvim-lspconfig'
 endif
 Plug 'nvim-lua/completion-nvim'
-
+Plug 'sirver/ultisnips'
+Plug 'norcalli/snippets.nvim'
 
 call plug#end()
 
