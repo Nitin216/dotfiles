@@ -44,7 +44,6 @@ if has('folding')
 endif
 
 set formatoptions+=n
-set guifont=Source\ Code\ Pro\ Light:h13
 set guioptions-=T
 set hidden
 

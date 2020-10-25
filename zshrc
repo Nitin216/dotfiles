@@ -59,9 +59,7 @@ ENABLE_CORRECTION="true"
 # COMPLETION_WAITING_DOTS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting ) 
-
 # Custom Plugin settings
-
 VIM_MODE_VICMD_KEY='jk' # Mapping Esc to jk in vimmode
 source $ZSH/oh-my-zsh.sh
 source $ZSH_CUSTOM/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh

@@ -21,7 +21,7 @@ local on_attach = function()
 end
 
 lsp.bind = function()
-  pcall(function() 
+  pcall(function()
     if vim.api.nvim_win_get_var(0, 'textDocument/hover') then
       nnoremap('K', ':call nvim_win_close(0, v:true)<CR>')
       nnoremap('<Esc>', ':call nvim_win_close(0, v:true)<CR>')
@@ -35,20 +35,44 @@ end
 
 lsp.init = function()
 
-  -- TODO: Have to add lua lsp
+  local cmd = vim.fn.expand(
+    '~/code/lua-language-server/bin/macOS/lua-language-server'
+  )
+
+  local main = vim.fn.expand('~/code/lua-language-server/main.lua')
+
+  if vim.fn.executable(cmd) == 1 then
+    require'nvim_lsp'.sumneko_lua.setup {
+      cmd = { cmd, '-E', main},
+      on_attach = on_attach,
+      settings = {
+        Lua = {
+          diagnostics = {
+            enable = true,
+            globals = {'vim'},
+          },
+          filetypes = {'lua'},
+          runtime = {
+            path = vim.split(package.path, ':'),
+            versioin = 'LuaJIT',
+          },
+        }
+      },
+    }
+  end
 
   require'nvim_lsp'.tsserver.setup {
-    on_attach = on_attach,
+    on_attach = require'completion'.on_attach,
   }
 
   require'nvim_lsp'.vimls.setup {
-    on_attach = on_attach,
+    on_attach = require'completion'.on_attach,
   }
 
   -- Overide hover highlight
   local method = 'textDocument/hover'
   local hover = vim.lsp.callbacks[method]
-  vim.lsp.callbacks[method] = function (_, mehtod, result)
+  vim.lsp.callbacks[method] = function (_, method, result)
     hover(_, method, result)
 
     for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do

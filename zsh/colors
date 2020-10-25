@@ -135,6 +135,6 @@ function () {
             color "$SCHEME"
         else
 # Default.
-          color gruvbox-dark-hard
-            fi
+          color default-dark
+        fi
 }

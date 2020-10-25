@@ -24,7 +24,9 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 " Mouse integration
-set mouse=a
+set mouse=
+set completeopt=menuone,noinsert,noselect
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " plugins added
 call plug#begin()
@@ -34,7 +36,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-commentary'
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'quramy/tsuquyomi'
 Plug 'tpope/vim-fugitive'
 Plug 'palantir/tslint'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -53,8 +54,15 @@ Plug 'Yggdroot/indentLine'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
 endif
+Plug 'nvim-lua/completion-nvim'
+
 
 call plug#end()
+
+if filereadable(expand("./.vimrc_background"))
+  let base16colorspace=256
+  source ./.vimrc_background
+endif
 
 "Coolest mapping by far"
 inoremap jk <Esc>
@@ -71,10 +79,6 @@ let g:fzf_preview_window = ''
 let g:fzf_preview_window = 'right:20%'
 
 " Base16-shell integration
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
 
 " Loupe config
 "
