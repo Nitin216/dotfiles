@@ -41,7 +41,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'keith/swift.vim'
 Plug 'udalov/kotlin-vim'
-Plug 'jordwalke/vim-reasonml' 
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wincent/pinnacle'
@@ -51,11 +50,6 @@ Plug 'chriskempson/base16-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'jparise/vim-graphql'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
 endif
