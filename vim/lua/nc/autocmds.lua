@@ -48,11 +48,11 @@ local ownsyntax = function(active)
     -- We are focussing; restore previous settings
     vim.cmd('ownsyntax on')
 
-    vim.api.nvim_win_set_option(0, 'spell', util_win_get_var(0, 'spell') or false)
-    vim.api.nvim_win_set_option(0, 'spellcapcheck', util_win_get_var(0, 'spellcapcheck') or '')
-    vim.api.nvim_win_set_option(0, 'spellfile', util_win_get_var(0, 'spellfile') or '')
-    vim.api.nvim_win_set_option(0, 'spelllang', util_win_get_var(0, 'spelllang') or 'en')
-    
+    vim.api.nvim_win_set_option(0, 'spell', util.win_get_var(0, 'spell') or false)
+    vim.api.nvim_win_set_option(0, 'spellcapcheck', util.win_get_var(0, 'spellcapcheck') or '')
+    vim.api.nvim_win_set_option(0, 'spellfile', util.win_get_var(0, 'spellfile') or '')
+    vim.api.nvim_win_set_option(0, 'spelllang', util.win_get_var(0, 'spelllang') or 'en')
+
     vim.api.nvim_win_set_var(0, ownsyntax_flag, true)
   elseif not active and util.win_get_var(0, ownsyntax_flag) ~= false then
 
@@ -71,7 +71,7 @@ local ownsyntax = function(active)
     vim.api.nvim_win_set_var(0, ownsyntax_flag, false)
   end
 
-  return spell
+  -- return spell
 end
 
 local should_mkview = function()
@@ -83,7 +83,7 @@ end
 local when_supports_blur_and_focus = function(callback)
   local filetype = vim.bo.filetype
   local listed = vim.bo.buflisted
-  if autocmds.colorcolumn_filetype_blacklist[filetype] ~= true and listen then
+  if autocmds.colorcolumn_filetype_blacklist[filetype] ~= true and listed then
     callback(filetype)
   end
 end
@@ -107,7 +107,7 @@ end
 local blur_window = function()
   if util.win_get_var(0, focussed_flag) ~= false then
     vim.api.nvim_win_set_option(0, 'winhighlight', winhighlight_blurred)
-    when_supports_blur_and_focus(function(filetype)
+    when_supports_blur_and_focus(function(_)
       ownsyntax(false)
       vim.api.nvim_win_set_option(0, 'list', false)
       vim.api.nvim_win_set_option(0, 'conceallevel', 0)
@@ -201,10 +201,13 @@ autocmds.colorcolumn_filetype_blacklist = {
   ['dirvish'] = true,
   ['fugitiveblame'] = true,
   ['undotree'] = true,
-  ['qf'] = true
+  ['qf'] = true,
+  ['startify'] = true
 }
 
 autocmds.cursorline_blacklist = {
+  ['startify'] = true,
+  ['fzf'] = true
 }
 
 autocmds.mkview_filetype_blacklist = {

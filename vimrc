@@ -31,6 +31,7 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 " plugins added
 call plug#begin()
 
+Plug 'mhinz/vim-startify'
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
