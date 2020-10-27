@@ -25,7 +25,7 @@ if has('nvim')
         \ . '%{luaeval(\"' . "require'nc.statusline'.rhs()" . '\")}'
         \ . '%*'
 else
-  let g:WincentQuickfixStatusline=''
+  let g:NcQuickfixStatusline=''
 endif
 
 call nc#defer#defer('call nc#variables#init()')

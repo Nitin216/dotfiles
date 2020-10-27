@@ -69,9 +69,11 @@ lsp.init = function()
     on_attach = on_attach
   }
 
-  cmd = vim.fn.expand('/usr/local/Cellar/llvm/11.0.0/bin/clangd')
   require'nvim_lsp'.clangd.setup {
-    cmd = { cmd , '--background-index'},
+    on_attach = on_attach
+  }
+
+  require'nvim_lsp'.hls.setup {
     on_attach = on_attach
   }
 
@@ -97,16 +99,16 @@ end
 lsp.set_up_highlights = function()
   local pinnacle = require'wincent.pinnacle'
 
-  vim.cmd('highlight LspDiagnosticError ' ..pinnacle.decorate('italic,underline', 'ModeMsg'))
+  vim.cmd('highlight LspDiagnosticsError ' ..pinnacle.decorate('italic,underline', 'ModeMsg'))
 
-  vim.cmd('highlight LspDiagnosticHint ' ..pinnacle.decorate('bold,italic,underline', 'Type'))
+  vim.cmd('highlight LspDiagnosticsHint ' ..pinnacle.decorate('bold,italic,underline', 'Type'))
 
-  vim.cmd('highlight LspDiagnosticHintsign ' ..pinnacle.highlight({
+  vim.cmd('highlight LspDiagnosticsHintSign ' ..pinnacle.highlight({
     bg = pinnacle.extract_bg('ColorColumn'),
     fg = pinnacle.extract_fg('Type'),
   }))
 
-  vim.cmd('highlight LspDiagnosticErrorSign ' ..pinnacle.highlight({
+  vim.cmd('highlight LspDiagnosticsErrorSign ' ..pinnacle.highlight({
     bg = pinnacle.extract_bg('ColorColumn'),
     fg = pinnacle.extract_fg('ErrorMsg'),
   }))
