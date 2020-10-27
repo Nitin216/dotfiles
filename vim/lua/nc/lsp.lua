@@ -62,11 +62,17 @@ lsp.init = function()
   end
 
   require'nvim_lsp'.tsserver.setup {
-    on_attach = require'completion'.on_attach,
+    on_attach = on_attach
   }
 
   require'nvim_lsp'.vimls.setup {
-    on_attach = require'completion'.on_attach,
+    on_attach = on_attach
+  }
+
+  cmd = vim.fn.expand('/usr/local/Cellar/llvm/11.0.0/bin/clangd')
+  require'nvim_lsp'.clangd.setup {
+    cmd = { cmd , '--background-index'},
+    on_attach = on_attach
   }
 
   -- Overide hover highlight

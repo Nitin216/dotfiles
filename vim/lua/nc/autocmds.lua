@@ -49,18 +49,18 @@ local ownsyntax = function(active)
     vim.cmd('ownsyntax on')
 
     vim.api.nvim_win_set_option(0, 'spell', util.win_get_var(0, 'spell') or false)
-    vim.api.nvim_win_set_option(0, 'spellcapcheck', util.win_get_var(0, 'spellcapcheck') or '')
-    vim.api.nvim_win_set_option(0, 'spellfile', util.win_get_var(0, 'spellfile') or '')
-    vim.api.nvim_win_set_option(0, 'spelllang', util.win_get_var(0, 'spelllang') or 'en')
+    -- vim.api.nvim_win_set_option(0, 'spellcapcheck', util.win_get_var(0, 'spellcapcheck') or '')
+    -- vim.api.nvim_win_set_option(0, 'spellfile', util.win_get_var(0, 'spellfile') or '')
+    -- vim.api.nvim_win_set_option(0, 'spelllang', util.win_get_var(0, 'spelllang') or 'en')
 
     vim.api.nvim_win_set_var(0, ownsyntax_flag, true)
   elseif not active and util.win_get_var(0, ownsyntax_flag) ~= false then
 
     -- We are blurring; save settings for later restoration
     vim.api.nvim_win_set_option(0, 'spell', vim.wo.spell)
-    vim.api.nvim_win_set_option(0, 'spellcapcheck', vim.bo.spellcapcheck)
-    vim.api.nvim_win_set_option(0, 'spellfile', vim.bo.spellfile)
-    vim.api.nvim_win_set_option(0, 'spelllang', vim.bo.spelllang)
+    -- vim.api.nvim_win_set_option(0, 'spellcapcheck', vim.bo.spellcapcheck)
+    -- vim.api.nvim_win_set_option(0, 'spellfile', vim.bo.spellfile)
+    -- vim.api.nvim_win_set_option(0, 'spelllang', vim.bo.spelllang)
 
     vim.cmd('ownsyntax off')
 
@@ -192,7 +192,7 @@ end
 autocmds.win_leave = function()
   set_cursorline(false)
   blur_window()
-  autocmds.mkview()
+  -- autocmds.mkview()
 end
 
 
@@ -201,19 +201,21 @@ autocmds.colorcolumn_filetype_blacklist = {
   ['dirvish'] = true,
   ['fugitiveblame'] = true,
   ['undotree'] = true,
-  ['qf'] = true,
-  ['startify'] = true
+  ['qf'] = true
 }
 
 autocmds.cursorline_blacklist = {
-  ['startify'] = true,
+  -- ['startify'] = true,
   ['fzf'] = true
 }
 
 autocmds.mkview_filetype_blacklist = {
   ['diff'] = true,
   ['gitcommit'] = true,
-  ['hgcommit'] = true
+  ['hgcommit'] = true,
+  ['startify'] = true,
+  ['fzf'] = true,
+  ['term'] = true
 }
 
 return autocmds

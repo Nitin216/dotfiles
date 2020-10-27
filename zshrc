@@ -60,15 +60,19 @@ ENABLE_CORRECTION="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting ) 
 # Custom Plugin settings
-VIM_MODE_VICMD_KEY='jk' # Mapping Esc to jk in vimmode
+# VIM_MODE_VICMD_KEY='jk' # Mapping Esc to jk in vimmode
 source $ZSH/oh-my-zsh.sh
-source $ZSH_CUSTOM/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+# source $ZSH_CUSTOM/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 # Setting correct highlight color for zsh-autosuggestion
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40%'
+if [[ $s(command -v rg) ]]; then
+  export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
+fi
+
 #zprof
 #
 

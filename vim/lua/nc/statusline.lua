@@ -10,17 +10,19 @@ local default_lhs_color = 'Identifier'
 local modified_lhs_color = 'ModeMsg'
 local status_highlight = default_lhs_color
 
-local update_statusline = function(default, aciton)
+local update_statusline = function(default, action)
   local result
-  local filetye = vim.bo.filetype
+  local filetype = vim.bo.filetype
 
   if filetype == 'fzf' then
-    result = '\\ \\ ' .. vim.api.nvim_buf_get_name(0):gsub(' ', '\\ ')
-  elseif filetype == 'diff' and
-    util.tabpage_get_var(0, 'diffpanel') ~= nil and
-    util.tabpage_get_var(0, 'diffpanel') == vim.api.nvim_buf_get_name(0):gsub(' ', '\\ ') then
+    result = 0
+  elseif filetype == 'diff' then
+    if util.buf_get_var(0, 'isUndoTreeBuffer') == 1 then
     -- Less Ugly, and nothing really useful to show
-    result = 'Undotree\\ preview'
+      result = 'Undotree preview'
+    else
+      result = 1
+    end
   elseif filetype == 'undotree' then
     -- Don't override; undotree does its own thing
     result = 0
@@ -67,10 +69,10 @@ end
 statusline.blur_statusline = function()
 
   local blurred='%{luaeval("' .. "require'nc.statusline'.gutterpadding()" .. '")}'
-  blurred = blurred .. ' ' 
-  blurred = blurred .. ' ' 
-  blurred = blurred .. ' ' 
-  blurred = blurred .. ' ' 
+  blurred = blurred .. ' '
+  blurred = blurred .. ' '
+  blurred = blurred .. ' '
+  blurred = blurred .. ' '
   blurred = blurred .. '%<' --truncation point
   blurred = blurred .. '%f' --filename
   blurred = blurred .. '%=' -- split left/right halves (makes background cover whole)
@@ -86,7 +88,7 @@ statusline.check_modified = function()
     if async and status_highlight ~= async_lhs_color then
       status_highlight = async_lhs_color
       statusline.update_highlight()
-    elseif not asycn and status_highlight ~= default_lhs_color then
+    elseif not async and status_highlight ~= default_lhs_color then
       status_highlight = default_lhs_color
       statusline.update_highlight()
     end
@@ -104,7 +106,7 @@ statusline.fileencoding = function()
 end
 
 -- Returns relative path to current file's directory.
-statusline.fileprefix = function() 
+statusline.fileprefix = function()
   local basename = vim.fn.fnamemodify(vim.fn.expand('%:h'), ':p:~:.')
   if basename == '' or basename == '.' then
     return ''
@@ -131,7 +133,7 @@ end
 statusline.gutterpadding = function()
   local signcolumn = 0
   local option = vim.wo.signcolumn
-  if options == 'yes' then
+  if option == 'yes' then
     signcolumn = 2
   elseif option == 'auto' then
     local signs = vim.fn.sign_getplaced('')
@@ -139,7 +141,7 @@ statusline.gutterpadding = function()
       signcolumn = 2
     end
   end
-  
+
   local minwidth = 2
   local numberwidth = vim.wo.numberwidth
   local row = vim.api.nvim_buf_line_count(0)
@@ -280,6 +282,6 @@ statusline.update_highlight = function()
 
   vim.cmd('highlight clear StatusLineNC')
   vim.cmd('highlight! link StatusLineNC User1')
-end 
+end
 
 return statusline

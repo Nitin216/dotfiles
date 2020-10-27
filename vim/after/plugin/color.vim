@@ -12,7 +12,6 @@ function s:RemoveBg(group)
   execute 'highlight! ' . a:group . ' ' . luaeval("require'wincent.pinnacle'.highlight(_A)", l:highlight)
 endfunction
 
-
 function s:CheckColorScheme()
   if !has('termguicolors')
     let g:base16colorspace=256

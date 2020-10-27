@@ -10,14 +10,14 @@ set wildmenu
 set pyxversion=3
 set guicursor=
 set clipboard=unnamedplus
-
 " TextEdit might fail if hidden is not set.
 " set hidden
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
+set formatoptions-=o    " O and o, don't continue comments
 " Give more space for displaying messages.
-" set cmdheight=2
+set cmdheight=1
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
@@ -46,18 +46,18 @@ Plug 'udalov/kotlin-vim'
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wincent/pinnacle'
-Plug 'wincent/ferret'
 Plug 'wincent/loupe'
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mbbill/undotree'
-Plug 'Yggdroot/indentLine'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
 endif
 Plug 'nvim-lua/completion-nvim'
 Plug 'sirver/ultisnips'
 Plug 'norcalli/snippets.nvim'
+Plug 'rhysd/committia.vim'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -66,11 +66,13 @@ if filereadable(expand("./.vimrc_background"))
   source ./.vimrc_background
 endif
 
+let g:indentLine_setColors = 0
+
 "Coolest mapping by far"
 inoremap jk <Esc>
 ""
 " Setting leader key
-let mapleader=" "
+let g:mapleader=" "
 
 let g:vim_be_good_floating = 0
 
@@ -78,7 +80,7 @@ command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " FzF configs
 let g:fzf_preview_window = ''
-let g:fzf_preview_window = 'right:20%'
+let g:fzf_preview_window = 'right:50%'
 
 " Base16-shell integration
 

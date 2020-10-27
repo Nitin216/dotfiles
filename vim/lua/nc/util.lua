@@ -11,7 +11,7 @@ util.get_var = function(handle, name)
 end
 
 
--- "Safe" version of `nvim_tabpage_get_var()` that returns `nil` if the 
+-- "Safe" version of `nvim_tabpage_get_var()` that returns `nil` if the
 -- variable is not set
 util.tabpage_get_var = function(handle, name)
   local result
@@ -21,7 +21,7 @@ util.tabpage_get_var = function(handle, name)
   return result
 end
 
--- "Safe" version of `nvim_win_get_var()` that returns `nil` if the 
+-- "Safe" version of `nvim_win_get_var()` that returns `nil` if the
 -- variable is not set
 util.win_get_var = function(handle, name)
   local result

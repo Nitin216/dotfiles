@@ -18,8 +18,8 @@ if has('autocmd')
               \ has('nvim')
         
         autocmd BufEnter * lua require'nc.autocmds'.buf_enter()
-        autocmd BufLeave * lua require'nc.autocmds'.mkview()
-        autocmd BufWinEnter ?* lua require'nc.autocmds'.loadview()
+        " autocmd BufLeave * lua require'nc.autocmds'.mkview()
+        " autocmd BufWinEnter ?* lua require'nc.autocmds'.loadview()
         autocmd BufWritePost ?* lua require'nc.autocmds'.mkview()
         autocmd FocusGained * lua require'nc.autocmds'.focus_gained()
         autocmd FocusLost * lua require'nc.autocmds'.focus_lost()
@@ -68,7 +68,7 @@ if has('autocmd')
     let s:settings = {
           \ 		'showbreak': &showbreak,
           \ 		'statusline': &statusline,
-          \ 		'cursorline': &cursorline
+          \ 		'cursorline': &cursorline,
           \ 		'showmode': &showmode
     }		
 
