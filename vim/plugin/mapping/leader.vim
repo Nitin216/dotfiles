@@ -32,8 +32,8 @@ nnoremap <silent><leader>c :Commentary<CR>
 nnoremap <silent><leader>nt :tabnext<CR>
 nnoremap <silent><leader>pt :tabprev<CR>
 
-" Fzf mapping
-nnoremap <silent><leader>gf :GitFiles<CR>
-nnoremap <silent><leader>af :Files<CR>
-nnoremap <silent><leader>hh :Help<CR>
-nnoremap <silent><leader>f :Rg<CR>
+" Telescope mapping
+nnoremap <silent><leader>gf <cmd>lua require'telescope.builtin'.git_files{}<CR>
+nnoremap <silent><leader>af <cmd>lua require'telescope.builtin'.find_files{}<CR>
+nnoremap <silent><leader>f <cmd>lua require'telescope.builtin'.live_grep()<CR>
+

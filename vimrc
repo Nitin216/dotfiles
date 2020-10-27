@@ -39,8 +39,8 @@ Plug 'tpope/vim-commentary'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'tpope/vim-fugitive'
 Plug 'palantir/tslint'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 Plug 'keith/swift.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
@@ -58,6 +58,10 @@ Plug 'sirver/ultisnips'
 Plug 'norcalli/snippets.nvim'
 Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
+
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
 
 call plug#end()
 

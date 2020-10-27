@@ -19,7 +19,7 @@ function! nc#autocmds#idleboot() abort
 endfunction
 
 function! nc#autocmds#should_winhighlight() abort
-  return &filetype!='nerdtree'
+  return &filetype!='dirvish'
 endfunction	
 
 function! nc#autocmds#format(motion) abort
