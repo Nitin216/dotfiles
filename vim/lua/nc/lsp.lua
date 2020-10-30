@@ -1,11 +1,14 @@
 -- Replicated wincent/.vim/lua/wincent/lsp.lua
 local lsp = {}
+local completion = require('completion')
 
 local nnoremap = function (lhs, rhs)
   vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, {noremap = true, silent = true})
 end
 
 local on_attach = function()
+  completion.on_attach()
+
   local mappings = {
     ['<Leader>ld'] = '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>',
     ['<c-'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
@@ -62,6 +65,15 @@ lsp.init = function()
   end
 
   require'nvim_lsp'.tsserver.setup {
+    cmd = {"typescript-language-server", "--stdio"},
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx"
+    },
     on_attach = on_attach
   }
 

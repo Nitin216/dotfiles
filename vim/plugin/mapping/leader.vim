@@ -29,11 +29,12 @@ nnoremap <silent><leader>- :split<CR>
 nnoremap <silent><leader>c :Commentary<CR>
 
 " Mapping tab navigation
-nnoremap <silent><leader>nt :tabnext<CR>
-nnoremap <silent><leader>pt :tabprev<CR>
+nnoremap <silent><c-t> :tabnew<CR>
+nnoremap <silent><c-n> :tabnext<CR>
+nnoremap <silent><c-p> :tabprev<CR>
 
-" Telescope mapping
-nnoremap <silent><leader>gf <cmd>lua require'telescope.builtin'.git_files{}<CR>
-nnoremap <silent><leader>af <cmd>lua require'telescope.builtin'.find_files{}<CR>
-nnoremap <silent><leader>f <cmd>lua require'telescope.builtin'.live_grep()<CR>
+" Fzf mapping
+nnoremap <silent><leader>gf :GitFiles<CR>
+nnoremap <silent><leader>af :Files<CR>
+nnoremap <silent><leader>f  :Rg<CR>
 

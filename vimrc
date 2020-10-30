@@ -24,9 +24,12 @@ set updatetime=100
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 " Mouse integration
-set mouse=
+set mouse=i
+
 set completeopt=menuone,noinsert,noselect
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_confirm_key=""
+let g:completion_matching_strategy_list = ['exact', 'substring','fuzzy']
+let g:completion_trigger_length = 2
 
 " plugins added
 call plug#begin()
@@ -39,8 +42,8 @@ Plug 'tpope/vim-commentary'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'tpope/vim-fugitive'
 Plug 'palantir/tslint'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'keith/swift.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
@@ -50,6 +53,7 @@ Plug 'wincent/loupe'
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mbbill/undotree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
 endif
@@ -59,9 +63,9 @@ Plug 'norcalli/snippets.nvim'
 Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/telescope.nvim'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-lua/telescope.nvim'
 
 call plug#end()
 
