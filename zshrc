@@ -44,7 +44,7 @@ ssh-add -K ~/.ssh/id_rsa_personal > /dev/null 2>/dev/null
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="spaceship"
+# ZSH_THEME="pure"
 
 # ZSH_THEME_RANDOM_CANDIDATES=( "agnoster","cypher" )
 # CASE_SENSITIVE="true"
@@ -57,7 +57,7 @@ ZSH_THEME="spaceship"
 # DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
 # COMPLETION_WAITING_DOTS="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting ) 
 # Custom Plugin settings
 # VIM_MODE_VICMD_KEY='jk' # Mapping Esc to jk in vimmode
@@ -72,6 +72,9 @@ export FZF_DEFAULT_OPTS='--height 40%'
 if [[ $s(command -v rg) ]]; then
   export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
 fi
+
+autoload -U promptinit; promptinit
+prompt pure
 
 #zprof
 #
@@ -154,3 +157,5 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

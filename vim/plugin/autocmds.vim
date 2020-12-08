@@ -8,7 +8,7 @@ if has('autocmd')
       autocmd VimResized * execute "normal! \<c-w>="
 
       autocmd InsertLeave * set nopaste
-      
+
       if exists('+colorcolumn') &&
               \ exists('+winhighlight') &&
               \ has('conceal') &&
@@ -16,7 +16,7 @@ if has('autocmd')
               \ has('mksession') &&
               \ has('statusline') &&
               \ has('nvim')
-        
+
         autocmd BufEnter * lua require'nc.autocmds'.buf_enter()
         " autocmd BufLeave * lua require'nc.autocmds'.mkview()
         " autocmd BufWinEnter ?* lua require'nc.autocmds'.loadview()
@@ -31,7 +31,7 @@ if has('autocmd')
       endif
 
       autocmd BufWritePost */spell/*.add silent! :mkspell! %
-      
+
       if exists('##TextYankPost')
         autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 200}
       endif

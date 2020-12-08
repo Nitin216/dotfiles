@@ -38,7 +38,7 @@ function s:CheckColorScheme()
     colorscheme base16-default-dark
   endif
   if nc#pinnacle#active()
-    execute 'highlight Comment ' . luaeval("require'wincent.pinnacle'.italicize('Comment')")
+    " execute 'highlight Comment ' . luaeval("require'wincent.pinnacle'.italicize('Comment')")
   endif
   highlight! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
 

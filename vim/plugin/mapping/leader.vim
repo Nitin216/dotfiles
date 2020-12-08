@@ -30,11 +30,11 @@ nnoremap <silent><leader>c :Commentary<CR>
 
 " Mapping tab navigation
 nnoremap <silent><c-t> :tabnew<CR>
-nnoremap <silent><c-n> :tabnext<CR>
-nnoremap <silent><c-p> :tabprev<CR>
+nnoremap <silent><leader>tn :tabnext<CR>
+nnoremap <silent><leader>tp :tabprev<CR>
 
 " Fzf mapping
 nnoremap <silent><leader>gf :GitFiles<CR>
-nnoremap <silent><leader>af :Files<CR>
-nnoremap <silent><leader>f  :Rg<CR>
+nnoremap <silent><leader>f :Files<CR>
+nnoremap <silent><leader>ff  :Rg<CR>
 

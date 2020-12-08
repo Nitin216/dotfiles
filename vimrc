@@ -54,18 +54,24 @@ Plug 'chriskempson/base16-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-if has('nvim')
-  Plug 'neovim/nvim-lspconfig'
-endif
-Plug 'nvim-lua/completion-nvim'
-Plug 'sirver/ultisnips'
-Plug 'norcalli/snippets.nvim'
+" if has('nvim')
+"   Plug 'neovim/nvim-lspconfig'
+" endif
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'sirver/ultisnips'
+" Plug 'norcalli/snippets.nvim'
 Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
-
+Plug 'kevinoid/vim-jsonc'
+Plug 'sheerun/vim-polyglot'
+Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-lua/telescope.nvim'
+Plug 'epilande/vim-react-snippets'
+Plug 'jiangmiao/auto-pairs'
+Plug 'bronson/vim-visual-star-search'
+
 
 call plug#end()
 
@@ -82,13 +88,27 @@ inoremap jk <Esc>
 " Setting leader key
 let g:mapleader=" "
 
-let g:vim_be_good_floating = 0
+" let g:vim_be_good_floating = 0
 
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " FzF configs
-let g:fzf_preview_window = ''
 let g:fzf_preview_window = 'right:50%'
+let g:fzf_layout = { 'down': '40%' }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " Base16-shell integration
 
@@ -139,3 +159,21 @@ if count(s:opam_available_tools,"ocp-indent") == 0
   source "/Users/i339130/.opam/4.10.0/share/ocp-indent/vim/indent/ocaml.vim"
 endif
 " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
+" COC setup things
+"
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction

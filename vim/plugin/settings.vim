@@ -44,6 +44,7 @@ if has('folding')
 endif
 
 set formatoptions+=n
+set formatoptions-=ro
 set guioptions-=T
 set hidden
 
