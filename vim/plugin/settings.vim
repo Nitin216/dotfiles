@@ -120,7 +120,6 @@ if has('syntax')
   set synmaxcol=200
 endif
 
-set tabstop=2
 
 if has('termguicolors')
   set termguicolors

@@ -8,7 +8,7 @@ nnoremap <leader>o :only<CR>
 nnoremap <leader>r :call nc#mapping#leader#cycle_numbering()<CR>
 
 " Sourcing vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " <leader>pr for practice using VimBeGood
 nnoremap <leader>pr ggdG:VimBeGood<CR>

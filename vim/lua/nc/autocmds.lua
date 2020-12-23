@@ -44,32 +44,32 @@ local winhighlight_blurred = table.concat({
 }, ',')
 
 local ownsyntax = function(active)
-  if active and util.win_get_var(0, ownsyntax_flag) == false then
-    -- We are focussing; restore previous settings
-    vim.cmd('ownsyntax on')
+  -- if active and util.win_get_var(0, ownsyntax_flag) == false then
+  --   -- We are focussing; restore previous settings
+  --   -- vim.cmd('ownsyntax on')
 
-    vim.api.nvim_win_set_option(0, 'spell', util.win_get_var(0, 'spell') or false)
-    -- vim.api.nvim_win_set_option(0, 'spellcapcheck', util.win_get_var(0, 'spellcapcheck') or '')
-    -- vim.api.nvim_win_set_option(0, 'spellfile', util.win_get_var(0, 'spellfile') or '')
-    -- vim.api.nvim_win_set_option(0, 'spelllang', util.win_get_var(0, 'spelllang') or 'en')
+  --   -- vim.api.nvim_win_set_option(0, 'spell', util.win_get_var(0, 'spell') or false)
+  --   -- vim.api.nvim_win_set_option(0, 'spellcapcheck', util.win_get_var(0, 'spellcapcheck') or '')
+  --   -- vim.api.nvim_win_set_option(0, 'spellfile', util.win_get_var(0, 'spellfile') or '')
+  --   -- vim.api.nvim_win_set_option(0, 'spelllang', util.win_get_var(0, 'spelllang') or 'en')
 
-    vim.api.nvim_win_set_var(0, ownsyntax_flag, true)
-  elseif not active and util.win_get_var(0, ownsyntax_flag) ~= false then
+  --   vim.api.nvim_win_set_var(0, ownsyntax_flag, true)
+  -- elseif not active and util.win_get_var(0, ownsyntax_flag) ~= false then
 
-    -- We are blurring; save settings for later restoration
-    vim.api.nvim_win_set_option(0, 'spell', vim.wo.spell)
-    -- vim.api.nvim_win_set_option(0, 'spellcapcheck', vim.bo.spellcapcheck)
-    -- vim.api.nvim_win_set_option(0, 'spellfile', vim.bo.spellfile)
-    -- vim.api.nvim_win_set_option(0, 'spelllang', vim.bo.spelllang)
+  --   -- We are blurring; save settings for later restoration
+  --   vim.api.nvim_win_set_option(0, 'spell', vim.wo.spell)
+  --   -- vim.api.nvim_win_set_option(0, 'spellcapcheck', vim.bo.spellcapcheck)
+  --   -- vim.api.nvim_win_set_option(0, 'spellfile', vim.bo.spellfile)
+  --   -- vim.api.nvim_win_set_option(0, 'spelllang', vim.bo.spelllang)
 
-    vim.cmd('ownsyntax off')
+  --   vim.cmd('ownsyntax off')
 
-    -- Suppress spelling in blurred buffer
-    vim.api.nvim_win_set_option(0, 'spell', false)
+  --   -- Suppress spelling in blurred buffer
+  --   vim.api.nvim_win_set_option(0, 'spell', false)
 
-    -- Set flag to show that we have captured option.
-    vim.api.nvim_win_set_var(0, ownsyntax_flag, false)
-  end
+  --   -- Set flag to show that we have captured option.
+  --   vim.api.nvim_win_set_var(0, ownsyntax_flag, false)
+  -- end
 
   -- return spell
 end
