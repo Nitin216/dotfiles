@@ -16,9 +16,7 @@ local on_attach = function()
     ['gd'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',
   }
 
-  for lhs, rhs in pairs(mappings) do
-    nnoremap(lhs, rhs)
-  end
+  for lhs, rhs in pairs(mappings) do nnoremap(lhs, rhs) end
 
   vim.api.nvim_win_set_option(0, 'signcolumn', 'yes')
 end
@@ -45,7 +43,7 @@ lsp.init = function()
   local main = vim.fn.expand('~/code/lua-language-server/main.lua')
 
   if vim.fn.executable(cmd) == 1 then
-    require'nvim_lsp'.sumneko_lua.setup {
+    require('lspconfig').sumneko_lua.setup {
       cmd = { cmd, '-E', main},
       on_attach = on_attach,
       settings = {
@@ -64,28 +62,28 @@ lsp.init = function()
     }
   end
 
-  require'nvim_lsp'.tsserver.setup {
-    cmd = {"typescript-language-server", "--stdio"},
-    filetypes = {
-      "javascript",
-      "javascriptreact",
-      "javascript.jsx",
-      "typescript",
-      "typescriptreact",
-      "typescript.tsx"
-    },
+  require('lspconfig').tsserver.setup {
+    -- cmd = {"typescript-language-server", "--stdio"},
+    -- filetypes = {
+    --   "javascript",
+    --   "javascriptreact",
+    --   "javascript.jsx",
+    --   "typescript",
+    --   "typescriptreact",
+    --   "typescript.tsx"
+    -- },
     on_attach = on_attach
   }
 
-  require'nvim_lsp'.vimls.setup {
+  -- require('lspconfig').vimls.setup {
+  --   on_attach = on_attach
+  -- }
+
+  require('lspconfig').clangd.setup {
     on_attach = on_attach
   }
 
-  require'nvim_lsp'.clangd.setup {
-    on_attach = on_attach
-  }
-
-  require'nvim_lsp'.hls.setup {
+  require('lspconfig').hls.setup {
     on_attach = on_attach
   }
 
@@ -111,16 +109,16 @@ end
 lsp.set_up_highlights = function()
   local pinnacle = require'wincent.pinnacle'
 
-  vim.cmd('highlight LspDiagnosticsError ' ..pinnacle.decorate('italic,underline', 'ModeMsg'))
+  vim.cmd('highlight LspDiagnosticsDefaultError ' ..pinnacle.decorate('italic,underline', 'ModeMsg'))
 
-  vim.cmd('highlight LspDiagnosticsHint ' ..pinnacle.decorate('bold,italic,underline', 'Type'))
+  vim.cmd('highlight LspDiagnosticsDefaultHint ' ..pinnacle.decorate('bold,italic,underline', 'Type'))
 
-  vim.cmd('highlight LspDiagnosticsHintSign ' ..pinnacle.highlight({
+  vim.cmd('highlight LspDiagnosticsDefaultHintSign ' ..pinnacle.highlight({
     bg = pinnacle.extract_bg('ColorColumn'),
     fg = pinnacle.extract_fg('Type'),
   }))
 
-  vim.cmd('highlight LspDiagnosticsErrorSign ' ..pinnacle.highlight({
+  vim.cmd('highlight LspDiagnosticsDefaultErrorSign ' ..pinnacle.highlight({
     bg = pinnacle.extract_bg('ColorColumn'),
     fg = pinnacle.extract_fg('ErrorMsg'),
   }))

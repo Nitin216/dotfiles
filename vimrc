@@ -27,10 +27,10 @@ set shortmess+=c
 " Mouse integration
 set mouse=i
 
-" set completeopt=menuone,noinsert,noselect
-" let g:completion_confirm_key=""
-" let g:completion_matching_strategy_list = ['exact', 'substring','fuzzy']
-" let g:completion_trigger_length = 2
+set completeopt=menuone,noinsert,noselect
+let g:completion_confirm_key=""
+let g:completion_matching_strategy_list = ['exact', 'substring','fuzzy']
+let g:completion_trigger_length = 2
 
 " plugins added
 call plug#begin()
@@ -56,14 +56,13 @@ Plug 'wincent/loupe'
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mbbill/undotree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mileszs/ack.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'lukas-reineke/indent-blankline.nvim'
-" if has('nvim')
-"   Plug 'neovim/nvim-lspconfig'
-" endif
-" Plug 'nvim-lua/completion-nvim'
+" LSP Stufff
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 " Plug 'sirver/ultisnips'
 " Plug 'norcalli/snippets.nvim'
 Plug 'rhysd/committia.vim'
@@ -91,10 +90,16 @@ if filereadable(expand("./.vimrc_background"))
   source ./.vimrc_background
 endif
 
+lua require('lspconfig').tsserver.setup{on_attach=require'completion'.on_attach}
+
 let g:indentLine_setColors = 0
 let g:indentLine_char = '│'
 let g:indentLine_setConceal = 0
 
+let g:tcomment_mapleader1=''
+let g:tcomment_mapleader2=''
+let g:tcomment_mapleader_comment_anyway=''
+let g:tcomment_textobject_inlinecomment=''
 "Coolest mapping by far"
 inoremap jk <Esc>
 ""
