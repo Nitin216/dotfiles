@@ -34,7 +34,7 @@ nnoremap <silent><leader>tn :tabnext<CR>
 nnoremap <silent><leader>tp :tabprev<CR>
 
 " Fzf mapping
-nnoremap <silent><leader>gf :GitFiles<CR>
-nnoremap <silent><leader>f :Files<CR>
-nnoremap <silent><leader>ff  :Rg<CR>
+nnoremap <leader>gf :GitFiles<CR>
+nnoremap <leader>nf :Files<CR>
+nnoremap <leader>ff :Rg<CR>
 

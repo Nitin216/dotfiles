@@ -1,4 +1,4 @@
-#zmodload zsh/zprof
+zmodload zsh/zprof
 #
 # Global
 #
@@ -19,20 +19,21 @@ if [ "$(uname)" = "Darwin" ]; then
   fi
 fi
 
-source ~/.zsh/path
-source ~/.zsh/private/hana_config.zshrc
+source ~/.zsh/path.zsh
+source ~/.zsh/private/hana_config.zsh
+source ~/.zsh/autoload.zsh
 
 if which type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
 
 
-fpath=($HOME/.zsh/completion $fpath)
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
+# fpath=($HOME/.zsh/completion $fpath)
+# autoload -Uz compinit
+# for dump in ~/.zcompdump(N.mh+24); do
+#   compinit
+# done
+# compinit -C
 
 
 # Setup to always use 
@@ -101,7 +102,7 @@ add-zsh-hook chpwd auto-ls-after-cd
 
 CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/SearchToInsight:~/Desktop/Personal\ Work:~/personal_git
 
-source $HOME/.zsh/colors
+source $HOME/.zsh/colors.zsh
 
 function tmux() {
   emulate -L zsh
@@ -139,7 +140,7 @@ function tmux() {
 }
 
 # opam configuration
-test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -158,7 +159,11 @@ unset __conda_setup
 
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# Execute code in the background to not affect the current session
+{
+  # Compile zcompdump, if modified, to increase startup speed.
+  zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+  if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
+    zcompile "$zcompdump"
+  fi
+} &!

@@ -1,7 +1,7 @@
 "let g:lua_tree_side = 'left' "left by default
 "let g:lua_tree_width = 40 "30 by default
 "let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-"let g:lua_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+"let g:lua_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 "let g:lua_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
 "let g:lua_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
 "let g:lua_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
@@ -66,17 +66,7 @@
 "    \   'symlink': "",
 "    \   }
 "    \ }
-"" \   'Modified' : '◉',
-"" \   'Staged'   : '✚',
-"" \   'Untracked': '◈',
-"" \   'Renamed'  : '➜',
-"" \   'Unmerged' : '═',
-"" \   'Ignored'  : '▨',
-"" \   'Deleted'  : '✖',
-"" \   'Unknown'  : '?'
 "nnoremap <C-n> :LuaTreeToggle<CR>
 "nnoremap <leader>r :LuaTreeRefresh<CR>
 "nnoremap <leader>tf :LuaTreeFindFile<CR>
-"" LuaTreeOpen and LuaTreeClose are also available if you need them
 
-"set termguicolors " this variable must be enabled for colors to be applied properly

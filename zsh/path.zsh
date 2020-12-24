@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+# If you come from bash you might have to change your $PATH
 SYSTEM_PASS=$PATH
 unset PATH
 
@@ -20,8 +20,9 @@ NPM=$HOME/.npm-global/bin:/usr/local/opt/node@10/bin
 OPAMS=$HOME/.opam/default/bin
 XMAKE=$HOME/xmake-0.9.3-33/bin
 CLANGD=/usr/local/Cellar/llvm/11.0.0/bin
+YARN=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
 
-PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$NPM:$OPAMS:$XMAKE:$CLANGD
+PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$NPM:$OPAMS:$XMAKE:$CLANGD:$YARN
 export PATH
 
 export LDFLAGS="-L/usr/local/opt/llvm/lib"

@@ -19,8 +19,7 @@ set nowritebackup
 set formatoptions-=o    " O and o, don't continue comments
 " Give more space for displaying messages.
 set cmdheight=1
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 set updatetime=100
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -34,7 +33,7 @@ let g:completion_trigger_length = 2
 
 " plugins added
 call plug#begin()
-" Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify'
 " Plug 'preservim/nerdtree' 
 " Plug 'ryanoasis/vim-devicons'
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -63,8 +62,8 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 " LSP Stufff
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-" Plug 'sirver/ultisnips'
-" Plug 'norcalli/snippets.nvim'
+" Plug 'lukas-reineke/format.nvim'
+
 Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'kevinoid/vim-jsonc'
@@ -100,9 +99,13 @@ let g:tcomment_mapleader1=''
 let g:tcomment_mapleader2=''
 let g:tcomment_mapleader_comment_anyway=''
 let g:tcomment_textobject_inlinecomment=''
+
+let g:completion_enable_snippet = 'UltiSnips'
+imap <silent> <C-l> <Plug>(completion_trigger)
+
 "Coolest mapping by far"
 inoremap jk <Esc>
-""
+
 " Setting leader key
 let g:mapleader=" "
 
@@ -128,8 +131,8 @@ command! BufOnly execute '%bdelete|edit #|normal `"'
 " nnoremap <C-n> :NERDTreeToggle<CR>
 
 " FzF configs
-let g:fzf_preview_window = 'right:50%'
-let g:fzf_layout = { 'down': '40%' }
+" let g:fzf_preview_window = 'right:50%'
+" let g:fzf_layout = { 'down': '40%' }
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -209,7 +212,7 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 let g:lua_tree_side = 'left' "left by default
 let g:lua_tree_width = 40 "30 by default
 let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-let g:lua_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:lua_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 let g:lua_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
 let g:lua_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
 let g:lua_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
@@ -285,9 +288,9 @@ let g:lua_tree_icons = {
 nnoremap <C-n> :LuaTreeToggle<CR>
 nnoremap <leader>r :LuaTreeRefresh<CR>
 nnoremap <leader>tf :LuaTreeFindFile<CR>
-" LuaTreeOpen and LuaTreeClose are also available if you need them
+"" LuaTreeOpen and LuaTreeClose are also available if you need them
 
-set termguicolors " this variable must be enabled for colors to be applied properly
+"set termguicolors " this variable must be enabled for colors to be applied properly
 
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)

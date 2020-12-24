@@ -21,6 +21,7 @@ local on_attach = function()
   vim.api.nvim_win_set_option(0, 'signcolumn', 'yes')
 end
 
+
 lsp.bind = function()
   pcall(function()
     if vim.api.nvim_win_get_var(0, 'textDocument/hover') then
@@ -63,21 +64,20 @@ lsp.init = function()
   end
 
   require('lspconfig').tsserver.setup {
-    -- cmd = {"typescript-language-server", "--stdio"},
-    -- filetypes = {
-    --   "javascript",
-    --   "javascriptreact",
-    --   "javascript.jsx",
-    --   "typescript",
-    --   "typescriptreact",
-    --   "typescript.tsx"
-    -- },
-    on_attach = on_attach
+    cmd = {"typescript-language-server", "--stdio"},
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    root_dir = vim.loop.cwd,
+    on_attach = on_attach,
   }
 
-  -- require('lspconfig').vimls.setup {
-  --   on_attach = on_attach
-  -- }
+  require('lspconfig').vimls.setup {
+    on_attach = on_attach
+  }
 
   require('lspconfig').clangd.setup {
     on_attach = on_attach
@@ -85,6 +85,53 @@ lsp.init = function()
 
   require('lspconfig').hls.setup {
     on_attach = on_attach
+  }
+
+  require('lspconfig').diagnosticls.setup {
+    on_attach = on_attach,
+    filetypes = {"javascript", "typescript", "javascriptreact", "typescriptreact"},
+    init_options = {
+      linters = {
+        eslint = {
+          command = 'eslint',
+          rootPattern = { '.eslintrc.json', '.git'},
+          debounce = 100,
+          args = {'--stdin', '--stdin-filename', '%filepath', '--format', 'json'},
+          sourceName = 'eslint',
+          parseJson = {
+                    errorsRoot = "[0].messages",
+                    line = "line",
+                    column = "column",
+                    endLine = "endLine",
+                    endColumn = "endColumn",
+                    message = "${message} [${ruleId}]",
+                    security = "severity"
+                },
+                securities = {
+                    [2] = "error",
+                    [1] = "warning"
+                }
+        },
+        filetypes = {
+            javascript = "eslint",
+            javascriptreact = "eslint",
+            typescript = "eslint",
+            typescriptreact = "eslint",
+        }
+      },
+      formatters = {
+        prettier = {
+          command = 'prettier',
+          args = { '--stdin-filepath', '%filename' }
+        }
+      },
+      formatFiletypes = {
+        javascript = 'prettier',
+        javascriptreact = 'prettier',
+        typescript = 'prettier',
+        typescriptreact = 'prettier'
+      }
+    }
   }
 
   -- Overide hover highlight
@@ -109,9 +156,9 @@ end
 lsp.set_up_highlights = function()
   local pinnacle = require'wincent.pinnacle'
 
-  vim.cmd('highlight LspDiagnosticsDefaultError ' ..pinnacle.decorate('italic,underline', 'ModeMsg'))
+  vim.cmd('highlight LspDiagnosticsDefaultError ' ..pinnacle.decorate('italic', 'ModeMsg'))
 
-  vim.cmd('highlight LspDiagnosticsDefaultHint ' ..pinnacle.decorate('bold,italic,underline', 'Type'))
+  vim.cmd('highlight LspDiagnosticsDefaultHint ' ..pinnacle.decorate('bold,italic', 'Type'))
 
   vim.cmd('highlight LspDiagnosticsDefaultHintSign ' ..pinnacle.highlight({
     bg = pinnacle.extract_bg('ColorColumn'),
