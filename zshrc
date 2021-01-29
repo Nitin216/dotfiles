@@ -1,4 +1,4 @@
-zmodload zsh/zprof
+# zmodload zsh/zprof
 #
 # Global
 #
@@ -71,7 +71,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40%'
 if [[ $s(command -v rg) ]]; then
-  export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --follow --glob "!.git/*"'
 fi
 
 autoload -U promptinit; promptinit
@@ -167,3 +167,9 @@ unset __conda_setup
     zcompile "$zcompdump"
   fi
 } &!
+
+
+# Function to compile cpp files
+function gcpp() {
+  g++ -std=c++17 -Wshadow -Wall -o "$1" "$1.cpp" -O2 -Wno-unused-result
+}

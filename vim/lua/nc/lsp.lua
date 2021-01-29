@@ -1,38 +1,57 @@
 -- Replicated wincent/.vim/lua/wincent/lsp.lua
 local lsp = {}
 local completion = require('completion')
+local lsp_status = require('lsp-status')
 
-local nnoremap = function (lhs, rhs)
-  vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, {noremap = true, silent = true})
+local mapper = function(mode, key, result)
+  vim.api.nvim_buf_set_keymap(0, mode, key, result, {noremap = true, silent = true})
 end
 
-local on_attach = function()
-  completion.on_attach()
+local setup_custom_diagnostics = function()
 
-  local mappings = {
-    ['<Leader>ld'] = '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>',
-    ['<c-'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
-    ['K'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
-    ['gd'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with {
+    should_underline = true,
+    update_in_insert = false
   }
 
-  for lhs, rhs in pairs(mappings) do nnoremap(lhs, rhs) end
+  mapper(
+    'n',
+    '<leader>dn',
+    '<cmd>lua vim.lsp.structures.Diagnostic.buf_move_next_diagnostic()<CR>'
+  )
 
-  vim.api.nvim_win_set_option(0, 'signcolumn', 'yes')
+
+  mapper(
+    'n',
+    '<leader>dp',
+    '<cmd>lua vim.lsp.structures.Diagnostic.buf_move_prev_diagnostic()<CR>'
+  )
 end
 
+local custom_attach = function(client)
+  completion.on_attach(client)
 
-lsp.bind = function()
-  pcall(function()
-    if vim.api.nvim_win_get_var(0, 'textDocument/hover') then
-      nnoremap('K', ':call nvim_win_close(0, v:true)<CR>')
-      nnoremap('<Esc>', ':call nvim_win_close(0, v:true)<CR>')
+  if false then
+    pcall(setup_custom_diagnostics)
+  end
 
-      vim.api.nvim_win_set_option(0, 'cursorline', false)
 
-      vim.api.nvim_buf_set_option(0, 'modifiable', false)
-    end
-  end)
+  mapper('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+  mapper('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+  mapper('n', '1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  mapper('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  mapper('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+  mapper('n', '<space>cr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  mapper('n', '<space>sl', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+  mapper('i', '<c-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  mapper('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+
+  -- if not vim.api.nvim_buf_get_keymap(0, 'n')['K'] then
+  if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'lua' then
+    mapper('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+  end
+
+  vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
 end
 
 lsp.init = function()
@@ -46,7 +65,8 @@ lsp.init = function()
   if vim.fn.executable(cmd) == 1 then
     require('lspconfig').sumneko_lua.setup {
       cmd = { cmd, '-E', main},
-      on_attach = on_attach,
+      on_attach = custom_attach,
+      capabilities = lsp_status.capabilities,
       settings = {
         Lua = {
           diagnostics = {
@@ -68,68 +88,57 @@ lsp.init = function()
     filetypes = {
       "javascript",
       "javascriptreact",
+      "javascript.jsx",
       "typescript",
       "typescriptreact",
+      "typescript.tsx"
     },
-    root_dir = vim.loop.cwd,
-    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+    on_attach = custom_attach,
   }
 
   require('lspconfig').vimls.setup {
-    on_attach = on_attach
+    capabilities = lsp_status.capabilities,
+    on_attach = custom_attach
   }
 
   require('lspconfig').clangd.setup {
-    on_attach = on_attach
+    capabilities = lsp_status.capabilities,
+    on_attach = custom_attach
   }
 
   require('lspconfig').hls.setup {
-    on_attach = on_attach
+    capabilities = lsp_status.capabilities,
+    on_attach = custom_attach
   }
 
+  -- Diagnostic LSP
+  local eslint = require('nc.diagnosticls.linters.eslint')
+  local prettier = require('nc.diagnosticls.formatters.prettier')
+  local prettier_standard = require('nc.diagnosticls.formatters.prettier_standard')
+
   require('lspconfig').diagnosticls.setup {
-    on_attach = on_attach,
-    filetypes = {"javascript", "typescript", "javascriptreact", "typescriptreact"},
+    on_attach = custom_attach,
+    capabilities = lsp_status.capabilities,
+    filetypes = {
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact"
+    },
     init_options = {
       linters = {
-        eslint = {
-          command = 'eslint',
-          rootPattern = { '.eslintrc.json', '.git'},
-          debounce = 100,
-          args = {'--stdin', '--stdin-filename', '%filepath', '--format', 'json'},
-          sourceName = 'eslint',
-          parseJson = {
-                    errorsRoot = "[0].messages",
-                    line = "line",
-                    column = "column",
-                    endLine = "endLine",
-                    endColumn = "endColumn",
-                    message = "${message} [${ruleId}]",
-                    security = "severity"
-                },
-                securities = {
-                    [2] = "error",
-                    [1] = "warning"
-                }
-        },
-        filetypes = {
-            javascript = "eslint",
-            javascriptreact = "eslint",
-            typescript = "eslint",
-            typescriptreact = "eslint",
-        }
-      },
-      formatters = {
-        prettier = {
-          command = 'prettier',
-          args = { '--stdin-filepath', '%filename' }
-        }
+        eslint = eslint
       },
       formatFiletypes = {
         javascript = 'prettier',
         javascriptreact = 'prettier',
         typescript = 'prettier',
         typescriptreact = 'prettier'
+      },
+      formatters = {
+        prettier = prettier,
+        prettier_standard = prettier_standard
       }
     }
   }
@@ -137,7 +146,7 @@ lsp.init = function()
   -- Overide hover highlight
   local method = 'textDocument/hover'
   local hover = vim.lsp.callbacks[method]
-  vim.lsp.callbacks[method] = function (_, method, result)
+  vim.lsp.handlers[method] = function (_, method, result)
     hover(_, method, result)
 
     for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do

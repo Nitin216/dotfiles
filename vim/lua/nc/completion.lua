@@ -6,10 +6,7 @@ print('Coming here or not')
 -- completion.nvim
 vim.g.completion_confirm_key=""
 vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
--- TODO: Have to add snippets.nvim
--- vim.g.completion_enable_snippet = "snippets.nvim"
-
--- Decide on length
+vim.g.completion_enable_snippet = "Ultisnips"
 vim.g.completion_trigger_length = 2
 
 function CompleteMatchingLine()

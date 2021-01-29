@@ -32,8 +32,10 @@ map zz
 " Mapping full screen 
 nnoremap <space>ff :xccmd toggleFullScreen<CR>
 
-nnoremap <C-h> <C-w>h<CR>
-nnoremap <C-l> <C-w>l<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <space>h :xccmd showPreviousTab<CR>
+nnoremap <space>l :xccmd showNextTab<CR>
 
 " Fold
 nnoremap <Tab> :xccmd fold<CR>

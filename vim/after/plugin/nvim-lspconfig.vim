@@ -12,5 +12,5 @@ sign define LspDiagnosticsSignHint text=➤
 augroup NcLanguageClientAutocmds
   autocmd!
   autocmd ColorScheme * lua require'nc.lsp'.set_up_highlights()
-  autocmd WinEnter * lua require'nc.lsp'.bind()
+" autocmd WinEnter * lua require'nc.lsp'.bind()
 augroup END

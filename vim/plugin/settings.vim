@@ -2,6 +2,10 @@ scriptencoding utf-8
 
 set autoindent
 set backspace=indent,start,eol
+set showtabline=1  " Dont show tabline
+set guicursor=
+set clipboard=unnamedplus " Using global clipboard"
+set inccommand=split  "Shows partial off-screen results in a preview window for %s.
 
 if exists('$SUDO_USER')
   set nobackup
@@ -77,13 +81,15 @@ if exists('+relativenumber')
 endif
 
 set scrolloff=3
-set shiftwidth=2                      " spaces per tab (when shifting)
+set shiftwidth=4                      " spaces per tab (when shifting)
+
 set shortmess+=A                      " ignore annoying swapfile messages
 set shortmess+=I                      " no splash screen
 set shortmess+=O                      " file-read message overwrites previous
 set shortmess+=T                      " truncate non-file messages in middle
 set shortmess+=W                      " don't echo "[w]"/"[written]" when writing
 set shortmess+=a                      " use abbreviations in messages eg. `[RO]` instead of `[readonly]`
+set shortmess+=c
 if has('patch-7.4.314')
   set shortmess+=c                    " completion messages
 endif
@@ -99,9 +105,21 @@ if has('showcmd')
   set noshowcmd
 endif
 
+if has('tabstop')
+  set tabstop=4
+endif
+
 set sidescroll=0
 set sidescrolloff=3
 set smarttab
+
+if has('winblend')
+  set winblend=10
+endif
+
+if has('pumblend')
+  set pumblend=15
+endif
 
 if has('windows')
   set splitbelow
@@ -120,6 +138,10 @@ if has('syntax')
   set synmaxcol=200
 endif
 
+if has('mouse')
+  set mouse=n
+endif
+
 
 if has('termguicolors')
   set termguicolors
@@ -128,7 +150,7 @@ endif
 set textwidth=150
 
 set updatecount=80                    "update swap file every 80 typed chars"
-set updatetime=2000                   "iursorHold interval
+set updatetime=100                   "CursorHold interval
 
 if has('viminfo') " i.e Vim
   let s:viminfo='viminfo'
@@ -180,3 +202,5 @@ if has('wildmenu')
 endif
 
 set wildmode=longest:full,full        " shell-like autocomplete to unambiguous portion
+
+silent! so .vimlocal

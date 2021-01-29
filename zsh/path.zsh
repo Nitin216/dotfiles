@@ -21,8 +21,9 @@ OPAMS=$HOME/.opam/default/bin
 XMAKE=$HOME/xmake-0.9.3-33/bin
 CLANGD=/usr/local/Cellar/llvm/11.0.0/bin
 YARN=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
+NODE=/usr/local/opt/node@12/bin
 
-PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$NPM:$OPAMS:$XMAKE:$CLANGD:$YARN
+PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$NPM:$OPAMS:$XMAKE:$CLANGD:$YARN:$NODE
 export PATH
 
 export LDFLAGS="-L/usr/local/opt/llvm/lib"

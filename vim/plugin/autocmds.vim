@@ -3,37 +3,38 @@ scriptencoding utf-8
 if has('autocmd')
   function! s:NcAutocmds()
     augroup NcAutocmds
-      " autocmd!
+      autocmd!
 
-      " autocmd VimResized * execute "normal! \<c-w>="
+      autocmd VimResized * execute "normal! \<c-w>="
 
       " autocmd InsertLeave * set nopaste
 
       " if exists('+colorcolumn') &&
       "         \ exists('+winhighlight') &&
-      "         \ has('conceal') &&
+              " \ has('conceal') &&
       "         \ has('folding') &&
       "         \ has('mksession') &&
-      "         \ has('statusline') &&
-      "         \ has('nvim')
+        if has('statusline') &&
+              \ has('nvim')
 
-      "   autocmd BufEnter * lua require'nc.autocmds'.buf_enter()
+        autocmd BufEnter * lua require'nc.autocmds'.buf_enter()
       "   " autocmd BufLeave * lua require'nc.autocmds'.mkview()
       "   " autocmd BufWinEnter ?* lua require'nc.autocmds'.loadview()
       "   autocmd BufWritePost ?* lua require'nc.autocmds'.mkview()
-      "   autocmd FocusGained * lua require'nc.autocmds'.focus_gained()
-      "   autocmd FocusLost * lua require'nc.autocmds'.focus_lost()
-      "   autocmd InsertEnter * lua require'nc.autocmds'.insert_enter()
-      "   autocmd InsertLeave * lua require'nc.autocmds'.insert_leave()
-      "   autocmd VimEnter * lua require'nc.autocmds'.vim_enter()
-      "   autocmd WinEnter * lua require'nc.autocmds'.vim_enter()
-      "   autocmd WinLeave * lua require'nc.autocmds'.win_leave()
-      " endif
+        autocmd FocusGained * lua require'nc.autocmds'.focus_gained()
+        autocmd FocusLost * lua require'nc.autocmds'.focus_lost()
+        autocmd InsertEnter * lua require'nc.autocmds'.insert_enter()
+        autocmd InsertLeave * lua require'nc.autocmds'.insert_leave()
+        autocmd VimEnter * lua require'nc.autocmds'.vim_enter()
+        autocmd GUIEnter * lua require'nc.autocmds'.win_new()
+        autocmd WinEnter * lua require'nc.autocmds'.vim_enter()
+        autocmd WinLeave * lua require'nc.autocmds'.win_leave()
+      endif
 
       " autocmd BufWritePost */spell/*.add silent! :mkspell! %
 
       if exists('##TextYankPost')
-        autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 200}
+        autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 150, true}
       endif
     augroup END
   endfunction
