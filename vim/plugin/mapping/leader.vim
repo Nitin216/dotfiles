@@ -25,9 +25,6 @@ nnoremap <silent><leader>h :bprevious<CR>
 nnoremap <silent><leader><bar> :vsplit<CR>
 nnoremap <silent><leader>- :split<CR>
 
-" Mapping vim-commentary
-nnoremap <silent><leader>c :Commentary<CR>
-
 " Mapping tab navigation
 nnoremap <silent><c-t> :tabnew<CR>
 nnoremap <silent><leader>tn :tabnext<CR>

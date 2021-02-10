@@ -1,4 +1,5 @@
 set pyxversion=3
+set smartindent
 " highlight PmenuSel blend=0
 
 " TextEdit might fail if hidden is not set.
@@ -51,6 +52,7 @@ Plug 'mbbill/undotree'
 Plug 'chriskempson/base16-vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'junegunn/goyo.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'mileszs/ack.vim'
 " Plug 'Yggdroot/indentLine'
@@ -63,6 +65,9 @@ Plug 'nvim-lua/lsp-status.nvim'
 
 Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'HerringtonDarkholme/yats.vim', { 'do': 'rm -rf UltiSnips'}
 Plug 'kevinoid/vim-jsonc'
 Plug 'jiangmiao/auto-pairs'
 
@@ -73,6 +78,7 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'romgrk/barbar.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -81,6 +87,10 @@ call plug#end()
 " endif
 
 let v:hlsearch = 1
+
+let g:user_emmet_leader_key = '<C-e>'
+
+let g:UltiSnipsExpandTrigger = '<C-space>'
 " let g:indentLine_setColors = 0
 " let g:indentLine_char = '│'
 " let g:indentLine_setConceal = 0
@@ -129,42 +139,42 @@ nnoremap <leader>/ :Find<Space>
 let g:python3_host_prog="/Library/Frameworks/Python.framework/Versions/3.7/bin/python3"
 
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+" let s:opam_share_dir = system("opam config var share")
+" let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
-let s:opam_configuration = {}
+" let s:opam_configuration = {}
 
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+" function! OpamConfOcpIndent()
+"   execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+" endfunction
+" let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
 
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+" function! OpamConfOcpIndex()
+"   execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+" endfunction
+" let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
 
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+" function! OpamConfMerlin()
+"   let l:dir = s:opam_share_dir . "/merlin/vim"
+"   execute "set rtp+=" . l:dir
+" endfunction
+" let s:opam_configuration['merlin'] = function('OpamConfMerlin')
 
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
-" ## added by OPAM user-setup for vim / ocp-indent ## 51ae14d768763f05e749ee288e3e989d ## you can edit, but keep this line
-if count(s:opam_available_tools,"ocp-indent") == 0
-  source "/Users/i339130/.opam/4.10.0/share/ocp-indent/vim/indent/ocaml.vim"
-endif
-" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
+" let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+" let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+" let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+" for tool in s:opam_packages
+"   " Respect package order (merlin should be after ocp-index)
+"   if count(s:opam_available_tools, tool) > 0
+"     call s:opam_configuration[tool]()
+"   endif
+" endfor
+" " ## end of OPAM user-setup addition for vim / base ## keep this line
+" " ## added by OPAM user-setup for vim / ocp-indent ## 51ae14d768763f05e749ee288e3e989d ## you can edit, but keep this line
+" if count(s:opam_available_tools,"ocp-indent") == 0
+"   source "/Users/i339130/.opam/4.10.0/share/ocp-indent/vim/indent/ocaml.vim"
+" endif
+" " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
 
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear

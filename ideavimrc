@@ -8,8 +8,10 @@ set scrolloff=3
 inoremap jk <esc>
 
 " Mapping for movement between tabs
-nnoremap <C-h> :tabprevious<CR>
-nnoremap <C-l> :tabnext<CR>
+nnoremap <space>h :tabprevious<CR>
+nnoremap <space>l :tabnext<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " Mapping custom mapping
 nnoremap <space>r :action ReformatCode<CR>
@@ -21,3 +23,5 @@ nnoremap <space>o :action SearchEverywhere<CR>
 " Mapping sourcing of this file
 nnoremap <C-s> :source ~/.ideavimrc<CR>
 nnoremap <space>w :write<CR>
+nnoremap <space>q :quit<CR>
+
