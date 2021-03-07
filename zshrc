@@ -100,7 +100,7 @@ function auto-ls-after-cd() {
 
 add-zsh-hook chpwd auto-ls-after-cd
 
-CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/SearchToInsight:~/Desktop/Personal\ Work:~/personal_git
+CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/:~/Desktop/Personal\ Work:~/personal_git
 
 source $HOME/.zsh/colors.zsh
 

@@ -30,6 +30,7 @@ Plug 'dstein64/vim-startuptime'
 "}}}
 Plug 'tjdevries/express_line.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'tpope/vim-fugitive'
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
 Plug 'google/vim-searchindex'
