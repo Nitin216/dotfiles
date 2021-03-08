@@ -1,6 +1,5 @@
 set pyxversion=3
 set smartindent
-" highlight PmenuSel blend=0
 
 " TextEdit might fail if hidden is not set.
 " set hidden
@@ -18,7 +17,6 @@ let g:completion_matching_strategy_list = [ "exact", "substring", "fuzzy" ]
 let g:completion_enable_snippet = 'UltiSnips'
 set completeopt=menuone,noinsert,noselect
 
-
 " plugins added
 call plug#begin()
 "{{{ Startup
@@ -28,16 +26,20 @@ Plug 'mhinz/vim-startify'
 "}}}
 Plug 'dstein64/vim-startuptime'
 "}}}
-Plug 'tjdevries/express_line.nvim'
+" Plug 'tjdevries/express_line.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'tpope/vim-fugitive'
-" Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzy-native.nvim'
+" Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'google/vim-searchindex'
 "
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-commentary' 
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-scriptease'
 Plug 'reasonml-editor/vim-reason-plus'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -51,33 +53,29 @@ Plug 'wincent/pinnacle'
 Plug 'mbbill/undotree'
 
 Plug 'chriskempson/base16-vim'
-Plug 'daviesjamie/vim-base16-lightline'
 Plug 'junegunn/goyo.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'mileszs/ack.vim'
-" Plug 'Yggdroot/indentLine'
-" Plug 'lukas-reineke/indent-blankline.nvim'
+
 " LSP Stufff
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'lukas-reineke/format.nvim'
+Plug 'glepnir/lspsaga.nvim'
 
 Plug 'rhysd/committia.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'HerringtonDarkholme/yats.vim', { 'do': 'rm -rf UltiSnips'}
 Plug 'kevinoid/vim-jsonc'
-Plug 'jiangmiao/auto-pairs'
+
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-" Plug 'romgrk/barbar.nvim'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'mattn/emmet-vim'
 

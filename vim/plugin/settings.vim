@@ -33,9 +33,9 @@ set expandtab
 
 if has('folding')
   if has('window')
-    set fillchars=diff:∙	"BULLET OPERATOR
-    set fillchars+=fold:·	"MIDDLE DOT
-    set fillchars+=vert:┃	"BOX DRAWING HEAVY VERTICAL
+    set fillchars=diff:∙        "BULLET OPERATOR
+    set fillchars+=fold:·       "MIDDLE DOT
+    set fillchars+=vert:┃       "BOX DRAWING HEAVY VERTICAL
   endif
 
   if has('nvim-0.3.1')
@@ -66,7 +66,8 @@ set lazyredraw
 
 set list
 set list                              " show whitespace
-set listchars=nbsp:⦸                  " CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+set listchars=eol:↲                  " EOL shown
+set listchars+=nbsp:⦸                  " CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
 set listchars+=tab:▷┅                 " WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7)
 " + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
 set listchars+=extends:»              " RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK iU+00BB, UTF-8: C2 BB)
@@ -96,10 +97,10 @@ endif
 "set shortmess+=o                      " overwrite file-written messages
 "set shortmess+=t                      " truncate file messages at start
 
-if has('linebreak')
-  set linebreak
-  let &showbreak='↳ '
-endif
+" if has('linebreak')
+"   set linebreak
+"   let &showbreak='↳ '
+" endif
 
 if has('showcmd')
   set noshowcmd
@@ -202,5 +203,3 @@ if has('wildmenu')
 endif
 
 set wildmode=longest:full,full        " shell-like autocomplete to unambiguous portion
-
-silent! so .vimlocal

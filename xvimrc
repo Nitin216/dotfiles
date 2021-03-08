@@ -66,8 +66,8 @@ nmap <space>b :xccmd toggleBreakpointAtCurrentLine<CR>
 ino <ESC> <ESC>:xcmenucmd Save<CR>
 
 " Tab navigation
-map <space>h :xccmd selectPreviousTab<CR>
-map <space>l :xccmd selectNextTab<CR>
+" map <space>h :xccmd selectPreviousTab<CR>
+" map <space>l :xccmd selectNextTab<CR>
  " Custom configs
 nnoremap B ^
 nnoremap E $

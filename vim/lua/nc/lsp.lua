@@ -3,38 +3,39 @@ local lsp = {}
 local completion = require('completion')
 local lsp_status = require('lsp-status')
 
-local mapper = function(mode, key, result)
-    vim.api.nvim_buf_set_keymap(0, mode, key, result, {noremap = true, silent = true})
-end
+require('nc.lsp_handlers')
 
-local custom_attach = function(client)
+-- Have to make changes in neovim core for this
+-- local nnoremap = vim.keymap.nnoremap
+
+local custom_attach = function(client, bufnr)
     completion.on_attach(client)
-    mapper('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
-    mapper('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-    mapper('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-    mapper('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-    mapper('n', '1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-    mapper('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-    mapper('n', '<space>cr', '<cmd>lua vim.lsp.buf.rename()<CR>')
-    mapper('n', '<space>ld', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
-    mapper('i', '<c-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    mapper('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-    mapper( 'n', '<leader>dn', '<cmd>lua vim.lsp.structures.Diagnostic.buf_move_next_diagnostic()<CR>')
-    mapper( 'n', '<leader>dp', '<cmd>lua vim.lsp.structures.Diagnostic.buf_move_prev_diagnostic()<CR>')
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_options(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    buf_set_options('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    local opts = {noremap = true, silent = true}
+
+    buf_set_keymap('n', '<space>dn', '<Cmd> lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>dp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', '<space>sl', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '<c-]', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+
+    buf_set_keymap ('n', '<space>cr', '<cmd>lua MyLspRename()<CR>', opts)
+
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('i', '<c-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     -- if not vim.api.nvim_buf_get_keymap(0, 'n')['K'] then
     if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'lua' then
-        mapper('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+        buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     end
 
-    vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
-
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-            underline = true,
-            virtual_text = true,
-            update_in_insert = false,
-        }
-    )
 end
 
 lsp.init = function()
@@ -129,8 +130,8 @@ lsp.init = function()
     -- Overide hover highlight
     local method = 'textDocument/hover'
     local hover = vim.lsp.callbacks[method]
-    vim.lsp.handlers[method] = function (_, method, result)
-        hover(_, method, result)
+    vim.lsp.handlers[method] = function (_, _, result)
+        hover(_, _, result)
 
         for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
             if pcall(function ()

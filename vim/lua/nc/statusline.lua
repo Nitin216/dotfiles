@@ -1,7 +1,6 @@
 ---- Replicated wincent/.vim/lua/statusline.lua
 local pinnacle = require'wincent.pinnacle'
 local util = require'nc.util'
-local extensions = require('el.extensions')
 local Job = require('plenary.job')
 local lsp_status = require('lsp-status')
 local statusline = {}
@@ -153,23 +152,6 @@ statusline.gutterpadding = function()
     numberwidth
     ) + signcolumn
   local padding = (' '):rep(gutterwidth - 1) return padding
-end
-
-statusline.gitstatus = function()
-  local gitdirname = vim.fn.fnamemodify(vim.fn.expand('%'), ':h')
-  local j = Job:new({
-      command = 'git',
-      args = {'branch', '--show-current'},
-      cwd = gitdirname
-    })
-
-  local ok, branch = pcall(function()
-    return vim.trim(j:sync()[1])
-  end)
-
-  if ok then
-    return ' ' .. extensions.git_icon() .. ' ' .. branch
-  end
 end
 
 statusline.lhs = function()
