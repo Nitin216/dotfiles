@@ -31,7 +31,6 @@ local custom_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('i', '<c-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    -- if not vim.api.nvim_buf_get_keymap(0, 'n')['K'] then
     if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'lua' then
         buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     end
@@ -128,22 +127,21 @@ lsp.init = function()
     }
 
     -- Overide hover highlight
-    local method = 'textDocument/hover'
-    local hover = vim.lsp.callbacks[method]
-    vim.lsp.handlers[method] = function (_, _, result)
-        hover(_, _, result)
+    -- local method = 'textDocument/hover'
+    -- local hover = vim.lsp.callbacks[method]
+    -- vim.lsp.handlers[method] = function (_, _, result)
+    --     hover(_, _, result)
 
-        for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-            if pcall(function ()
-                vim.api.nvim_win_get_var(winnr, 'textDocument/hover')
-            end) then
-            vim.api.nvim_wins_set_option(winnr, 'winhighlight', 'Normal:Visual,NormalNC:Visual')
-            break
-        else
-            -- Not a hover window
-        end
-    end
-end
+    --     for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    --         if pcall(function ()
+    --             vim.api.nvim_win_get_var(winnr, 'textDocument/hover')
+    --         end) then
+    --         vim.api.nvim_wins_set_option(winnr, 'winhighlight', 'Normal:Visual,NormalNC:Visual')
+    --         break
+    --     else
+    --         -- Not a hover window
+    --     end
+    -- end
 end
 
 lsp.set_up_highlights = function()

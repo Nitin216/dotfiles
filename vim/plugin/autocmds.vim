@@ -18,9 +18,6 @@ if has('autocmd')
               \ has('nvim')
 
         autocmd BufEnter * lua require'nc.autocmds'.buf_enter()
-      "   " autocmd BufLeave * lua require'nc.autocmds'.mkview()
-      "   " autocmd BufWinEnter ?* lua require'nc.autocmds'.loadview()
-      "   autocmd BufWritePost ?* lua require'nc.autocmds'.mkview()
         autocmd FocusGained * lua require'nc.autocmds'.focus_gained()
         autocmd FocusLost * lua require'nc.autocmds'.focus_lost()
         autocmd InsertEnter * lua require'nc.autocmds'.insert_enter()
@@ -50,38 +47,6 @@ if has('autocmd')
     endif
   augroup END
   "
-  " Goyo
-  "
-  " let s:matchad=v:null
-  " let s:settings={}
-
-  " function! s:goyo_enter()
-  "   augroup NcAutocmds
-  "     autocmd!
-  "   augroup END
-  "   augroup! NcAutocmds
-
-  "   augroup NcAutocolor
-  "     autocmd!
-  "   augroup END
-  "   augroup! NcAutocolor
-
-  "   let s:settings = {
-  "         \ 		'showbreak': &showbreak,
-  "         \ 		'statusline': &statusline,
-  "         \ 		'cursorline': &cursorline,
-  "         \ 		'showmode': &showmode
-  "   }		
-
-  "   set showbreak=
-  "   set statusline=\
-  "   set nocursorline
-  "   set noshowmode
-
-  "   if exists('$TMUX')
-  "     silent !tmux set status off
-  "   endif
-
 
     if exists('$TMUX')
       autocmd VimleavePre * call s:EnsureTmux()
@@ -91,38 +56,4 @@ if has('autocmd')
   function! s:EnsureTmux()
     silent !tmux set status on
   endfunction
-
-  " function! s:goyo_leave()
-  "   let l:is_last_buffer=len(filter(range(1,bufnr('$')), 'buflisted(v:val)')) == 1
-  "   if b:quitting && l:is_last_buffer
-  "     if b:quitting_bang
-  "       qa!
-  "     else
-  "       qa
-  "     endif
-  "   endif
-
-  "   for [k,v] in items(s:settings)
-  "     execute 'let &' . k . '=' . string(v)
-  "   endfor
-
-  "   if exists('$TMUX')
-  "     silent !tmux set status on
-  "   endif
-
-  "   if type(s:matchadd) != type(v:null)
-  "     try
-  "       call matchdelete(s:matchadd)
-  "     catch /./
-  "     endtry
-  "     let s:matchadd=v:null
-  "   endif
-  "   call s:NcAutocmds()
-  " endfunction
-
-  " autocmd! User GoyoEnter nester call <SID>goyo_enter()
-  " autocmd! User GoyoLeave nester call <SID>goyo_leave()
-
-  " autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-  " autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 endif

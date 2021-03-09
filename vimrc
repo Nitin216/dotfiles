@@ -21,7 +21,7 @@ set completeopt=menuone,noinsert,noselect
 call plug#begin()
 "{{{ Startup
 "Used also for Saving and Restoring session
-":SSave and :SLoad TODO: Have to start using it more often
+":SSave and :SLoad 
 Plug 'mhinz/vim-startify'
 "}}}
 Plug 'dstein64/vim-startuptime'
@@ -30,9 +30,9 @@ Plug 'dstein64/vim-startuptime'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-telescope/telescope-fzy-native.nvim'
-" Plug 'nvim-telescope/telescope-fzf-writer.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'google/vim-searchindex'
 "
 Plug 'tpope/vim-surround'
@@ -137,131 +137,12 @@ nnoremap <leader>/ :Find<Space>
 " Python setup
 let g:python3_host_prog="/Library/Frameworks/Python.framework/Versions/3.7/bin/python3"
 
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-" let s:opam_share_dir = system("opam config var share")
-" let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-" let s:opam_configuration = {}
-
-" function! OpamConfOcpIndent()
-"   execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-" endfunction
-" let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-" function! OpamConfOcpIndex()
-"   execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-" endfunction
-" let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-" function! OpamConfMerlin()
-"   let l:dir = s:opam_share_dir . "/merlin/vim"
-"   execute "set rtp+=" . l:dir
-" endfunction
-" let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-" let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-" let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-" let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-" for tool in s:opam_packages
-"   " Respect package order (merlin should be after ocp-index)
-"   if count(s:opam_available_tools, tool) > 0
-"     call s:opam_configuration[tool]()
-"   endif
-" endfor
-" " ## end of OPAM user-setup addition for vim / base ## keep this line
-" " ## added by OPAM user-setup for vim / ocp-indent ## 51ae14d768763f05e749ee288e3e989d ## you can edit, but keep this line
-" if count(s:opam_available_tools,"ocp-indent") == 0
-"   source "/Users/i339130/.opam/4.10.0/share/ocp-indent/vim/indent/ocaml.vim"
-" endif
-" " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
-
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
-let g:nvim_tree_side = 'left' "left by default
-let g:nvim_tree_width = 40 "30 by default
-let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-let g:nvim_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
-let g:nvim_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
-let g:nvim_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
-let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
-let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
-let g:nvim_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
-let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-let g:nvim_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
-let g:nvim_tree_tab_open = 0 "0 by default, will open the tree when entering a new tab and the tree was previously open
-let g:nvim_tree_allow_resize = 1 "0 by default, will not resize the tree when opening a file
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 1,
-    \ }
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath
-
-" You can edit keybindings be defining this variable
-" You don't have to define all keys.
-" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
-let g:nvim_tree_bindings = {
-    \ 'edit':            ['<CR>', 'o'],
-    \ 'edit_vsplit':     '<C-v>',
-    \ 'edit_split':      '<C-x>',
-    \ 'edit_tab':        '<C-t>',
-    \ 'close_node':      ['<S-CR>', '<BS>'],
-    \ 'toggle_ignored':  'I',
-    \ 'toggle_dotfiles': 'H',
-    \ 'refresh':         'R',
-    \ 'preview':         '<Tab>',
-    \ 'cd':              '<C-]>',
-    \ 'create':          'a',
-    \ 'remove':          'd',
-    \ 'rename':          'r',
-    \ 'cut':             'x',
-    \ 'copy':            'c',
-    \ 'paste':           'p',
-    \ 'prev_git_item':   '[c',
-    \ 'next_git_item':   ']c',
-    \ }
-
-" Disable default mappings by plugin
-" Bindings are enable by default, disabled on any non-zero value
-" let nvim_tree_disable_keybindings=1
-
-" default will show icon by default if no icon is provided
-" default shows no icon by default
-let g:nvim_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged' : '◉',
-    \   'staged'   : '✚',
-    \   'untracked': '◈',
-    \   'renamed'  : '➜',
-    \   'unmerged' : '═'
-    \   },
-    \ 'folder': {
-    \   'default': "",
-    \   'open': "",
-    \   'symlink': "",
-    \   }
-    \ }
-" \   'Modified' : '◉',
-" \   'Staged'   : '✚',
-" \   'Untracked': '◈',
-" \   'Renamed'  : '➜',
-" \   'Unmerged' : '═',
-" \   'Ignored'  : '▨',
-" \   'Deleted'  : '✖',
-" \   'Unknown'  : '?'
-nnoremap <silent><C-n> :NvimTreeToggle<CR>
-nnoremap <silent><leader>r :NvimTreeRefresh<CR>
-nnoremap <silent><leader>tf :NvimTreeFindFile<CR>
 " Clears hlsearch after doing a search, otherwise just does normal <CR> stuff
 " nnoremap <expr> <CR> {-> v:hlsearch ? ":nohl\<CR>" : "\<CR>"}()
-"" NvimTreeOpen and LuaTreeClose are also available if you need them
 
-" this variable must be enabled for colors to be applied properly
 
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
@@ -287,4 +168,4 @@ else
   map <C-k> <C-w>k
   map <C-l> <C-w>l
 endif
-
+  

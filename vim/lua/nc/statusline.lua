@@ -1,7 +1,6 @@
 ---- Replicated wincent/.vim/lua/statusline.lua
 local pinnacle = require'wincent.pinnacle'
 local util = require'nc.util'
-local Job = require('plenary.job')
 local lsp_status = require('lsp-status')
 local statusline = {}
 local explorer = 'NvimTree'

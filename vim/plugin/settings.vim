@@ -82,7 +82,7 @@ if exists('+relativenumber')
 endif
 
 set scrolloff=3
-set shiftwidth=4                      " spaces per tab (when shifting)
+set shiftwidth=2                      " spaces per tab (when shifting)
 
 set shortmess+=A                      " ignore annoying swapfile messages
 set shortmess+=I                      " no splash screen
