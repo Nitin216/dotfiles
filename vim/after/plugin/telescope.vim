@@ -1,5 +1,5 @@
-if !has('nvim')
-  finish
-endif
+" if !has('nvim')
+"   finish
+" endif
 
-lua require'nc.telescope'.setup()
+" lua require'nc.telescope'.setup()

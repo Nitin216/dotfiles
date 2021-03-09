@@ -17,11 +17,11 @@ local custom_attach = function(client, bufnr)
 
     local opts = {noremap = true, silent = true}
 
-    buf_set_keymap('n', '<space>dn', '<Cmd> lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>dp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', '<space>sl', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '<c-]', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', '<space>dn', '<cmd> lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>dp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', '<space>sl', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '<c-]', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 
     buf_set_keymap ('n', '<space>cr', '<cmd>lua MyLspRename()<CR>', opts)
 
@@ -144,21 +144,28 @@ lsp.init = function()
     -- end
 end
 
-lsp.set_up_highlights = function()
+lsp.setup_highlights = function()
     local pinnacle = require'wincent.pinnacle'
 
-    vim.cmd('highlight LspDiagnosticsDefaultError ' ..pinnacle.decorate('italic', 'ModeMsg'))
+    vim.cmd('highlight LspDiagnosticsDefaultHint ' ..pinnacle.decorate('bold,italic', 'ModeMsg'))
 
-    vim.cmd('highlight LspDiagnosticsDefaultHint ' ..pinnacle.decorate('bold,italic', 'Type'))
+    vim.cmd('highlight LspDiagnosticsDefaultError ' ..pinnacle.decorate('italic', 'ErrorMsg'))
 
-    vim.cmd('highlight LspDiagnosticsDefaultHintSign ' ..pinnacle.highlight({
+    vim.cmd('highlight LspDiagnosticsDefaultWarning ' ..pinnacle.decorate('bold,italic', 'Type'))
+
+    vim.cmd('highlight LspDiagnosticsSignHint ' ..pinnacle.highlight({
         bg = pinnacle.extract_bg('ColorColumn'),
-        fg = pinnacle.extract_fg('Type'),
+        fg = pinnacle.extract_fg('ModeMsg'),
     }))
 
-    vim.cmd('highlight LspDiagnosticsDefaultErrorSign ' ..pinnacle.highlight({
+    vim.cmd('highlight LspDiagnosticsSignError ' ..pinnacle.highlight({
         bg = pinnacle.extract_bg('ColorColumn'),
         fg = pinnacle.extract_fg('ErrorMsg'),
+    }))
+
+    vim.cmd('highlight LspDiagnosticsSignWarning ' ..pinnacle.highlight({
+        bg = pinnacle.extract_bg('ColorColumn'),
+        fg = pinnacle.extract_fg('Type'),
     }))
 end
 
