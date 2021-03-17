@@ -1,3 +1,3 @@
 # dotfiles
 
-## Custom environment setup for Vim, zsh and tmux
+## Custom environment setup for Neovim, Zsh and kitty

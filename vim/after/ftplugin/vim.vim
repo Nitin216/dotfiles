@@ -1,1 +1,1 @@
-set formatoptions-=o
+setlocal shiftwidth=2

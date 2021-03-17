@@ -37,23 +37,24 @@ if has('autocmd')
   endfunction
 
   call s:NcAutocmds()
-
-
-  " Wait until  idle to run additional "boot" commands.
-  augroup NcIdleboot
-    autocmd!
-    if has('vim_starting')
-      autocmd CursorHold,CursorHoldI * call nc#autocmds#idleboot()
-    endif
-  augroup END
-  "
-
-    if exists('$TMUX')
-      autocmd VimleavePre * call s:EnsureTmux()
-    endif
-  " endfunction
-
-  function! s:EnsureTmux()
-    silent !tmux set status on
-  endfunction
+"
+"
+"  " Wait until  idle to run additional "boot" commands.
+"  augroup NcIdleboot
+"    autocmd!
+"    if has('vim_starting')
+"      autocmd CursorHold,CursorHoldI * call nc#autocmds#idleboot()
+"    endif
+"  augroup END
+"  "
+"
+"    if exists('$TMUX')
+"      autocmd VimleavePre * call s:EnsureTmux()
+"    endif
+"  " endfunction
+"
+"  function! s:EnsureTmux()
+"    silent !tmux set status on
+"  endfunction
 endif
+"

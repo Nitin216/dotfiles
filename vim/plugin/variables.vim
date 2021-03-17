@@ -28,6 +28,4 @@ else
   let g:NcQuickfixStatusline=''
 endif
 
-call nc#defer#defer('call nc#variables#init()')
-
-
+" call nc#defer#defer('call nc#variables#init()')

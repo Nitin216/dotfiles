@@ -1,5 +1,4 @@
 local autocmds = {}
-
 local set_cursorline = function(active)
   local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
   if autocmds.cursorline_blacklist[filetype] ~= true then

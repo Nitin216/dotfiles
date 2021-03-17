@@ -17,7 +17,7 @@ function s:CheckColorScheme()
     let g:base16colorspace=256
   endif
 
-  let s:config_file = expand('~/.vim/.base16')
+  let s:config_file = expand('~/.config/nvim/.base16')
 
   if filereadable(s:config_file)
     let s:config = readfile(s:config_file, '', 2)
@@ -28,11 +28,11 @@ function s:CheckColorScheme()
       echoerr 'Bad background ' . s:config[1] . ' in ' . s:config_file
     endif
 
-    if filereadable(expand('~/.vim/plugged/base16-vim/colors/base16-' . s:config[0] . '.vim'))
+    " if filereadable(expand('~/.vim/plugged/base16-vim/colors/base16-' . s:config[0] . '.vim'))
       execute 'colorscheme base16-' . s:config[0]
-    else
-      echoerr 'Bad scheme ' . s:config[0] . ' in '. s:config_file
-    endif
+    " else
+    "   echoerr 'Bad scheme ' . s:config[0] . ' in '. s:config_file
+    " endif
   else
     set background=dark
     colorscheme base16-default-dark

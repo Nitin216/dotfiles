@@ -1,8 +1,14 @@
-local treesitter = {}
+-- local treesitter = {}
 
-treesitter.setup = function ()
-require'nvim-treesitter.configs'.setup {
-    highlight = { enable = true }
-}
-end
-return treesitter
+-- treesitter.setup = function ()
+-- -- require'nvim-treesitter.configs'.setup {
+-- --     highlight = { enable = true },
+-- --     playground = {
+-- --       enable = true,
+-- --       disable = {},
+-- --       updatetime = 25,
+-- --       persist_queries = false
+-- --     }
+-- -- }
+-- end
+-- return treesitter
