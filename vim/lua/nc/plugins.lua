@@ -81,15 +81,22 @@ return require('packer').startup {
     use 'romainl/vim-qf'
 
     use 'norcalli/nvim-terminal.lua'
-
+    --[[
+      Colorscheme
+    --]]
+    use  {'sonph/onehalf' , rtp = 'vim'}
+    use {
+      'yamatsum/nvim-web-nonicons',
+      requires = {'kyazdani42/nvim-web-devicons'}
+    }
 
   end,
   config = {
     _display = {
       open_fn = function(name)
         -- Can only use plenary when we have our plugins.
-        -- We can only get plenary wehn we don't ahve our plugins 
-        local ok, float_win = pcall(function() 
+        -- We can only get plenary wehn we don't ahve our plugins
+        local ok, float_win = pcall(function()
           return require('plenary.window.float').percentage_range_window(0.8, 0.8)
         end)
 
@@ -104,7 +111,7 @@ return require('packer').startup {
         vim.api.nvim_buf_set_name(bufnr, name)
         vim.api.nvim_win_set_option(win, 'winblend', 10)
 
-        return win, buffer
+        return win, bufnr
       end
     },
   }

@@ -1,0 +1,2 @@
+-- vim.cmd [[colorscheme onehalfdark]]
+-- print("Coming even here")

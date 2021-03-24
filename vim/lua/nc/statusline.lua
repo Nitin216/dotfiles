@@ -15,7 +15,7 @@ local update_statusline = function(default, action)
   local result
   local filetype = vim.bo.filetype
 
-  if filetype == 'fzf' and filetype == 'NvimTree' then
+  if filetype == 'fzf' and filetype == explorer then
     result = 0
   elseif filetype == 'diff' then
     if util.buf_get_var(0, 'isUndoTreeBuffer') == 1 then
@@ -295,25 +295,3 @@ statusline.update_highlight = function()
 end
 
 return statusline
-
--- statusline.set()
-
--- vim.cmd [[ augroup NcStatusline ]]
---    vim.cmd [[ autocmd! ]]
---     vim.cmd [[ autocmd ColorScheme * lua require'nc.statusline'.update_highlight() ]]
---     vim.cmd [[ autocmd User FerretAsyncStart lua require'nc.statusline'.async_start() ]]
---     vim.cmd [[ autocmd User FerretAsyncFinish lua require'nc.statusline'.async_finish() ]]
---     vim.cmd [[ autocmd BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter * lua require'nc.statusline'.check_modified() ]]
---  vim.cmd [[ augroup END ]]
-
--- if has('nvim')
---   lua require'nc.statusline'.set()
-
---   augroup NcStatusline
---     autocmd!
---     autocmd ColorScheme * lua require'nc.statusline'.update_highlight()
---     autocmd User FerretAsyncStart lua require'nc.statusline'.async_start()
---     autocmd User FerretAsyncFinish lua require'nc.statusline'.async_finish()
---     autocmd BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter * lua require'nc.statusline'.check_modified()
---   augroup END
--- endif

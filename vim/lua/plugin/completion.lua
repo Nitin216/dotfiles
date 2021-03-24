@@ -59,6 +59,7 @@ if has_compe then
       spell = true;
       tags = true;
       snippets_nvim = true;
+      treesitter = true
     };
   }
 end

@@ -62,7 +62,8 @@ function s:CheckColorScheme()
 
   if nc#pinnacle#active() 
     highlight clear CursorLineNr
-    execute 'highlight CursorLineNr ' . luaeval("require'wincent.pinnacle'.extract_highlight('DiffText')")
+    let l:bg=luaeval("require'wincent.pinnacle'.extract_bg('DiffText')")
+    execute 'highlight CursorLineNr gui=bold guifg=yellow guibg=' . l:bg
 
     highlight clear Pmenu
     highlight link Pmenu Visual

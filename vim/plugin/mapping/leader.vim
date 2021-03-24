@@ -15,7 +15,6 @@ nnoremap <leader>pr ggdG:VimBeGood<CR>
 
 nnoremap <leader>q :quit<CR>
 nnoremap <leader>w :write<CR>
-nnoremap <leader>x :xit<CR>
 nnoremap <leader>Y gg"+yG
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y

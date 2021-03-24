@@ -104,41 +104,6 @@ CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/:~/Desktop/Personal\ Work:~/personal_git
 
 source $HOME/.zsh/colors.zsh
 
-function tmux() {
-  emulate -L zsh
-
-  # Make sure even pre-existing tmux sessions use the latest SSH_AUTH_SOCK.
-  # (Inspired by: https://gist.github.com/lann/6771001)
-  if [[ -n "$@" ]]; then
-    env tmux "$@"
-    return
-  fi
-
-  # Check for .tmux file (poor man's Tmuxinator).
-  if [ -x .tmux ]; then
-    # Prompt the first time we see a given .tmux file before running it.
-    local DIGEST="$(openssl sha1 -sha512 .tmux)"
-    if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
-      cat .tmux
-      read -k 1 -r \
-        'REPLY?Trust (and run) this .tmux file? (t = trust, otherwise = skip) '
-      echo
-      if [[ $REPLY =~ ^[Tt]$ ]]; then
-        echo "$DIGEST" >> ~/..tmux.digests
-        ./.tmux
-        return
-      fi
-    else
-      ./.tmux
-      return
-    fi
-  fi
-
-  # Attach to existing session, or create one, based on current directory.
-  SESSION_NAME=$(basename "$(pwd)")
-  env tmux new -A -s "$SESSION_NAME"
-}
-
 # opam configuration
 # test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 

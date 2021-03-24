@@ -24,16 +24,20 @@ nnoremap <leader><leader>x :call <SID>save_and_exec()<CR>
 nnoremap <leader>= <C-w>=
 
 "Sizing window horizontally
-nnoremap <c-,> <C-W><
-nnoremap <c-.> <C-W>>
-nnoremap <A-,> <C-W>5<
-nnoremap <A-.> <C-W>5>
+nnoremap <C-,> <C-w><
+nnoremap <C-.> <C-w>>
+
+" nnoremap <A-,> <C-W>5<
+nnoremap ≤ <C-W>5<
+nnoremap ≥ <C-W>5>
 
 " Sizing window vertically
 " taller
-nnoremap <A-t> <C-w>+
+" nnoremap <A-t> <C-w>+
+nnoremap † <C-w>+
 "shorter
-nnoremap <A-s> <C-w>-
+" nnoremap <A-s> <C-w>-
+nnoremap ß <C-w>-
 
 " Helpful delete/change into blackhole buffer
 nmap <leader>d "_d

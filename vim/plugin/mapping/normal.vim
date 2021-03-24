@@ -28,9 +28,6 @@ nnoremap <silent><C-K> <C-W><C-K>
 nnoremap <silent><C-L> <C-W><C-L>
 nnoremap <silent><C-H> <C-W><C-H>
 
-nnoremap <A-t> <C-w>+
-nnoremap <A-s> <C-w>-
-
 " Store relative line number jumps in the jumplist if they exceed a threshold.
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'

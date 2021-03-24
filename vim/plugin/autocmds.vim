@@ -7,13 +7,6 @@ if has('autocmd')
 
       autocmd VimResized * execute "normal! \<c-w>="
 
-      " autocmd InsertLeave * set nopaste
-
-      " if exists('+colorcolumn') &&
-      "         \ exists('+winhighlight') &&
-              " \ has('conceal') &&
-      "         \ has('folding') &&
-      "         \ has('mksession') &&
         if has('statusline') &&
               \ has('nvim')
 
@@ -28,8 +21,6 @@ if has('autocmd')
         autocmd WinLeave * lua require'nc.autocmds'.win_leave()
       endif
 
-      " autocmd BufWritePost */spell/*.add silent! :mkspell! %
-
       if exists('##TextYankPost')
         autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 150, true}
       endif
@@ -37,24 +28,5 @@ if has('autocmd')
   endfunction
 
   call s:NcAutocmds()
-"
-"
-"  " Wait until  idle to run additional "boot" commands.
-"  augroup NcIdleboot
-"    autocmd!
-"    if has('vim_starting')
-"      autocmd CursorHold,CursorHoldI * call nc#autocmds#idleboot()
-"    endif
-"  augroup END
-"  "
-"
-"    if exists('$TMUX')
-"      autocmd VimleavePre * call s:EnsureTmux()
-"    endif
-"  " endfunction
-"
-"  function! s:EnsureTmux()
-"    silent !tmux set status on
-"  endfunction
 endif
 "
