@@ -13,10 +13,12 @@ vim.lsp.handlers["textDocument/definition"]  = function(_, _, result)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  require('lsp_extensions.workspace.diagnostic').handler, {
+  require('lsp_extensions.workspace.diagnostic').handler , {
     signs = {
       severity_limit = "Error",
-    }
+    },
+    virtual_text = true,
+    underline = true
   }
 )
 
@@ -112,3 +114,29 @@ function MyLspRename()
 
   vim.cmd [[startinsert]]
 end
+
+local icons = require('nvim-nonicons')
+require "lspkind".init({
+  symbol_map = {
+    Text = icons.get("typography"),
+    Method = icons.get("package"),
+    Function = icons.get("package"),
+    Constructor = '',
+    Variable = icons.get("variable"),
+    Class = icons.get("class"),
+    Interface = icons.get("interface"),
+    Module = '',
+    Property = icons.get("tools"),
+    Unit = icons.get("note"),
+    Value = icons.get("note"),
+    Enum = icons.get("list-unordered"),
+    Keyword = icons.get("typography"),
+    Snippet = icons.get("snippet"),
+    Color = icons.get("heart"),
+    File = icons.get("file"),
+    Folder = icons.get("file-directory-outline"),
+    EnumMember = icons.get("list-unordered"),
+    Constant = icons.get("constant"),
+    Struct = icons.get("struct"),
+  },
+})

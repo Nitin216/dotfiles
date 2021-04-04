@@ -31,7 +31,6 @@ local map_tele = function(key, f, options, buffer)
 end
 
 vim.api.nvim_set_keymap('c', '<c-r><c-r>', '<Plug>(TelescopeFuzzyCommandSearch)', { noremap = false, nowait = true })
-
 -- Search
 map_tele('<space>gw', 'grep_string', {
   short_path = true,
@@ -53,6 +52,7 @@ map_tele('<space>pp', 'project_search')
 -- Nvim
 map_tele('<space>fi', 'search_all_files')
 map_tele('<space>gp', 'grep_prompt')
+map_tele('<space>pl', 'installed_plugins')
 
 -- Telescope Meta
 -- map_tele('<space>fB', 'builtin')

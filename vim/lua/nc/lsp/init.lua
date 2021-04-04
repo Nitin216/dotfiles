@@ -1,8 +1,9 @@
 local has_lsp, lspconfig = pcall(require, 'lspconfig')
--- local _, lspconfig_util = pcall(require, 'lspconfig.util')
+-- local pinnacle = require'wincent.pinnacle'
 
+-- local _, lspconfig_util = pcall(require, 'lspconfig.util')
 local telescope_mapper = require('nc.telescope.mappings')
--- local nvim_status = require('lsp-status')
+-- print("1")
 
 if not has_lsp then
   return
@@ -30,15 +31,16 @@ local custom_attach = function()
 
   nnoremap { "<c-]>", vim.lsp.buf.definition, buffer = 0 }
   nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
+  nnoremap { "gr", vim.lsp.buf.references, buffer = 0 }
 
   mapper('n', '<space>cr', 'MyLspRename()')
 
-  telescope_mapper('gr', 'lsp_references', {
-    layout_strategy = "vertical",
-    sorting_strategy = "ascending",
-    prompt_position = "top",
-    ignore_filename = true,
-  }, true)
+  -- telescope_mapper('gr', 'lsp_references', {
+  --   layout_strategy = "vertical",
+  --   sorting_strategy = "ascending",
+  --   prompt_position = "top",
+  --   ignore_filename = true,
+  -- }, true)
 
   telescope_mapper('<space>ca', 'lsp_code_actions', nil, true)
 
@@ -49,7 +51,6 @@ local custom_attach = function()
   mapper('i', '<c-s>', 'vim.lsp.buf.signature_help()')
   mapper('n', '<space>rr', 'vim.lsp.stop_client(vim.lsp.get_active_clients()); vim.cmd [[e]]')
 
-
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
@@ -58,6 +59,23 @@ end
 --   dynamicRegistration = false,
 -- }
 -- updated_capabilities = vim.tbl_extend('keep', update_capabilities, nvim_status.capabilities)
+
+
+-- local pinnacle = require"wincent.pinnacle"
+
+-- vim.cmd('highlight LspDiagnosticsDefaultError ' .. pinnacle.decorate('italic,underline', 'ModeMsg'))
+
+-- vim.cmd('highlight LspDiagnosticsDefaultHint ' .. pinnacle.decorate('bold,italic,underline', 'Type'))
+
+-- vim.cmd('highlight LspDiagnosticsSignHint ' .. pinnacle.highlight({
+--   bg = pinnacle.extract_bg('ColorColumn'),
+--   fg = pinnacle.extract_fg('Type'),
+-- }))
+
+-- vim.cmd('highlight LspDiagnosticsSignError ' .. pinnacle.highlight({
+--   bg = pinnacle.extract_bg('ColorColumn'),
+--   fg = pinnacle.extract_fg('ErrorMsg'),
+-- }))
 
 local cmd = vim.fn.expand(
 '~/code/lua-language-server/bin/macOS/lua-language-server'
@@ -150,4 +168,3 @@ lspconfig.diagnosticls.setup {
     }
   }
 }
-

@@ -5,11 +5,6 @@ nnoremap <leader><leader> <C-^>
 
 nnoremap <leader>o :only<CR>
 
-nnoremap <leader>r :call nc#mapping#leader#cycle_numbering()<CR>
-
-" Sourcing vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
 " <leader>pr for practice using VimBeGood
 nnoremap <leader>pr ggdG:VimBeGood<CR>
 
@@ -20,8 +15,8 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
 " Mapping of buffer movement
-nnoremap <silent><leader>l :bnext<CR>
-nnoremap <silent><leader>h :bprevious<CR>
+" nnoremap <silent><leader>l :bnext<CR>
+" nnoremap <silent><leader>h :bprevious<CR
 
 " Mapping of creating splits
 nnoremap <silent><leader><bar> :vsplit<CR>

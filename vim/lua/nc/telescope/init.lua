@@ -2,6 +2,11 @@ if not pcall(require, 'telescope') then
   return
 end
 
+if not pcall(require, 'nvim-nonicons') then 
+  return
+end
+
+
 local should_reload = true
 local reloader = function()
   if shoud_reload then
@@ -17,11 +22,12 @@ local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
-require('telescope').setup {
-  defaults = { 
-    prompt_prefix = '❯ ',
-    selection_caret = '❯ ',
+local icons = require('nvim-nonicons')
 
+require('telescope').setup {
+  defaults = {
+    prompt_prefix = icons.get('telescope') .. '  ' ,
+    selection_caret = '❯ ',
 
     winblend = 0,
     preview_cutoff = 120,
@@ -90,6 +96,14 @@ pcall(require('telescope').load_extension, "fzy_writer")
 --
 local M = {}
 
+function M.installed_plugins()
+  require('telescope.builtin').find_files {
+    winblend = 5,
+    border = true,
+    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
+  }
+end
+
 function M.git_files()
   local opts = themes.get_dropdown {
     winblend = 10,
@@ -133,7 +147,7 @@ function M.project_search()
   require('telescope.builtin').find_files {
     previewer = false,
     layout_strategy = "vertical",
-    cwd = require('nvim_lsp.util').root_pattern(".git")(vim.fn.expand("%:p")),
+    cwd = require('lspconfig.util').root_pattern(".git")(vim.fn.expand("%:p")),
   }
 end
 

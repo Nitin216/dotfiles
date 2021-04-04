@@ -20,7 +20,6 @@ vim.g.completion_trigger_keyword_length = 2
 --   }
 -- }
 
-
 -- Complextras.nvim configuration
 vim.api.nvim_set_keymap(
   'i',
@@ -63,3 +62,4 @@ if has_compe then
     };
   }
 end
+

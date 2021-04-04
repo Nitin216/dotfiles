@@ -89,6 +89,8 @@ return require('packer').startup {
       'yamatsum/nvim-web-nonicons',
       requires = {'kyazdani42/nvim-web-devicons'}
     }
+    use 'onsails/lspkind-nvim'
+    use 'tjdevries/colorbuddy.nvim'
 
   end,
   config = {
