@@ -2,10 +2,6 @@ if not pcall(require, 'telescope') then
   return
 end
 
-if not pcall(require, 'nvim-nonicons') then 
-  return
-end
-
 
 local should_reload = true
 local reloader = function()
@@ -22,11 +18,9 @@ local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
-local icons = require('nvim-nonicons')
-
 require('telescope').setup {
   defaults = {
-    prompt_prefix = icons.get('telescope') .. '  ' ,
+    prompt_prefix = '❯ ',
     selection_caret = '❯ ',
 
     winblend = 0,
@@ -80,8 +74,15 @@ require('telescope').setup {
       override_file_sorter = true,
     },
     fzf_writer = {
-      minimum_grep_characters = 2,
-      minimum_files_characters = 2
+      use_highlighter = false,
+      minimum_grep_characters = 6,
+    },
+    frecency = {
+      workspaces = {
+        ["conf"] = "~/dotfiles",
+        ["orca"] = "~/git/orca_cloud",
+        ["ios"] = "~/git/SAP-Analytics-Cloud-iOS"
+      }
     }
   }
 }
@@ -89,8 +90,8 @@ require('telescope').setup {
 
 pcall(require('telescope').load_extension, "fzy_native")
 pcall(require('telescope').load_extension, "fzy_writer")
--- pcall(require('telescope').load_extension, "gh")
--- pcall(require('telescope').load_extension, "cheat")
+pcall(require('telescope').load_extension, "frecency")
+pcall(require('telescope').load_extension, "cheat")
 -- pcall(require('telescope').load_extension, "dap")
 --
 --
@@ -146,9 +147,17 @@ end
 function M.project_search()
   require('telescope.builtin').find_files {
     previewer = false,
-    layout_strategy = "vertical",
+    layout_strategy = "horizontal",
     cwd = require('lspconfig.util').root_pattern(".git")(vim.fn.expand("%:p")),
   }
+end
+
+function M.fd()
+  require('telescope.builtin').fd()
+end
+
+function M.builtin()
+  require('telescope.builtin').builtin()
 end
 
 function M.live_grep()
@@ -163,6 +172,18 @@ function M.grep_prompt()
   require('telescope.builtin').grep_string {
     shorten_path = true,
     search = vim.fn.input("Grep String > "),
+  }
+end
+
+function M.help_tags()
+  require('telescope.builtin').help_tags {
+    show_version = true,
+  }
+end
+
+function M.buffers()
+  require('telescope.builtin').buffers {
+    shorten_path = false
   }
 end
 

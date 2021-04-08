@@ -43,8 +43,8 @@ return require('packer').startup {
     use 'tpope/vim-fugitive'
     use 'tpope/vim-scriptease'
     use 'reasonml-editor/vim-reason-plus'
-    use {'junegunn/fzf', run = './install --all'}
-    use 'junegunn/fzf.vim'
+    -- use {'junegunn/fzf', run = './install --all'}
+    -- use 'junegunn/fzf.vim'
     use 'keith/swift.vim'
     use 'udalov/kotlin-vim'
     use {'ThePrimeagen/vim-be-good', run = './install.sh'}
@@ -73,7 +73,7 @@ return require('packer').startup {
     use 'SirVer/ultisnips'
     use 'mlaursen/vim-react-snippets'
     use 'kyazdani42/nvim-web-devicons'
-    use 'kyazdani42/nvim-tree.lua'
+    -- use 'kyazdani42/nvim-tree.lua'
     use 'hrsh7th/nvim-compe'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'nvim-treesitter/playground'
@@ -91,6 +91,9 @@ return require('packer').startup {
     }
     use 'onsails/lspkind-nvim'
     use 'tjdevries/colorbuddy.nvim'
+    use 'tami5/sql.nvim'
+    use 'nvim-telescope/telescope-frecency.nvim'
+    use 'nvim-telescope/telescope-cheat.nvim'
 
   end,
   config = {

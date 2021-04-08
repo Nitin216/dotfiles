@@ -1,13 +1,11 @@
 local has_lsp, lspconfig = pcall(require, 'lspconfig')
--- local pinnacle = require'wincent.pinnacle'
-
--- local _, lspconfig_util = pcall(require, 'lspconfig.util')
 local telescope_mapper = require('nc.telescope.mappings')
--- print("1")
 
 if not has_lsp then
   return
 end
+
+-- _ = require('lspkind').init()
 
 local nnoremap = vim.keymap.nnoremap
 
@@ -35,12 +33,12 @@ local custom_attach = function()
 
   mapper('n', '<space>cr', 'MyLspRename()')
 
-  -- telescope_mapper('gr', 'lsp_references', {
-  --   layout_strategy = "vertical",
-  --   sorting_strategy = "ascending",
-  --   prompt_position = "top",
-  --   ignore_filename = true,
-  -- }, true)
+  telescope_mapper('gr', 'lsp_references', {
+    layout_strategy = "vertical",
+    sorting_strategy = "ascending",
+    prompt_position = "top",
+    ignore_filename = true,
+  }, true)
 
   telescope_mapper('<space>ca', 'lsp_code_actions', nil, true)
 
@@ -104,15 +102,15 @@ if vim.fn.executable(cmd) == 1 then
 end
 
 lspconfig.tsserver.setup {
-  cmd = {"typescript-language-server", "--stdio"},
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx"
-  },
+  -- cmd = {"typescript-language-server", "--stdio"},
+  -- filetypes = {
+  --   "javascript",
+  --   "javascriptreact",
+  --   "javascript.jsx",
+  --   "typescript",
+  --   "typescriptreact",
+  --   "typescript.tsx"
+  -- },
   -- on_init = custom_init,
   on_attach = custom_attach,
 }
@@ -133,7 +131,7 @@ lspconfig.hls.setup {
 }
 
 -- lspconfig.denols.setup {
---     on_init = custom_init,
+--     -- on_init = custom_init,
 --     on_attach = custom_attach
 -- }
 

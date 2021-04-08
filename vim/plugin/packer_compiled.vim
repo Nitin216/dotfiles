@@ -56,14 +56,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/emmet-vim"
   },
-  fzf = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/fzf"
-  },
-  ["fzf.vim"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/fzf.vim"
-  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
@@ -108,10 +100,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/nvim-terminal.lua"
   },
-  ["nvim-tree.lua"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
-  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
@@ -126,7 +114,7 @@ _G.packer_plugins = {
   },
   onehalf = {
     loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/onehalfvim"
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/onehalf/vim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -148,9 +136,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/popup.nvim"
   },
+  ["sql.nvim"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/sql.nvim"
+  },
   ["swift.vim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/swift.vim"
+  },
+  ["telescope-cheat.nvim"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/telescope-cheat.nvim"
+  },
+  ["telescope-frecency.nvim"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/telescope-frecency.nvim"
   },
   ["telescope-fzf-writer.nvim"] = {
     loaded = true,

@@ -19,18 +19,13 @@ vnoremap <leader>y "+y
 " nnoremap <silent><leader>h :bprevious<CR
 
 " Mapping of creating splits
-nnoremap <silent><leader><bar> :vsplit<CR>
-nnoremap <silent><leader>- :split<CR>
+nnoremap <silent><leader><bar> :vnew<CR>
+nnoremap <silent><leader>- :new<CR>
 
 " Mapping tab navigation
 nnoremap <silent><c-t> :tabnew<CR>
 nnoremap <silent><leader>tn :tabnext<CR>
 nnoremap <silent><leader>tp :tabprev<CR>
-
-" Fzf mapping
-nnoremap <leader>gf :GitFiles<CR>
-nnoremap <leader>nf :Files<CR>
-nnoremap <leader>ff :Rg<CR>
 
 nnoremap <M-CR> :let v:hlsearch=!v:hlsearch<CR>
 
