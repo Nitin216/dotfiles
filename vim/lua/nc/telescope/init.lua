@@ -54,7 +54,7 @@ require('telescope').setup {
         -- Experimental
         -- ["<tab>"] = actions.toggle_selection,
 
-        -- ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
         -- ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
     },
@@ -133,7 +133,6 @@ function M.lsp_code_actions()
     previewer = false,
     shorten_path = false,
   }
-
   require('telescope.builtin').lsp_code_actions(opts)
 
 end
@@ -183,7 +182,8 @@ end
 
 function M.buffers()
   require('telescope.builtin').buffers {
-    shorten_path = false
+    shorten_path = false,
+    only_cwd = true
   }
 end
 

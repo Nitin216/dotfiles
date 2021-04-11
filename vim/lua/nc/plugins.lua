@@ -4,22 +4,22 @@ return require('packer').startup {
   function(use)
     use 'wbthomason/packer.nvim'
 
-    -- local local_use = function(first, second)
-    --   local plug_path, home
-    --   if second == nil then
-    --     plug_path = first
-    --     home = "~"
-    --   else
-    --     plug_path = second
-    --     home =first
-    --   end
+    local local_use = function(first, second)
+      local plug_path, home
+      if second == nil then
+        plug_path = first
+        home = "~"
+      else
+        plug_path = second
+        home =first
+      end
 
-    --   if vim.fn.isdirectory(vim.fn.expand("~/plugins/" .. plug_path)) == 1 then
-    --     use("~/plugins/" .. plug_path)
-    --   else
-    --     use(string.format('%s/%s', home, plug_path))
-    --   end
-    -- end
+      if vim.fn.isdirectory(vim.fn.expand("~/plugins/" .. plug_path)) == 1 then
+        use("~/plugins/" .. plug_path)
+      else
+        use(string.format('%s/%s', home, plug_path))
+      end
+    end
 
 
     -- External Plugins
@@ -28,7 +28,7 @@ return require('packer').startup {
     use 'dstein64/vim-startuptime'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    use 'nvim-telescope/telescope.nvim'
+    local_use ('nvim-telescope','telescope.nvim')
     use 'nvim-telescope/telescope-fzy-native.nvim'
    use {
       'nvim-telescope/telescope-fzf-writer.nvim',

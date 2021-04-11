@@ -27,11 +27,17 @@ local custom_attach = function()
   nnoremap { "<space>dp", vim.lsp.diagnostic.goto_prev, buffer = 0 }
   nnoremap { "<space>sl", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
 
+  nnoremap { "<space>gi", vim.lsp.buf.implementation, buffer = 0}
   nnoremap { "<c-]>", vim.lsp.buf.definition, buffer = 0 }
   nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
   nnoremap { "gr", vim.lsp.buf.references, buffer = 0 }
 
   mapper('n', '<space>cr', 'MyLspRename()')
+
+  telescope_mapper('<c-]>', 'lsp_definitions', {
+    layout_strategy = "vertical",
+    prompt_position = "top",
+  }, true)
 
   telescope_mapper('gr', 'lsp_references', {
     layout_strategy = "vertical",
