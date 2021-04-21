@@ -65,7 +65,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting )
 source $ZSH/oh-my-zsh.sh
 # source $ZSH_CUSTOM/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 # Setting correct highlight color for zsh-autosuggestion
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

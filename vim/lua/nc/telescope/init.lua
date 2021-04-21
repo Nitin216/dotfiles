@@ -61,21 +61,26 @@ require('telescope').setup {
 
     borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
 
-    file_sorter = sorters.get_fzy_sorter,
-
+   -- file_sorter = sorters.native_fzf_sorter,
     file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
   },
 
   extensions = {
-    fzy_native = {
+    -- fzy_native = {
+    --   override_generic_sorter = false,
+    --   override_file_sorter = true,
+    -- },
+    -- fzf_writer = {
+    --   use_highlighter = true,
+    --   minimum_grep_characters = 2,
+    --   minimum_file_characters = 2,
+    -- },
+    fzf = {
       override_generic_sorter = false,
       override_file_sorter = true,
-    },
-    fzf_writer = {
-      use_highlighter = false,
-      minimum_grep_characters = 6,
+      case_mode = "smart_case",
     },
     frecency = {
       workspaces = {
@@ -88,8 +93,9 @@ require('telescope').setup {
 }
 
 
-pcall(require('telescope').load_extension, "fzy_native")
-pcall(require('telescope').load_extension, "fzy_writer")
+-- pcall(require('telescope').load_extension, "fzy_native")
+pcall(require('telescope').load_extension, "fzf")
+pcall(require('telescope').load_extension, "fzf_writer")
 pcall(require('telescope').load_extension, "frecency")
 pcall(require('telescope').load_extension, "cheat")
 -- pcall(require('telescope').load_extension, "dap")
@@ -110,15 +116,23 @@ function M.git_files()
     winblend = 10,
     border = true,
     previewer = false,
-    shorten_path = false,
+    shorten_path = true,
   }
-
   require('telescope.builtin').git_files(opts)
 end
 
 function M.buffer_git_files()
   require('telescope.builtin').git_files(themes.get_dropdown {
     cwd = vim.fn.expand("%:p:h"),
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false,
+  })
+end
+
+function M.git_branches()
+  require('telescope.builtin').git_branches(themes.get_dropdown {
     winblend = 10,
     border = true,
     previewer = false,
@@ -160,11 +174,11 @@ function M.builtin()
 end
 
 function M.live_grep()
- require('telescope').extensions.fzf_writer.staged_grep {
-   shorten_path = true,
-   previewer = false,
-   fzf_separator = "|>",
- }
+  require('telescope').extensions.fzf_writer.staged_grep {
+    shorten_path = true,
+    previewer = false,
+    fzf_separator = "|>",
+  }
 end
 
 function M.grep_prompt()
@@ -183,7 +197,7 @@ end
 function M.buffers()
   require('telescope.builtin').buffers {
     shorten_path = false,
-    only_cwd = true
+    -- only_cwd = true
   }
 end
 

@@ -73,7 +73,6 @@ return require('packer').startup {
     use 'SirVer/ultisnips'
     use 'mlaursen/vim-react-snippets'
     use 'kyazdani42/nvim-web-devicons'
-    -- use 'kyazdani42/nvim-tree.lua'
     use 'hrsh7th/nvim-compe'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'nvim-treesitter/playground'
@@ -84,7 +83,7 @@ return require('packer').startup {
     --[[
       Colorscheme
     --]]
-    use  {'sonph/onehalf' , rtp = 'vim'}
+    use 'joshdick/onedark.vim'
     use {
       'yamatsum/nvim-web-nonicons',
       requires = {'kyazdani42/nvim-web-devicons'}
@@ -94,6 +93,12 @@ return require('packer').startup {
     use 'tami5/sql.nvim'
     use 'nvim-telescope/telescope-frecency.nvim'
     use 'nvim-telescope/telescope-cheat.nvim'
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+    use {
+      'hoob3rt/lualine.nvim',
+      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
 
   end,
   config = {

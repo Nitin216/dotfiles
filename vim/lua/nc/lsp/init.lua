@@ -20,7 +20,7 @@ end
 --   client.config.flags.allow_incremental_sync = true
 -- end
 
-local custom_attach = function()
+local custom_attach = function(client)
   local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
 
   nnoremap { "<space>dn", vim.lsp.diagnostic.goto_next, buffer = 0 }
@@ -31,13 +31,10 @@ local custom_attach = function()
   nnoremap { "<c-]>", vim.lsp.buf.definition, buffer = 0 }
   nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
   nnoremap { "gr", vim.lsp.buf.references, buffer = 0 }
+  nnoremap { "<space>f", vim.lsp.buf.formatting, buffer = 0 }
 
   mapper('n', '<space>cr', 'MyLspRename()')
 
-  telescope_mapper('<c-]>', 'lsp_definitions', {
-    layout_strategy = "vertical",
-    prompt_position = "top",
-  }, true)
 
   telescope_mapper('gr', 'lsp_references', {
     layout_strategy = "vertical",
@@ -63,23 +60,6 @@ end
 --   dynamicRegistration = false,
 -- }
 -- updated_capabilities = vim.tbl_extend('keep', update_capabilities, nvim_status.capabilities)
-
-
--- local pinnacle = require"wincent.pinnacle"
-
--- vim.cmd('highlight LspDiagnosticsDefaultError ' .. pinnacle.decorate('italic,underline', 'ModeMsg'))
-
--- vim.cmd('highlight LspDiagnosticsDefaultHint ' .. pinnacle.decorate('bold,italic,underline', 'Type'))
-
--- vim.cmd('highlight LspDiagnosticsSignHint ' .. pinnacle.highlight({
---   bg = pinnacle.extract_bg('ColorColumn'),
---   fg = pinnacle.extract_fg('Type'),
--- }))
-
--- vim.cmd('highlight LspDiagnosticsSignError ' .. pinnacle.highlight({
---   bg = pinnacle.extract_bg('ColorColumn'),
---   fg = pinnacle.extract_fg('ErrorMsg'),
--- }))
 
 local cmd = vim.fn.expand(
 '~/code/lua-language-server/bin/macOS/lua-language-server'

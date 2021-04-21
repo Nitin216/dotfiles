@@ -46,6 +46,7 @@ map_tele('<space>f/', 'grep_last_search', {
 
 -- Files
 map_tele('<space>ft', 'git_files')
+map_tele('<space>gb', 'git_branches')
 map_tele('<space>fg', 'live_grep')
 map_tele('<space>fo', 'oldfiles')
 map_tele('<space>pp', 'project_search')
@@ -54,7 +55,7 @@ map_tele('<space>fe', 'file_browser')
 
 -- Nvim
 map_tele('<space>fb', 'buffers')
--- map_tele('<space>fi', 'search_all_files')
+map_tele('<space>fi', 'search_all_files')
 map_tele('<space>gp', 'grep_prompt')
 map_tele('<space>pl', 'installed_plugins')
 map_tele('<space>fh', 'help_tags')
