@@ -23,6 +23,7 @@ return require('packer').startup {
 
 
     -- External Plugins
+    use 'jiangmiao/auto-pairs'
     use 'nvim-lua/lsp_extensions.nvim'
     use 'mhinz/vim-startify'
     use 'dstein64/vim-startuptime'
@@ -30,7 +31,7 @@ return require('packer').startup {
     use 'nvim-lua/plenary.nvim'
     local_use ('nvim-telescope','telescope.nvim')
     use 'nvim-telescope/telescope-fzy-native.nvim'
-   use {
+    use {
       'nvim-telescope/telescope-fzf-writer.nvim',
       requires = {
         "nvim-telescope/telescope.nvim"
@@ -38,20 +39,19 @@ return require('packer').startup {
     }
     use 'google/vim-searchindex'
     use 'tpope/vim-surround'
-    use 'tpope/vim-dispatch'
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive'
     use 'tpope/vim-scriptease'
-    use 'reasonml-editor/vim-reason-plus'
+    -- use 'reasonml-editor/vim-reason-plus'
     -- use {'junegunn/fzf', run = './install --all'}
     -- use 'junegunn/fzf.vim'
-    use 'keith/swift.vim'
-    use 'udalov/kotlin-vim'
-    use {'ThePrimeagen/vim-be-good', run = './install.sh'}
+    -- use 'keith/swift.vim'
+    -- use 'udalov/kotlin-vim'
+    -- use {'ThePrimeagen/vim-be-good', run = './install.sh'}
     use 'wincent/pinnacle'
     use 'mbbill/undotree'
-    use 'chriskempson/base16-vim'
-    use 'junegunn/goyo.vim'
+    -- use 'chriskempson/base16-vim'
+    -- use 'junegunn/goyo.vim'
     use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/completion-nvim'
@@ -59,9 +59,8 @@ return require('packer').startup {
     use 'glepnir/lspsaga.nvim'
     use 'tjdevries/astronauta.nvim'
     use 'rhysd/committia.vim'
-    use 'yuezk/vim-js'
-    use 'maxmellon/vim-jsx-pretty'
-    use { 'HerringtonDarkholme/yats.vim', run = 'rm -rf UltiSnips'}
+
+    -- use { 'HerringtonDarkholme/yats.vim', run = 'rm -rf UltiSnips'}
     use 'kevinoid/vim-jsonc'
     use {
       'lewis6991/gitsigns.nvim',
@@ -69,19 +68,15 @@ return require('packer').startup {
         'nvim-lua/plenary.nvim'
       }
     }
-    use 'honza/vim-snippets'
-    use 'SirVer/ultisnips'
-    use 'mlaursen/vim-react-snippets'
     use 'kyazdani42/nvim-web-devicons'
     use 'hrsh7th/nvim-compe'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'nvim-treesitter/playground'
-    use 'mattn/emmet-vim'
     use 'romainl/vim-qf'
 
     use 'norcalli/nvim-terminal.lua'
     --[[
-      Colorscheme
+    Colorscheme
     --]]
     use 'joshdick/onedark.vim'
     use {
@@ -99,7 +94,14 @@ return require('packer').startup {
       'hoob3rt/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
-
+    --[[
+    -- Tablilne
+    --]]
+    use { 'mkitt/tabline.vim' }
+    -- [[
+    -- Looks super cool thing
+    -- ]]
+    use { 'simrat39/symbols-outline.nvim' }
   end,
   config = {
     _display = {

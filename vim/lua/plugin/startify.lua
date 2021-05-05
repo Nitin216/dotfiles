@@ -1,3 +1,14 @@
-vim.cmd [[set buflisted ]]
-vim.cmd [[ let g:startify_change_to_dir = 0 ]]
+-- vim.cmd [[set buflisted ]]
+-- vim.cmd [[ let g:startify_change_to_dir = 0 ]]
 
+-- vim.cmd[[let g:startify_list_order =  [
+--   \ ['   MRU '.getcwd()] ,
+--   \ 'dir',
+--   \ ['   MRU '],
+--   \ 'files',
+--   \ ['   Sessions'],
+--   \ 'sessions',
+--   \['   Commands'],
+--   \ 'commands'
+--   \]
+--   ]]

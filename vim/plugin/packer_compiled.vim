@@ -12,6 +12,41 @@ packadd packer.nvim
 try
 
 lua << END
+  local time
+  local profile_info
+  local should_profile = false
+  if should_profile then
+    local hrtime = vim.loop.hrtime
+    profile_info = {}
+    time = function(chunk, start)
+      if start then
+        profile_info[chunk] = hrtime()
+      else
+        profile_info[chunk] = (hrtime() - profile_info[chunk]) / 1e6
+      end
+    end
+  else
+    time = function(chunk, start) end
+  end
+  
+local function save_profiles(threshold)
+  local sorted_times = {}
+  for chunk_name, time_taken in pairs(profile_info) do
+    sorted_times[#sorted_times + 1] = {chunk_name, time_taken}
+  end
+  table.sort(sorted_times, function(a, b) return a[2] > b[2] end)
+  local results = {}
+  for i, elem in ipairs(sorted_times) do
+    if not threshold or threshold and elem[2] > threshold then
+      results[i] = elem[1] .. ' took ' .. elem[2] .. 'ms'
+    end
+  end
+
+  _G._packer = _G._packer or {}
+  _G._packer.profile_output = results
+end
+
+time("Luarocks path setup", true)
 local package_path_str = "/Users/i339130/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/i339130/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/i339130/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/i339130/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
 local install_cpath_pattern = "/Users/i339130/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
@@ -22,6 +57,8 @@ if not string.find(package.cpath, install_cpath_pattern, 1, true) then
   package.cpath = package.cpath .. ';' .. install_cpath_pattern
 end
 
+time("Luarocks path setup", false)
+time("try_loadstring definition", true)
 local function try_loadstring(s, component, name)
   local success, result = pcall(loadstring(s))
   if not success then
@@ -31,14 +68,16 @@ local function try_loadstring(s, component, name)
   return result
 end
 
+time("try_loadstring definition", false)
+time("Defining packer_plugins", true)
 _G.packer_plugins = {
   ["astronauta.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/astronauta.nvim"
   },
-  ["base16-vim"] = {
+  ["auto-pairs"] = {
     loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/base16-vim"
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/auto-pairs"
   },
   ["colorbuddy.nvim"] = {
     loaded = true,
@@ -52,21 +91,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/completion-nvim"
   },
-  ["emmet-vim"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/emmet-vim"
-  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
-  },
-  ["goyo.vim"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/goyo.vim"
-  },
-  ["kotlin-vim"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/kotlin-vim"
   },
   ["lsp-status.nvim"] = {
     loaded = true,
@@ -83,6 +110,10 @@ _G.packer_plugins = {
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
   ["markdown-preview.nvim"] = {
     loaded = true,
@@ -112,9 +143,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/nvim-web-nonicons"
   },
-  onehalf = {
+  ["onedark.vim"] = {
     loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/onehalf/vim"
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/onedark.vim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -140,9 +171,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/sql.nvim"
   },
-  ["swift.vim"] = {
+  ["symbols-outline.nvim"] = {
     loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/swift.vim"
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim"
+  },
+  ["tabline.vim"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/tabline.vim"
   },
   ["telescope-cheat.nvim"] = {
     loaded = true,
@@ -151,6 +186,10 @@ _G.packer_plugins = {
   ["telescope-frecency.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/telescope-frecency.nvim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim"
   },
   ["telescope-fzf-writer.nvim"] = {
     loaded = true,
@@ -164,53 +203,25 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
-  ultisnips = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/ultisnips"
-  },
   undotree = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/undotree"
-  },
-  ["vim-be-good"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-be-good"
   },
   ["vim-commentary"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-commentary"
   },
-  ["vim-dispatch"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-dispatch"
-  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-fugitive"
-  },
-  ["vim-js"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-js"
   },
   ["vim-jsonc"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-jsonc"
   },
-  ["vim-jsx-pretty"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-jsx-pretty"
-  },
   ["vim-qf"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-qf"
-  },
-  ["vim-react-snippets"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-react-snippets"
-  },
-  ["vim-reason-plus"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-reason-plus"
   },
   ["vim-scriptease"] = {
     loaded = true,
@@ -219,10 +230,6 @@ _G.packer_plugins = {
   ["vim-searchindex"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-searchindex"
-  },
-  ["vim-snippets"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-snippets"
   },
   ["vim-startify"] = {
     loaded = true,
@@ -235,15 +242,12 @@ _G.packer_plugins = {
   ["vim-surround"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-surround"
-  },
-  ["yats.vim"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/yats.vim"
   }
 }
 
--- Runtimepath customization
-vim.o.runtimepath = vim.o.runtimepath .. ",/Users/i339130/.local/share/nvim/site/pack/packer/start/onehalf/vim"
+time("Defining packer_plugins", false)
+if should_profile then save_profiles() end
+
 END
 
 catch

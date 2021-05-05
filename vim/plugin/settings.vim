@@ -65,17 +65,17 @@ endif
 
 
 "set list
-set list                              " show whitespace
+set list                             " show whitespace
 set listchars=eol:↲                  " EOL shown
-set listchars+=nbsp:⦸                  " CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
-set listchars+=tab:▷┅                 " WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7)
+set listchars+=nbsp:⦸                " CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+set listchars+=tab:▷┅                " WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7)
 " + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
-set listchars+=extends:»              " RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK iU+00BB, UTF-8: C2 BB)
-set listchars+=precedes:«             " LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
-set listchars+=trail:•                " BULLET (U+2022, UTF-8: E2 80 A2)
-" set modelines=5                       " scan this many lines looking for modeline
-"set nojoinspaces                      " dont autoinsert two spaces after '.', '?', '!' for join command
-"set number                            " show line numbers in gutter'
+set listchars+=extends:»             " RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK iU+00BB, UTF-8: C2 BB)
+set listchars+=precedes:«            " LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+set listchars+=trail:•               " BULLET (U+2022, UTF-8: E2 80 A2)
+" set modelines=5                    " scan this many lines looking for modeline
+"set nojoinspaces                    " dont autoinsert two spaces after '.', '?', '!' for join command
+"set number                          " show line numbers in gutter'
 
 "if exists('+relativenumber')
 "  set relativenumber

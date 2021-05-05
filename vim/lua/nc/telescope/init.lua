@@ -196,9 +196,27 @@ end
 
 function M.buffers()
   require('telescope.builtin').buffers {
-    shorten_path = false,
+    shorten_path = true,
     -- only_cwd = true
   }
+end
+
+function M.file_browser()
+  require('telescope.builtin').file_browser {
+    layout_strategy = "horizontal",
+    winblend = 10,
+    previewer = false,
+  }
+end
+
+function M.file_curr_browser()
+  require('telescope.builtin').file_browser (
+  themes.get_dropdown {
+    cwd = vim.fn.expand("%:p:h"),
+    winblend = 10,
+    previewer = false,
+  })
+
 end
 
 return setmetatable({}, {

@@ -7,30 +7,34 @@ nnoremap <F6> <C-i>
 nnoremap Q <nop>
 
 inoremap jk <esc>
+inoremap <esc> <nop>
 
 noremap Y y$
 
-" mapping jk to gj and gk"
-" nnoremap j gj
-" nnoremap gj j
-" nnoremap k gk
-" nnoremap gk k
-
-nnoremap gj :let _=&lazyredraw<CR>:set lazyredraw<CR>/\%<C-R>=virtcol(".")<CR>v\S<CR>:nohl<CR>:let &lazyredraw=_<CR>
-nnoremap gk :let _=&lazyredraw<CR>:set lazyredraw<CR>?\%<C-R>=virtcol(".")<CR>v\S<CR>:nohl<CR>:let &lazyredraw=_<CR>
-
-" nnoremap <leader><leader>c :<up>
+" noremap j gj
+" noremap k gk
 
 nnoremap <leader>= <C-w>=
-" Mapping if movement in buffers
-nnoremap <silent><C-J> <C-W><C-J>
-nnoremap <silent><C-K> <C-W><C-K>
-nnoremap <silent><C-L> <C-W><C-L>
-nnoremap <silent><C-H> <C-W><C-H>
 
-" Store relative line number jumps in the jumplist if they exceed a threshold.
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'
+" Mapping if movement in buffers
+nnoremap <silent><C-j> <C-w>j
+nnoremap <silent><C-k> <C-w>k
+nnoremap <silent><C-l> <C-w>l
+nnoremap <silent><C-h> <C-w>h
+
+"Moving buffers
+" nnoremap <silent><C-J> <C-w>J
+" nnoremap <silent><C-K> <C-w>K
+" nnoremap <silent><C-L> <C-w>L
+" nnoremap <silent><C-H> <C-w>H
+"
+" Move through quickfix things easily
+nnoremap <silent><C-b> :cnext<CR>
+nnoremap <silent><C-y> :cprev<CR>
+
+ " Store relative line number jumps in the jumplist if they exceed a threshold.
+" nnoremap <expr> k (v:count > 5 ? "m'" . v:count : '') . 'k'
+" nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'
 
 " Mapping split width increase and decrease
 " nnoremap ,+ :vertical resize +5<CR>

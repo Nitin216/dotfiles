@@ -1,14 +1,17 @@
 local has_lsp, lspconfig = pcall(require, 'lspconfig')
-local telescope_mapper = require('nc.telescope.mappings')
-
 if not has_lsp then
   return
 end
+
+local telescope_mapper = require('nc.telescope.mappings')
+local nvim_status = require("lsp-status")
+
 
 -- _ = require('lspkind').init()
 
 local nnoremap = vim.keymap.nnoremap
 
+require('nc.lsp.status').activate()
 require('nc.lsp.handlers')
 
 local mapper = function(mode, key, result)
@@ -23,6 +26,8 @@ end
 local custom_attach = function(client)
   local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
 
+  nvim_status.on_attach(client)
+
   nnoremap { "<space>dn", vim.lsp.diagnostic.goto_next, buffer = 0 }
   nnoremap { "<space>dp", vim.lsp.diagnostic.goto_prev, buffer = 0 }
   nnoremap { "<space>sl", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
@@ -32,6 +37,7 @@ local custom_attach = function(client)
   nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
   nnoremap { "gr", vim.lsp.buf.references, buffer = 0 }
   nnoremap { "<space>f", vim.lsp.buf.formatting, buffer = 0 }
+  -- nnoremap { "<space>ca", vim.lsp.buf.code_action, buffer = 0 }
 
   mapper('n', '<space>cr', 'MyLspRename()')
 
@@ -59,7 +65,8 @@ end
 -- updated_capabilities.textDocument.codeLens = {
 --   dynamicRegistration = false,
 -- }
--- updated_capabilities = vim.tbl_extend('keep', update_capabilities, nvim_status.capabilities)
+
+local updated_capabilities = nvim_status.capabilities
 
 local cmd = vim.fn.expand(
 '~/code/lua-language-server/bin/macOS/lua-language-server'
@@ -71,6 +78,7 @@ if vim.fn.executable(cmd) == 1 then
   lspconfig.sumneko_lua.setup {
     cmd = { cmd, '-E', main},
     on_attach = custom_attach,
+    capabilities = updated_capabilities,
     settings = {
       Lua = {
         diagnostics = {
@@ -88,38 +96,25 @@ if vim.fn.executable(cmd) == 1 then
 end
 
 lspconfig.tsserver.setup {
-  -- cmd = {"typescript-language-server", "--stdio"},
-  -- filetypes = {
-  --   "javascript",
-  --   "javascriptreact",
-  --   "javascript.jsx",
-  --   "typescript",
-  --   "typescriptreact",
-  --   "typescript.tsx"
-  -- },
-  -- on_init = custom_init,
   on_attach = custom_attach,
+  capabilities = updated_capabilities
 }
 
 lspconfig.vimls.setup {
-  -- on_init = custom_init,
-  on_attach = custom_attach
+  on_attach = custom_attach,
+  capabilities = updated_capabilities
+
 }
 
 lspconfig.clangd.setup {
-  -- on_init = custom_init,
-  on_attach = custom_attach
+  on_attach = custom_attach,
+  capabilities = updated_capabilities
 }
 
 lspconfig.hls.setup {
-  -- on_init = custom_init,
-  on_attach = custom_attach
+  on_attach = custom_attach,
+  capabilities = updated_capabilities
 }
-
--- lspconfig.denols.setup {
---     -- on_init = custom_init,
---     on_attach = custom_attach
--- }
 
 -- Diagnostic LSP
 local eslint = require('nc.diagnosticls.linters.eslint')

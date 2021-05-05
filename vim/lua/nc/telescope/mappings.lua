@@ -52,6 +52,7 @@ map_tele('<space>fo', 'oldfiles')
 map_tele('<space>pp', 'project_search')
 map_tele('<space>fd', 'fd')
 map_tele('<space>fe', 'file_browser')
+map_tele('<space>cb', 'file_curr_browser')
 
 -- Nvim
 map_tele('<space>fb', 'buffers')

@@ -136,5 +136,8 @@ unset __conda_setup
 
 # Function to compile cpp files
 function gcpp() {
-  g++ -std=c++17 -Wshadow -Wall -o "$1" "$1.cpp" -O2 -Wno-unused-result
+  output_file=$(echo $1 | cut -d'.' -f 1)
+  if g++ -std=c++17 -Wshadow -Wall -o "$output_file" "$1" -O2 -Wno-unused-result; then
+    ./$output_file
+  fi
 }
