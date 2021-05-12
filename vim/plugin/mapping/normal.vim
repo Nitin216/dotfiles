@@ -45,5 +45,5 @@ nnoremap <expr> <CR> {-> v:hlsearch ? ":nohl\<CR>" : "\<CR>"}()
 
 " Change the current word in insertmode.
 " Auto places you into the spot where you can start typing to change it.
-nnoremap <C-r>w :%s/<c-r><c-w>//g<left><left>
+nnoremap <space><space>r :%s/<c-r><c-w>//g<left><left>
 

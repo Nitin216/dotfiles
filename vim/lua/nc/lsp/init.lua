@@ -36,7 +36,7 @@ local custom_attach = function(client)
   nnoremap { "<c-]>", vim.lsp.buf.definition, buffer = 0 }
   nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
   nnoremap { "gr", vim.lsp.buf.references, buffer = 0 }
-  nnoremap { "<space>f", vim.lsp.buf.formatting, buffer = 0 }
+  nnoremap { "<space>ff", vim.lsp.buf.formatting, buffer = 0 }
   -- nnoremap { "<space>ca", vim.lsp.buf.code_action, buffer = 0 }
 
   mapper('n', '<space>cr', 'MyLspRename()')
@@ -112,12 +112,15 @@ lspconfig.clangd.setup {
 }
 
 lspconfig.hls.setup {
+  cmd = { "haskell-language-server-wrapper", "--lsp" },
+  filetypes = { "haskell", "lhaskell" },
   on_attach = custom_attach,
   capabilities = updated_capabilities
 }
 
 -- Diagnostic LSP
 local eslint = require('nc.diagnosticls.linters.eslint')
+local tslint = require('nc.diagnosticls.linters.tslint')
 local prettier = require('nc.diagnosticls.formatters.prettier')
 local prettier_standard = require('nc.diagnosticls.formatters.prettier_standard')
 
@@ -126,24 +129,53 @@ lspconfig.diagnosticls.setup {
   on_attach = custom_attach,
   -- capabilities = lsp_status.capabilities,
   filetypes = {
-    "javascript",
     "typescript",
-    "javascriptreact",
-    "typescriptreact"
+    "typescriptreact",
+    "sh"
   },
   init_options = {
     linters = {
-      eslint = eslint
+      tslint = tslint,
+      shellcheck = {
+        command = "shellcheck",
+        debounce = 100,
+        args = { "--format=json", "-" },
+        sourceName = "shellcheck",
+        parseJson = {
+          line = "line",
+          column = "column",
+          endLine = "endLine",
+          endColumn = "endColumn",
+          message = "${message} [${code}]",
+          security = "level"
+        },
+        securities = {
+          error = "error",
+          warning = "warning",
+          info = "info",
+          style = "hint"
+        }
+      },
     },
-    formatFiletypes = {
-      javascript = 'prettier',
-      javascriptreact = 'prettier',
-      typescript = 'prettier',
-      typescriptreact = 'prettier'
+
+    filetypes = {
+      typescript = 'tslint',
+      typescriptreact = 'tslint',
+      sh = 'shellcheck'
     },
     formatters = {
-      prettier = prettier,
-      prettier_standard = prettier_standard
+      --   prettier = prettier,
+      tslintFix = {
+        command = "tslint",
+        args = {"%filepath", "--fix" },
+        -- rootPatterns = {".git"},
+      },
+    },
+    formatFiletypes = {
+      javascript =  'tslintFix',
+      javascriptreact = 'tslintFix',
+      typescript =  'tslintFix',
+      typescriptreact =  'tslintFix'
     }
   }
 }

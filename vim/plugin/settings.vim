@@ -5,6 +5,7 @@
 "set showtabline=1  " Dont show tabline
 "set guicursor=
 "set clipboard=unnamedplus " Using global clipboard"
+
 "set inccommand=split  "Shows partial off-screen results in a preview window for %s.
 
 "if exists('$SUDO_USER')
@@ -148,6 +149,8 @@ if has('termguicolors')
   set termguicolors
 endif
 
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono
+
 "set textwidth=150
 
 "set updatecount=80                    "update swap file every 80 typed chars"
@@ -203,3 +206,4 @@ endif
 "endif
 
 "set wildmode=longest:full,full        " shell-like autocomplete to unambiguous portion
+let g:loaded_netrwPlugin = 1

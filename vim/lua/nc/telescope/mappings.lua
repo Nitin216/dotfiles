@@ -31,6 +31,7 @@ local map_tele = function(key, f, options, buffer)
 end
 
 vim.api.nvim_set_keymap('c', '<c-r><c-r>', '<Plug>(TelescopeFuzzyCommandSearch)', { noremap = false, nowait = true })
+map_tele('<space>ed', 'dotfiles')
 -- Search
 map_tele('<space>gw', 'grep_string', {
   short_path = true,
@@ -53,14 +54,13 @@ map_tele('<space>pp', 'project_search')
 map_tele('<space>fd', 'fd')
 map_tele('<space>fe', 'file_browser')
 map_tele('<space>cb', 'file_curr_browser')
-
+map_tele('<space>ba', 'lsp_range_code_actions')
 -- Nvim
 map_tele('<space>fb', 'buffers')
 map_tele('<space>fi', 'search_all_files')
 map_tele('<space>gp', 'grep_prompt')
 map_tele('<space>pl', 'installed_plugins')
 map_tele('<space>fh', 'help_tags')
-map_tele('<space>so', 'vim_options')
 
 -- Telescope Meta
 map_tele('<space>fB', 'builtin')

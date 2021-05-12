@@ -52,9 +52,9 @@ require('telescope').setup {
         ["<C-s>"] = actions.select_horizontal,
 
         -- Experimental
-        -- ["<tab>"] = actions.toggle_selection,
+        ["<tab>"] = actions.toggle_selection,
 
-        ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-q>"] = actions.send_to_qflist,
         -- ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
     },
@@ -121,6 +121,15 @@ function M.git_files()
   require('telescope.builtin').git_files(opts)
 end
 
+function M.dotfiles()
+  require('telescope.builtin').find_files {
+    prompt_title = "Dotfiles",
+    winblend = 5,
+    border = true,
+    cwd = "~/dotfiles"
+  }
+end
+
 function M.buffer_git_files()
   require('telescope.builtin').git_files(themes.get_dropdown {
     cwd = vim.fn.expand("%:p:h"),
@@ -141,13 +150,11 @@ function M.git_branches()
 end
 
 function M.lsp_code_actions()
-  local opts = themes.get_dropdown {
-    winblend = 10,
-    border = true,
+  require('telescope.builtin').lsp_code_actions {
     previewer = false,
-    shorten_path = false,
+    winblend = 5, 
+    border = true
   }
-  require('telescope.builtin').lsp_code_actions(opts)
 
 end
 
@@ -160,10 +167,21 @@ end
 function M.project_search()
   require('telescope.builtin').find_files {
     previewer = false,
+    shorten_path = true,
     layout_strategy = "horizontal",
     cwd = require('lspconfig.util').root_pattern(".git")(vim.fn.expand("%:p")),
   }
 end
+
+function M.project_search_hidden()
+  require('telescope.builtin').find_files {
+    hidden = true,
+    previewer = false,
+    layout_strategy = "horizontal",
+    cwd = require('lspconfig.util').root_pattern(".git")(vim.fn.expand("%:p")),
+  }
+end
+
 
 function M.fd()
   require('telescope.builtin').fd()
@@ -203,8 +221,7 @@ end
 
 function M.file_browser()
   require('telescope.builtin').file_browser {
-    layout_strategy = "horizontal",
-    winblend = 10,
+    winblend = 8,
     previewer = false,
   }
 end

@@ -12,7 +12,7 @@ vnoremap <leader>p "_dP
 " nnoremap <silent><leader>h :bprevious<CR
 
 " Mapping of creating splits
-nnoremap <silent><leader><bar> :vnew<CR>
+nnoremap <silent><leader>\ :vnew<CR>
 nnoremap <silent><leader>- :new<CR>
 
 "Mapping Undotree
@@ -25,4 +25,4 @@ nnoremap <silent><leader>tp :tabprev<CR>
 
 nnoremap <M-CR> :let v:hlsearch=!v:hlsearch<CR>
 " Mapping Symbols outline
-nnoremap <silent><leader>s :SymbolsOutline<CR>
+nnoremap <silent><leader>o :SymbolsOutline<CR>

@@ -95,6 +95,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
   },
+  ["lir.nvim"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/lir.nvim"
+  },
   ["lsp-status.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/lsp-status.nvim"

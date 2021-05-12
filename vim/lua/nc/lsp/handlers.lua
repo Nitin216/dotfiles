@@ -34,7 +34,7 @@ function DoSomeLens()
   print("... Done")
 end
 
-vim.lsp.handlers["textDocument/codeLens"] = function(err, _, result)
+vim.lsp.handlers["textDocument/codeLens"] = function(_, _, result)
   print("Code Lens...")
   P(result)
   print("...Code Lens")

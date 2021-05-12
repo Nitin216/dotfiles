@@ -102,6 +102,7 @@ return require('packer').startup {
     -- Looks super cool thing
     -- ]]
     use { 'simrat39/symbols-outline.nvim' }
+    use { 'tamago324/lir.nvim' }
   end,
   config = {
     _display = {

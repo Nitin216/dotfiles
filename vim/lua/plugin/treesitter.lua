@@ -4,6 +4,8 @@ if ts_debugging then
   RELOAD('nvim-treesitter')
 end
 
+local enabled = true
+
 -- Mapping of user defined captures to highlight groups
 -- local custom_captures = {
 --   -- highlight own capure @foo.bar with highlight group "Identifier"
@@ -21,6 +23,15 @@ end
 -- end
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'query', 'lua', 'tsx', 'typescript'}
+  ensure_installed = { 'query', 'lua', 'tsx', 'typescript'},
+
+  highlight = {
+    enable = enabled,
+    disable = {"json"},
+  },
+  -- incremental_selection = {
+  --   enable = enabled,
+  -- }
+
 }
 

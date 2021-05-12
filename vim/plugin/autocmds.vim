@@ -13,6 +13,7 @@ if has('autocmd')
         autocmd GUIEnter * lua require'nc.autocmds'.win_new()
         autocmd WinEnter * lua require'nc.autocmds'.vim_enter()
         autocmd WinLeave * lua require'nc.autocmds'.win_leave()
+        autocmd BufEnter *.{hs,js,jsx,ts,tsx} :syntax sync fromstart
 
       if exists('##TextYankPost')
         autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 150, true}
