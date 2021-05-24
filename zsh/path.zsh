@@ -18,13 +18,14 @@ DATASCIENCE=$HOME/opt/anaconda3/bin:$HOME/opt/anaconda3/condabin:/anaconda3/bin:
 PYTHONS=/Library/Frameworks/Python.framework/Versions/3.7/bin:$HOME/Library/Python/2.7/bin
 OPAMS=$HOME/.opam/default/bin
 XMAKE=$HOME/xmake-0.9.3-33/bin
-CLANGD=/usr/local/Cellar/llvm/11.0.0/bin
+CLANGD=/usr/local/opt/llvm/bin
 YARN=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
 NODE=/usr/local/opt/node@12/bin
 RUST=$HOME/.cargo/bin
 LUA=$HOME/.config/lua-5.4.2/src
+DOOM=$HOME/.emacs.d/bin
 
-PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$OPAMS:$XMAKE:$CLANGD:$YARN:$NODE:$RUST:$LUA
+PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$OPAMS:$XMAKE:$CLANGD:$YARN:$NODE:$RUST:$LUA:$DOOM
 export PATH
 
 export LDFLAGS="-L/usr/local/opt/llvm/lib"

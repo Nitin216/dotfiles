@@ -8,6 +8,7 @@ nnoremap Q <nop>
 
 inoremap jk <esc>
 inoremap <esc> <nop>
+inoremap <up> <nop>
 
 noremap Y y$
 

@@ -52,7 +52,7 @@ return require('packer').startup {
     use 'mbbill/undotree'
     -- use 'chriskempson/base16-vim'
     -- use 'junegunn/goyo.vim'
-    use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
+    use { 'iamcco/markdown-preview.nvim', run = 'cd app && npm install'  }
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/completion-nvim'
     use 'nvim-lua/lsp-status.nvim'
@@ -89,9 +89,12 @@ return require('packer').startup {
     use 'nvim-telescope/telescope-frecency.nvim'
     use 'nvim-telescope/telescope-cheat.nvim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
     use {
-      'hoob3rt/lualine.nvim',
+      'glepnir/galaxyline.nvim',
+      branch = 'main',
+      event = {'VimEnter'},
+      config = function() require 'nc.statusline' end,
+      -- some optional icons
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
     --[[
@@ -102,7 +105,6 @@ return require('packer').startup {
     -- Looks super cool thing
     -- ]]
     use { 'simrat39/symbols-outline.nvim' }
-    use { 'tamago324/lir.nvim' }
   end,
   config = {
     _display = {

@@ -11,6 +11,15 @@ set number
 
 set clipboard=unnamed
 
+set list                             " show whitespace
+set listchars=eol:↲                  " EOL shown
+set listchars+=nbsp:⦸                " CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+set listchars+=tab:▷┅                " WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7)
+" + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
+set listchars+=extends:»             " RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK iU+00BB, UTF-8: C2 BB)
+set listchars+=precedes:«            " LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+set listchars+=trail:•               " BULLET (U+2022, UTF-8: E2 80 A2)
+
 nmap <Space>o :xccmd openQuickly<CR>
 nmap <Space>r :run<CR>
 nnoremap <space>bp :xcmenucmd Build<CR>
@@ -18,14 +27,12 @@ nnoremap <space>cp :xcmenucmd Clean<CR>
 
 nnoremap <space>wb :xccmd runActiveRunContextWithoutBuilding<CR>
 
-nnoremap L :xccmd goForwardInHistoryByCommand<CR>
-nnoremap H :xccmd goBackInHistoryByCommand<CR>
+nnoremap <C-i> :xccmd goForwardInHistoryByCommand<CR>
+nnoremap <C-o> :xccmd goBackInHistoryByCommand<CR>
 
 map ,tl :xccmd toggleNavigatorsVisibility<CR>
 " Mapping opening new editor in adjacent
 nnoremap <space>t :xccmd openInAdjacentEditorWithAlternate<CR>
-
-map zz
 
 "nnoremap <space>q :xccmd removeAssistantEditor<CR>
 

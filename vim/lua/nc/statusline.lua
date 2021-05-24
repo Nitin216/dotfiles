@@ -1,297 +1,392 @@
------- Replicated wincent/.vim/lua/statusline.lua
---local pinnacle = require'wincent.pinnacle'
---local util = require'nc.util'
---local lsp_status = require('lsp-status')
---local statusline = {}
---local explorer = 'NvimTree'
+vim.cmd [[packadd nvim-web-devicons]]
+local gl = require('galaxyline')
+local utils = require('nc.util')
+local condition = require('galaxyline.condition')
+local diagnostic = require('galaxyline.provider_diagnostic')
 
---local async = false
---local async_lhs_color = 'Constant'
---local default_lhs_color = 'Identifier'
---local modified_lhs_color = 'ModeMsg'
---local status_highlight = default_lhs_color
+local gls = gl.section
+gl.short_line_list = {'packer', 'NvimTree', 'Outline', 'LspTrouble'}
 
---local update_statusline = function(default, action)
---  local result
---  local filetype = vim.bo.filetype
+local colors = {
+    bg = '#282c34',
+    fg = '#abb2bf',
+    section_bg = '#38393f',
+    blue = '#61afef',
+    green = '#98c379',
+    purple = '#c678dd',
+    orange = '#e5c07b',
+    red = '#e06c75',
+    yellow = '#e5c07b',
+    darkgrey = '#2c323d',
+    middlegrey = '#8791A5'
+}
 
---  if filetype == 'fzf' and filetype == explorer then
---    result = 0
---  elseif filetype == 'diff' then
---    if util.buf_get_var(0, 'isUndoTreeBuffer') == 1 then
---      -- Less Ugly, and nothing really useful to show
---      result = 'Undotree preview'
---    else
---      result = 1
---    end
---  elseif filetype == 'undotree' then
---    -- Don't override; undotree does its own thing
---    result = 0
---  elseif filetype == 'qf' then
---    if action == 'blur' then
---      result =
---      '%{luaeval("' .. "require'nc.statusline'.gutterpadding()" .. '")}'
---      .. ' '
---      .. ' '
---      .. ' '
---      .. ' '
---      .. '%<'
---      .. '%q'
---      .. ' '
---      .. '%{get(w:, "quickfix_title","")}'
---      .. '%='
---    else
---      result = util.get_var('NcQuickFixStatusline') or ''
---    end
---  else
---    result = 1
---  end
+-- Local helper functions
+local buffer_not_empty = function() return not utils.is_buffer_empty() end
 
---  if result == 0 then
---    -- Do nothing
---  elseif result == 1 then
---    vim.api.nvim_win_set_option(0, 'statusline', default)
---  else
---    -- Apply custom statusline
---    vim.api.nvim_win_set_option(0, 'statusline', result)
---  end
---end
+local checkwidth = function()
+    return utils.has_width_gt(35) and buffer_not_empty()
+end
 
---statusline.async_start = function()
---  async = true
---  statusline.check_modified()
---end
+local function has_value(tab, val)
+    for _, value in ipairs(tab) do if value[1] == val then return true end end
+    return false
+end
 
---statusline.async_finish = function()
---  async = true
---  statusline.check_modified()
---end
+local mode_color = function()
+    local mode_colors = {
+        [110] = colors.green,
+        [105] = colors.blue,
+        [99] = colors.green,
+        [116] = colors.blue,
+        [118] = colors.purple,
+        [22] = colors.purple,
+        [86] = colors.purple,
+        [82] = colors.red,
+        [115] = colors.red,
+        [83] = colors.red
+    }
 
---statusline.blur_statusline = function()
---  local blurred='%{luaeval("' .. "require'nc.statusline'.gutterpadding()" .. '")}'
---  blurred = blurred .. ' '
---  blurred = blurred .. ' '
---  blurred = blurred .. ' '
---  blurred = blurred .. ' '
---  blurred = blurred .. '%<' --truncation point
---  blurred = blurred .. '%f' --filename
---  blurred = blurred .. '%=' -- split left/right halves (makes background cover whole)
---  update_statusline(blurred, 'blur')
---end
+    local color = mode_colors[vim.fn.mode():byte()]
+    if color ~= nil then
+        return color
+    else
+        return colors.purple
+    end
+end
 
---statusline.check_modified = function()
---  local modified = vim.bo.modified
---  if modified and status_highlight ~= modified_lhs_color then
---    status_highlight = modified_lhs_color
---    statusline.update_highlight()
---  elseif not modified then
---    if async and status_highlight ~= async_lhs_color then
---      status_highlight = async_lhs_color
---      statusline.update_highlight()
---    elseif not async and status_highlight ~= default_lhs_color then
---      status_highlight = default_lhs_color
---      statusline.update_highlight()
---    end
---  end
---end
+local function file_readonly()
+    if vim.bo.filetype == 'help' then return '' end
+    if vim.bo.readonly == true then return '  ' end
+    return ''
+end
 
----- Returns the 'fileencoding', if it's nto UTF-8
---statusline.fileencoding = function()
---  local fileencoding = vim.bo.fileencoding
---  if #fileencoding > 0 and fileencoding ~= 'utf-8' then
---    return ',' .. fileencoding
---  else
---    return ''
---  end
---end
+local function get_current_file_name()
+    local file = vim.fn.expand('%:t')
+    if vim.fn.empty(file) == 1 then return '' end
+    if string.len(file_readonly()) ~= 0 then return file .. file_readonly() end
+    if vim.bo.modifiable then
+        if vim.bo.modified then return file .. '  ' end
+    end
+    return file .. ' '
+end
 
----- Returns relative path to current file's directory.
---statusline.fileprefix = function()
---  local basename = vim.fn.fnamemodify(vim.fn.expand('%:h'), ':p:~:.')
---  if basename == '' or basename == '.' then
---    return ''
---  else
---    return basename:gsub('/$', '') .. '/'
---  end
---end
+local function split(str, sep)
+    local res = {}
+    local n = 1
+    for w in str:gmatch('([^' .. sep .. ']*)') do
+        res[n] = res[n] or w -- only set once (so the blank after a string is ignored)
+        if w == '' then n = n + 1 end -- step forwards on a blank but not a string
+    end
+    return res
+end
 
----- Returns the 'filetype' (not using %Y format because don't want caps).
---statusline.filetype = function()
---  local filetype = vim.bo.filetype
---  if #filetype > 0 and filetype ~= explorer then
---    return ',' .. filetype
---  else
---    return ''
---  end
---end
+-- local function trailing_whitespace()
+--     local trail = vim.fn.search('\\s$', 'nw')
+--     if trail ~= 0 then
+--         return '  '
+--     else
+--         return nil
+--     end
+-- end
 
---statusline.focus_statusline = function()
---  -- `setlocal statusline=` will revert to the global 'statusline' setting.
---  update_statusline('', 'focus')
---end
+-- local function tab_indent()
+--     local tab = vim.fn.search('^\\t', 'nw')
+--     if tab ~= 0 then
+--         return ' → '
+--     else
+--         return nil
+--     end
+-- end
 
---statusline.gutterpadding = function()
---  local signcolumn = 0
---  local option = vim.wo.signcolumn
---  if option == 'yes' then
---    signcolumn = 2
---  elseif option == 'auto' then
---    local signs = vim.fn.sign_getplaced('')
---    if #signs[1].signs > 0 then
---      signcolumn = 2
---    end
---  end
+-- local function buffers_count()
+--     local buffers = {}
+--     for _, val in ipairs(vim.fn.range(1, vim.fn.bufnr('$'))) do
+--         if vim.fn.bufexists(val) == 1 and vim.fn.buflisted(val) == 1 then
+--             table.insert(buffers, val)
+--         end
+--     end
+--     return #buffers
+-- end
 
---  local minwidth = 2
---  local numberwidth = vim.wo.numberwidth
---  local row = vim.api.nvim_buf_line_count(0)
---  local gutterwidth = math.max(
---    (#tostring(row) + 1),
---    minwidth,
---    numberwidth
---    ) + signcolumn
---  local padding = (' '):rep(gutterwidth - 1) return padding
---end
+local function get_basename(file) return file:match('^.+/(.+)$') end
 
---statusline.lhs = function()
---  local padding = statusline.gutterpadding()
+local GetGitRoot = function()
+    local git_dir = require('galaxyline.provider_vcs').get_git_dir()
+    if not git_dir then return '' end
 
---  if vim.bo.modified then
---    return padding .. '✚ '
---  else
---    return padding .. '  '
---  end
---end
+    local git_root = git_dir:gsub('/.git/?$', '')
+    return get_basename(git_root)
+end
 
---statusline.lsp = function ()
---  if vim.lsp.buf_get_clients() ~= nil  then
---    return lsp_status.status()
---  end
---  return ''
---end
+local LspStatus = function()
+    if #vim.lsp.get_active_clients() > 0 then
+        return require'lsp-status'.status()
+    end
+    return ''
+end
 
---statusline.rhs = function()
---  local rhs = ' '
+local LspCheckDiagnostics = function()
+    if #vim.lsp.get_active_clients() > 0 and diagnostic.get_diagnostic_error() ==
+        nil and diagnostic.get_diagnostic_warn() == nil and
+        diagnostic.get_diagnostic_info() == nil and require'lsp-status'.status() ==
+        ' ' then return ' ' end
+    return ''
+end
 
---  if vim.fn.winwidth(0) > 80 then
---    local column = vim.fn.virtcol('.')
---    local width = vim.fn.virtcol('$')
---    local line = vim.api.nvim_win_get_cursor(0)[1]
---    local height = vim.api.nvim_buf_line_count(0)
+-- Left side
+gls.left[1] = {
+    ViMode = {
+        provider = function()
+            local aliases = {
+                [110] = 'NORMAL',
+                [105] = 'INSERT',
+                [99] = 'COMMAND',
+                [116] = 'TERMINAL',
+                [118] = 'VISUAL',
+                [22] = 'V-BLOCK',
+                [86] = 'V-LINE',
+                [82] = 'REPLACE',
+                [115] = 'SELECT',
+                [83] = 'S-LINE'
+            }
+            vim.api.nvim_command('hi GalaxyViMode guibg=' .. mode_color())
+            local alias = aliases[vim.fn.mode():byte()]
+            local mode
+            if alias ~= nil then
+                if utils.has_width_gt(35) then
+                    mode = alias
+                else
+                    mode = alias:sub(1, 1)
+                end
+            else
+                mode = vim.fn.mode():byte()
+            end
+            return '  ' .. mode .. ' '
+        end,
+        highlight = {colors.bg, colors.bg, 'bold'}
+    }
+}
+gls.left[2] = {
+    FileIcon = {
+        provider = {function() return '  ' end, 'FileIcon'},
+        condition = buffer_not_empty,
+        highlight = {
+            require('galaxyline.provider_fileinfo').get_file_icon,
+            colors.section_bg
+        }
+    }
+}
+gls.left[3] = {
+    FilePath = {
+        provider = function()
+            local fp = vim.fn.fnamemodify(vim.fn.expand '%', ':~:.:h')
+            local tbl = split(fp, '/')
 
---    -- Adding pading to stop RHS from changing too much as we move the cursor
---    local padding  = #tostring(height) - #tostring(line)
---    if padding > 0 then
---      rhs = rhs .. (' '):rep(padding)
---    end
+            if #tbl > 2 then
+                return '…/' .. table.concat(tbl, '/', #tbl - 1) .. '/' -- shorten filepath to last 2 folders
+                -- alternative: only 1 containing folder using vim builtin function
+                -- return '…/' .. vim.fn.fnamemodify(vim.fn.expand '%', ':p:h:t') .. '/'
+            else
+                return fp .. '/'
+            end
+        end,
+        condition = checkwidth,
+        highlight = {colors.middlegrey, colors.section_bg}
+    }
+}
+gls.left[4] = {
+    FileName = {
+        provider = get_current_file_name,
+        condition = buffer_not_empty,
+        highlight = {colors.fg, colors.section_bg},
+        separator = '',
+        separator_highlight = {colors.section_bg, colors.bg}
+    }
+}
+-- gls.left[4] = {
+--     WhiteSpace = {
+--         provider = trailing_whitespace,
+--         condition = buffer_not_empty,
+--         highlight = {colors.fg, colors.bg}
+--     }
+-- }
+-- gls.left[5] = {
+--     TabIndent = {
+--         provider = tab_indent,
+--         condition = buffer_not_empty,
+--         highlight = {colors.fg, colors.bg}
+--     }
+-- }
+gls.left[8] = {
+    DiagnosticsCheck = {
+        provider = {LspCheckDiagnostics},
+        highlight = {colors.middlegrey, colors.bg}
+    }
+}
+gls.left[9] = {
+    DiagnosticError = {
+        provider = {'DiagnosticError'},
+        icon = '  ',
+        highlight = {colors.red, colors.bg}
+        -- separator = ' ',
+        -- separator_highlight = {colors.bg, colors.bg}
+    }
+}
+-- gls.left[10] = {
+--     Space = {
+--         provider = function() return ' ' end,
+--         highlight = {colors.section_bg, colors.bg}
+--     }
+-- }
+gls.left[11] = {
+    DiagnosticWarn = {
+        provider = {'DiagnosticWarn'},
+        icon = '  ',
+        highlight = {colors.orange, colors.bg}
+        -- separator = ' ',
+        -- separator_highlight = {colors.bg, colors.bg}
+    }
+}
+-- gls.left[12] = {
+--     Space = {
+--         provider = function() return ' ' end,
+--         highlight = {colors.section_bg, colors.bg}
+--     }
+-- }
+gls.left[13] = {
+    DiagnosticInfo = {
+        provider = {'DiagnosticInfo'},
+        icon = '  ',
+        highlight = {colors.blue, colors.bg}
+        -- separator = ' ',
+        -- separator_highlight = {colors.section_bg, colors.bg}
+    }
+}
+gls.left[14] = {
+    LspStatus = {
+        provider = {LspStatus},
+        -- separator = ' ',
+        -- separator_highlight = {colors.bg, colors.bg},
+        highlight = {colors.middlegrey, colors.bg}
+    }
+}
 
---    rhs = rhs .. 'ℓ ' -- (Literal, \u2113 "SCRIPT SMALL L").
---    rhs = rhs .. line
---    rhs = rhs .. '/'
---    rhs = rhs .. height
---    rhs = rhs .. ' 𝚌 ' -- (Literal, \u1d68c "MATHEMATICAL MONOSPACE SMALL C").
---    rhs = rhs .. column
---    rhs = rhs .. '/'
---    rhs = rhs .. width
---    rhs = rhs .. ' '
+-- Right side
+-- gls.right[0] = {
+--     ShowLspClient = {
+--         provider = 'GetLspClient',
+--         condition = function()
+--             local tbl = {['dashboard'] = true, [''] = true}
+--             if tbl[vim.bo.filetype] then return false end
+--             return true
+--         end,
+--         icon = ' ',
+--         highlight = {colors.middlegrey, colors.bg},
+--         separator = ' ',
+--         separator_highlight = {colors.section_bg, colors.bg}
+--     }
+-- }
+gls.right[1] = {
+    DiffAdd = {
+        provider = 'DiffAdd',
+        condition = checkwidth,
+        icon = '+',
+        highlight = {colors.green, colors.bg},
+        separator = ' ',
+        separator_highlight = {colors.section_bg, colors.bg}
+    }
+}
+gls.right[2] = {
+    DiffModified = {
+        provider = 'DiffModified',
+        condition = checkwidth,
+        icon = '~',
+        highlight = {colors.orange, colors.bg}
+    }
+}
+gls.right[3] = {
+    DiffRemove = {
+        provider = 'DiffRemove',
+        condition = checkwidth,
+        icon = '-',
+        highlight = {colors.red, colors.bg}
+    }
+}
+gls.right[4] = {
+    Space = {
+        provider = function() return ' ' end,
+        highlight = {colors.section_bg, colors.bg}
+    }
+}
+gls.right[6] = {
+    GitBranch = {
+        provider = {function() return '  ' end, 'GitBranch'},
+        condition = condition.check_git_workspace,
+        highlight = {colors.middlegrey, colors.bg}
+    }
+}
+gls.right[7] = {
+    GitRoot = {
+        provider = {GetGitRoot},
+        condition = function()
+            return utils.has_width_gt(50) and condition.check_git_workspace
+        end,
+        -- icon = '  ',
+        highlight = {colors.fg, colors.bg},
+        separator = ' ',
+        separator_highlight = {colors.middlegrey, colors.bg}
+        -- separator = ' ',
+        -- separator_highlight = {colors.section_bg, colors.bg}
+    }
+}
+gls.right[8] = {
+    PerCent = {
+        provider = 'LinePercent',
+        separator = ' ',
+        separator_highlight = {colors.blue, colors.bg},
+        highlight = {colors.darkgrey, colors.blue}
+    }
+}
+-- gls.right[9] = {
+--     ScrollBar = {
+--         provider = 'ScrollBar',
+--         highlight = {colors.purple, colors.section_bg}
+--     }
+-- }
 
---    -- Add padding to stop rhs from changing too much as we move the cursor.
---    if #tostring(column) < 2 then
---      rhs = rhs .. '  '
---    end
---    if #tostring(width) < 2 then
---      rhs = rhs
---    end
---  end
+-- Short status line
+gls.short_line_left[1] = {
+    FileIcon = {
+        provider = {function() return '  ' end, 'FileIcon'},
+        condition = function()
+            return buffer_not_empty and
+                       has_value(gl.short_line_list, vim.bo.filetype)
+        end,
+        highlight = {
+            require('galaxyline.provider_fileinfo').get_file_icon,
+            colors.section_bg
+        }
+    }
+}
+gls.short_line_left[2] = {
+    FileName = {
+        provider = get_current_file_name,
+        condition = buffer_not_empty,
+        highlight = {colors.fg, colors.section_bg},
+        separator = '',
+        separator_highlight = {colors.section_bg, colors.bg}
+    }
+}
 
---  return rhs
---end
+gls.short_line_right[1] = {
+    BufferIcon = {
+        provider = 'BufferIcon',
+        highlight = {colors.yellow, colors.section_bg},
+        separator = '',
+        separator_highlight = {colors.section_bg, colors.bg}
+    }
+}
 
-
---statusline.set = function()
---  -- For comparison, the default statusline is:
---  --
---  --    %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
---  --
---  vim.api.nvim_set_option('statusline', ''
---    .. '%7*'                                                          -- Switch to User7 highlight group
---    .. '%{luaeval("require\'nc.statusline\'.lhs()")}'                 -- Red/green/orange modified/activity status.
---    .. '%*'                                                           -- Reset highlight group.
---    .. '%4*'                                                          -- Switch to User4 highlight group (Powerline arrow).
---    .. ''                                                            -- Powerline arrow.
---    .. '%*'                                                           -- Reset highlight group.
---    .. ' '                                                            -- Space.
---    .. '%<'                                                           -- Truncation point, if not enough width available.
---    .. '%{luaeval("require\'nc.statusline\'.fileprefix()")}'     -- Relative path to file's directory.
---    .. '%3*'                                                          -- Switch to User3 highlight group (bold).
---    .. '%t'                                                           -- Filename.
---    .. '%*'                                                           -- Reset highlight group.
---    .. ' '                                                            -- Space.
---    .. '%1*'                                                          -- Switch to User1 highlight group (italics).
---    .. '%('                                                           -- Start item group.
---    .. '['                                                            -- Left bracket (literal).
---    .. '%R'                                                           -- Read-only flag: ,RO or nothing.
---    .. '%{luaeval("require\'nc.statusline\'.filetype()")}'            -- Filetype (not using %Y because I don't want caps).
---    .. '%{luaeval("require\'nc.statusline\'.fileencoding()")}'        -- File-encoding if not UTF-8.
---    .. ']'                                                            -- Right bracket (literal).
---    .. '%)'                                                           -- End item group.
---    .. '%*'                                                           -- Reset highlight group.
---    .. '%='
---    .. '%3*'                                                          -- Switching to User3 highlight group (bold)
---    .. '%{luaeval("require\'nc.statusline\'.lsp()")}'
---    .. '%*'                                                           -- Reset highlight group.
---    .. '%='                                                           -- Split point for left and right groups.
---    .. ' '                                                            -- Space.
---    .. ''                                                            -- Powerline arrow.
---    .. '%5*'                                                          -- Switch to User5 highlight group.
---    .. '%{luaeval("require\'nc.statusline\'.rhs()")}'                  -- Line/column info.
---    .. '%*'                                                           -- Reset highlight group.
---    )
---end
-
---statusline.update_highlight = function()
---  -- Update StatusLine to use italics (used for filetype).
---  local highlight = pinnacle.italicize('StatusLine')
---  vim.cmd('highlight User1 ' .. highlight)
-
---  -- Update MatchParen to use italics (used for blurred statuslines).
---  highlight = pinnacle.italicize('MatchParen')
---  vim.cmd('highlight User2 ' .. highlight)
-
---  -- StatusLine + bold (used for file names).
---  highlight = pinnacle.embolden('StatusLine')
---  vim.cmd('highlight User3 ' .. highlight)
-
---  -- Inverted Error styling, for left-hand side "Powerline" triangle.
---  local fg = pinnacle.extract_fg(status_highlight)
---  local bg = pinnacle.extract_bg('StatusLine')
---  vim.cmd('highlight User4 ' .. pinnacle.highlight({bg = bg, fg = fg}))
-
---  -- And opposite for the buffer number area.
---  vim.cmd('highlight User7 ' .. pinnacle.highlight({
---        bg = fg,
---        fg = pinnacle.extract_fg('Normal'),
---        term = 'bold'
---    }))
-
---  -- Right-hand side section.
---  bg = pinnacle.extract_fg('Cursor')
---  fg = pinnacle.extract_fg('User3')
---  vim.cmd('highlight User5 ' .. pinnacle.highlight({
---        bg = fg,
---        fg = bg,
---        term = 'bold'
---    }))
-
---  -- Right-hand side section + italic (used for %).
---  vim.cmd('highlight User6 ' .. pinnacle.highlight({
---        bg = fg,
---        fg = bg,
---        term = 'bold,italic'
---    }))
-
---  vim.cmd('highlight clear StatusLineNC')
---  vim.cmd('highlight! link StatusLineNC User1')
---end
-
---return statusline
+-- Force manual load so that nvim boots with a status line
+gl.load_galaxyline()

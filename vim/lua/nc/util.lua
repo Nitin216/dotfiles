@@ -31,4 +31,14 @@ util.win_get_var = function(handle, name)
   return result
 end
 
+ util.is_buffer_empty = function ()
+    -- Check whether the current buffer is empty
+    return vim.fn.empty(vim.fn.expand('%:t')) == 1
+  end
+
+util.has_width_gt = function(cols)
+    -- Check if the windows width is greater than a given number of columns
+    return vim.fn.winwidth(0) / 2 > cols
+end
+
 return util

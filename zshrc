@@ -89,16 +89,16 @@ colors
 
 autoload -U add-zsh-hook
 
-function auto-ls-after-cd() {
-	emulate -L zsh
-	# Only in response to a user initiated `cd`, not indirectly (eg. via another
-	# function).
-	if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-		ls -a
-	fi
-}
+# function auto-ls-after-cd() {
+# 	emulate -L zsh
+# 	# Only in response to a user initiated `cd`, not indirectly (eg. via another
+# 	# function).
+# 	if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
+# 		ls -a
+# 	fi
+# }
 
-add-zsh-hook chpwd auto-ls-after-cd
+# add-zsh-hook chpwd auto-ls-after-cd
 
 CDPATH=.:~:~/git:~/OneDrive\ -\ SAP\ SE/:~/Desktop/Personal\ Work:~/personal_git
 
@@ -135,9 +135,12 @@ unset __conda_setup
 
 
 # Function to compile cpp files
-function gcpp() {
+function clcomp() {
   output_file=$(echo $1 | cut -d'.' -f 1)
-  if g++ -std=c++17 -Wshadow -Wall -o "$output_file" "$1" -O2 -Wno-unused-result; then
+  if clang++ -std=c++17 -Wshadow -Wall -o "$output_file" "$1" -O2 -Wno-unused-result; then
     ./$output_file
   fi
 }
+
+## Launching neofetch
+pfetch

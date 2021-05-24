@@ -91,6 +91,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/completion-nvim"
   },
+  ["galaxyline.nvim"] = {
+    config = { "\27LJ\2\n-\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\18nc.statusline\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/opt/galaxyline.nvim"
+  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
@@ -114,10 +120,6 @@ _G.packer_plugins = {
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
-  },
-  ["lualine.nvim"] = {
-    loaded = true,
-    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
   ["markdown-preview.nvim"] = {
     loaded = true,
@@ -250,6 +252,13 @@ _G.packer_plugins = {
 }
 
 time("Defining packer_plugins", false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time("Defining lazy-load event autocommands", true)
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'galaxyline.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+time("Defining lazy-load event autocommands", false)
+vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
 END

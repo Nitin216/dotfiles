@@ -20,9 +20,11 @@ nnoremap <silent><leader>u :UndotreeToggle<CR> :UndotreeFocus<CR>
 
 " Mapping tab navigation
 nnoremap <silent><c-t> :tabnew<CR>
-nnoremap <silent><leader>tn :tabnext<CR>
-nnoremap <silent><leader>tp :tabprev<CR>
+nnoremap <silent><leader>l :tabnext<CR>
+nnoremap <silent><leader>h :tabprev<CR>
 
 nnoremap <M-CR> :let v:hlsearch=!v:hlsearch<CR>
 " Mapping Symbols outline
 nnoremap <silent><leader>o :SymbolsOutline<CR>
+" Mapping Terminal  
+nnoremap <silent><leader><leader>t :terminal<CR>

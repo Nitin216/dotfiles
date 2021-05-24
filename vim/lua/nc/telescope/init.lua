@@ -85,7 +85,7 @@ require('telescope').setup {
     frecency = {
       workspaces = {
         ["conf"] = "~/dotfiles",
-        ["orca"] = "~/git/orca_cloud",
+        ["orca"] = "~/git/orca_cloud/fpa-bi/watchlist",
         ["ios"] = "~/git/SAP-Analytics-Cloud-iOS"
       }
     }
@@ -117,6 +117,8 @@ function M.git_files()
     border = true,
     previewer = false,
     shorten_path = true,
+    results_height = 20,
+    width = 90
   }
   require('telescope.builtin').git_files(opts)
 end
@@ -128,6 +130,17 @@ function M.dotfiles()
     border = true,
     cwd = "~/dotfiles"
   }
+end
+
+function M.watchlist_files()
+  require('telescope.builtin').find_files ( themes.get_ivy {
+    prompt_title = "Watchlist",
+    winblend = 5,
+    shorten_path = false,
+    border = true,
+    cwd = "~/git/orca_cloud/fpa-bi/watchlist"
+  }
+)
 end
 
 function M.buffer_git_files()
@@ -150,11 +163,13 @@ function M.git_branches()
 end
 
 function M.lsp_code_actions()
-  require('telescope.builtin').lsp_code_actions {
+  require('telescope.builtin').lsp_code_actions(themes.get_dropdown {
     previewer = false,
-    winblend = 5, 
+    winblend = 5,
+    width = 90,
+    result_height = 30,
     border = true
-  }
+  })
 
 end
 
@@ -165,18 +180,16 @@ function M.search_all_files()
 end
 
 function M.project_search()
-  require('telescope.builtin').find_files {
-    previewer = false,
-    shorten_path = true,
-    layout_strategy = "horizontal",
+  require('telescope.builtin').find_files ( themes.get_ivy {
+    winblend = 10,
     cwd = require('lspconfig.util').root_pattern(".git")(vim.fn.expand("%:p")),
-  }
+  })
 end
 
 function M.project_search_hidden()
   require('telescope.builtin').find_files {
     hidden = true,
-    previewer = false,
+    shorten_path = true,
     layout_strategy = "horizontal",
     cwd = require('lspconfig.util').root_pattern(".git")(vim.fn.expand("%:p")),
   }
@@ -184,7 +197,13 @@ end
 
 
 function M.fd()
-  require('telescope.builtin').fd()
+  require('telescope.builtin').fd( themes.get_ivy {
+    winblend = 5,
+    results_height = 100,
+    layout_config = {
+      height = 20,
+    },
+  })
 end
 
 function M.builtin()
@@ -200,10 +219,11 @@ function M.live_grep()
 end
 
 function M.grep_prompt()
-  require('telescope.builtin').grep_string {
+  require('telescope.builtin').grep_string ( themes.get_ivy {
+    use_regex = true,
     shorten_path = true,
-    search = vim.fn.input("Grep String > "),
-  }
+    -- search = vim.fn.input("Grep String > "),
+  })
 end
 
 function M.help_tags()
@@ -220,18 +240,22 @@ function M.buffers()
 end
 
 function M.file_browser()
-  require('telescope.builtin').file_browser {
+  require('telescope.builtin').file_browser ( themes.get_dropdown {
     winblend = 8,
     previewer = false,
-  }
+    results_height = 30,
+    width = 90
+  })
 end
 
 function M.file_curr_browser()
   require('telescope.builtin').file_browser (
   themes.get_dropdown {
     cwd = vim.fn.expand("%:p:h"),
-    winblend = 10,
+    winblend = 8,
     previewer = false,
+    results_height = 30,
+    width = 90
   })
 
 end
