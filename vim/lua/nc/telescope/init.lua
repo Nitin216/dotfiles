@@ -61,7 +61,7 @@ require('telescope').setup {
 
     borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
 
-   -- file_sorter = sorters.native_fzf_sorter,
+    file_sorter = sorters.native_fzf_sorter,
     file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
@@ -78,8 +78,9 @@ require('telescope').setup {
     --   minimum_file_characters = 2,
     -- },
     fzf = {
-      override_generic_sorter = false,
-      override_file_sorter = true,
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = false,
       case_mode = "smart_case",
     },
     frecency = {
