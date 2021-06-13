@@ -185,6 +185,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/tabline.vim"
   },
+  tabular = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/tabular"
+  },
   ["telescope-cheat.nvim"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/telescope-cheat.nvim"
@@ -236,6 +240,10 @@ _G.packer_plugins = {
   ["vim-searchindex"] = {
     loaded = true,
     path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-searchindex"
+  },
+  ["vim-slime"] = {
+    loaded = true,
+    path = "/Users/i339130/.local/share/nvim/site/pack/packer/start/vim-slime"
   },
   ["vim-startify"] = {
     loaded = true,

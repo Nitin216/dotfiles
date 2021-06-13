@@ -161,7 +161,7 @@ set guifont=JetBrainsMono\ Nerd\ Font\ Mono
 "elseif has('shada') " i.e Shada
 "  let s:viminfo='shada'
 "endif
-
+let g:slime_target = "neovim"
 
 "if exists('s:viminfo')
 "  if exists('$SUDO_USER')

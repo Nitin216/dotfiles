@@ -223,7 +223,7 @@ function M.grep_prompt()
   require('telescope.builtin').grep_string ( themes.get_ivy {
     use_regex = true,
     shorten_path = true,
-    -- search = vim.fn.input("Grep String > "),
+    search = vim.fn.input("Grep String > "),
   })
 end
 
@@ -234,10 +234,9 @@ function M.help_tags()
 end
 
 function M.buffers()
-  require('telescope.builtin').buffers {
+  require('telescope.builtin').buffers ( themes.get_ivy {
     shorten_path = true,
-    -- only_cwd = true
-  }
+  })
 end
 
 function M.file_browser()

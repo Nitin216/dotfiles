@@ -70,6 +70,7 @@ return require('packer').startup {
     }
     use 'kyazdani42/nvim-web-devicons'
     use 'hrsh7th/nvim-compe'
+    use 'godlygeek/tabular'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'nvim-treesitter/playground'
     use 'romainl/vim-qf'
@@ -105,6 +106,8 @@ return require('packer').startup {
     -- Looks super cool thing
     -- ]]
     use { 'simrat39/symbols-outline.nvim' }
+    use { 'tamago324/lir.nvim' }
+    use { 'jpalardy/vim-slime' }
   end,
   config = {
     _display = {

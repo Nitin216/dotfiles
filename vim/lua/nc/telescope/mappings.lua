@@ -31,7 +31,9 @@ local map_tele = function(key, f, options, buffer)
 end
 
 vim.api.nvim_set_keymap('c', '<c-r><c-r>', '<Plug>(TelescopeFuzzyCommandSearch)', { noremap = false, nowait = true })
+
 map_tele('<space>ed', 'dotfiles')
+
 -- Search
 map_tele('<space>gw', 'grep_string', {
   short_path = true,
@@ -39,10 +41,6 @@ map_tele('<space>gw', 'grep_string', {
   only_sort_text = true,
   layout_strategy = 'vertical',
   sorter = sorters.get_fzy_sorter(),
-})
-
-map_tele('<space>f/', 'grep_last_search', {
-  layout_strategy = 'vertical',
 })
 
 -- Files

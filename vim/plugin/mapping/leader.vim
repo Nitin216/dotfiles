@@ -5,8 +5,10 @@ nnoremap <silent><leader>w :write<CR>
 nnoremap <silent><leader>Y gg"+yG
 nnoremap <silent><leader>y "+y
 vnoremap <silent><leader>y "+y
+nnoremap <silent><leader>v v$
 
-vnoremap <leader>p "_dP
+xnoremap p "_dP
+
 " Mapping of buffer movement
 " nnoremap <silent><leader>l :bnext<CR>
 " nnoremap <silent><leader>h :bprevious<CR
