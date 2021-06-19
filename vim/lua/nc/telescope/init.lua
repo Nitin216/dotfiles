@@ -55,6 +55,7 @@ require('telescope').setup {
         ["<tab>"] = actions.toggle_selection,
 
         ["<C-q>"] = actions.send_to_qflist,
+        ["<C-l>"] = actions.delete_buffer,
         -- ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
     },
@@ -225,6 +226,10 @@ function M.grep_prompt()
     shorten_path = true,
     search = vim.fn.input("Grep String > "),
   })
+end
+
+function M.git_stash()
+  require('telescope.builtin').git_stash()
 end
 
 function M.help_tags()

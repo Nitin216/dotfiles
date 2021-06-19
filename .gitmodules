@@ -1,6 +1,0 @@
-[submodule "oh-my-zsh"]
-	path = oh-my-zsh
-	url = https://github.com/ohmyzsh/ohmyzsh
-[submodule "tmux/tmux/tmux-network-bandwidth"]
-	path = tmux/tmux/tmux-network-bandwidth
-	url = https://github.com/xamut/tmux-network-bandwidth

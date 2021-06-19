@@ -71,8 +71,11 @@ return require('packer').startup {
     use 'kyazdani42/nvim-web-devicons'
     use 'hrsh7th/nvim-compe'
     use 'godlygeek/tabular'
+    -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'nvim-treesitter/playground'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+
     use 'romainl/vim-qf'
 
     use 'norcalli/nvim-terminal.lua'
