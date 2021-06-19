@@ -55,7 +55,11 @@ bindkey "^j" down-line-or-beginning-search # Down
 [ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
 # export FZF_DEFAULT_OPTS='--height 40%'
 if [[ $s(command -v rg) ]]; then
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --follow --glob'
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --follow --glob --color=always'
+  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --color=dark
+  --color=fg:-1,bg:-1,hl:#c678dd,fg+:-1,bg+:-1,hl+:#d858fe
+  --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef'
 fi
 
 typeset -U path cdpath fpath
