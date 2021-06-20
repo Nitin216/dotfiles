@@ -3,3 +3,4 @@ vim/tmp/*
 zsh/private/*
 zsh/plugins/*
 zsh/prompt/*
+zsh/.*

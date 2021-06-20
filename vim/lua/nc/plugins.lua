@@ -78,7 +78,7 @@ return require('packer').startup {
 
     use 'romainl/vim-qf'
 
-    use 'norcalli/nvim-terminal.lua'
+    -- use 'norcalli/nvim-terminal.lua'
     --[[
     Colorscheme
     --]]

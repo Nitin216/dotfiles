@@ -11,7 +11,6 @@ zstyle ':completion:*' menu select
 autoload -Uz compinit
 compinit
 zmodload zsh/complist
-
 # compinit
 _comp_options+=(globdots) # Include hidden files too
 
@@ -28,16 +27,22 @@ autoload -Uz promptinit; promptinit
 prompt pure
 
 source $HOME/.zsh/functions.zsh
-source $HOME/.zsh/path.zsh
-source $HOME/.zsh/private/hana_config.zsh
-source $HOME/.zsh/custom-aliases.zsh
 
 # Add prompt
 zsh_add_prompt sindresorhus/pure 
 
+# Add file
+zsh_add_file autoload.zsh
+zsh_add_file private/hana_config.zsh
+zsh_add_file path.zsh
+zsh_add_file custom-aliases.zsh
+zsh_add_file vim-mode.zsh
+
 # Plugins
 zsh_add_plugin zsh-users/zsh-syntax-highlighting
 zsh_add_plugin zsh-users/zsh-autosuggestions
+zsh_add_plugin agkozak/zsh-z
+
 
 # Setting up multiple git 
 eval $(ssh-agent -s) > /dev/null 2>/dev/null
@@ -66,4 +71,3 @@ typeset -U path cdpath fpath
 cdpath=($HOME $HOME/git $HOME/OneDrive\ -\ SAP\ SE/ $HOME/Desktop/Personal\ Work $HOME/personal_git)
 
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
-
