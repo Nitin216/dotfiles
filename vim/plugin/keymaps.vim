@@ -1,24 +1,15 @@
-function! s:executor() abort
-  if &ft == 'lua'
-    call execute(printf(":lua %s", getline(".")))
-  elseif &ft == 'vim'
-    exe getline(">")
-  endif
-endfunction
+nnoremap <leader>x :call nc#executor()<CR>
+nnoremap <leader><leader>x :call nc#save_and_exec()<CR>
 
-nnoremap <leader>x :call <SID>executor()<CR>
+nnoremap j <cmd>call nc#jump_direction('j')<CR>
+nnoremap k <cmd>call nc#jump_direction('k')<CR>
 
-function! s:save_and_exec() abort
-  if &filetype == 'vim'
-    :silent! write
-    :source %
-  elseif &filetype == 'lua'
-    :silent! write
-    :luafile %
-  endif
-endfunction
 
-nnoremap <leader><leader>x :call <SID>save_and_exec()<CR>
+nnoremap <silent> gj :let _=&lazyredraw<CR>:set lazyredraw<CR>/\%<C-R>=virtcol(".")<CR>v\S<CR>:nohl<CR>:let &lazyredraw=_<CR>
+nnoremap <silent> gk :let _=&lazyredraw<CR>:set lazyredraw<CR>?\%<C-R>=virtcol(".")<CR>v\S<CR>:nohl<CR>:let &lazyredraw=_<CR>
+
+" Run the last command
+nnoremap <leader><leader>c :<up>
 
 " Making windows to be basically same size
 nnoremap <leader>= <C-w>=

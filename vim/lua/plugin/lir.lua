@@ -28,7 +28,10 @@ lir.setup {
     ['N']     = actions.newfile,
     ['R']     = actions.rename,
     ['Y']     = actions.yank_path,
-    ['D']     = actions.delete
+    ['D']     = actions.delete,
+    ['<C-s>'] = actions.split,
+    ['<C-v>'] = actions.vsplit,
+    ['<C-t>'] = actions.tabedit
   },
 }
 

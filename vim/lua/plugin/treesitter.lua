@@ -17,8 +17,15 @@ require('nvim-treesitter.configs').setup {
     highlight_definitions = { enable = true },
     highlight_current_scope = { enable = false },
   },
-  -- incremental_selection = 
-  --   enable = enabled,
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<space>nn",
+      node_incremental = "<space>nn",
+      scope_incremental = "<space>grc",
+      node_decremental = "<space>grm",
+    },
+  },
   textobjects = {
     move = {
       enable = true,

@@ -10,6 +10,7 @@ alias gsl="git stash list"
 alias gs="git status"
 alias gd="git diff"
 alias glog="git log --oneline --color"
+alias gr="git restore ."
 
 # common ones
 alias e=exit
@@ -29,3 +30,4 @@ alias ls="exa --icons"
 alias mv="mv -i"
 alias cp="cp -i"
 alias rm='rm -i'
+

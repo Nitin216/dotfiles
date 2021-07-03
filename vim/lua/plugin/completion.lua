@@ -52,7 +52,6 @@ if has_compe then
       path = true;
       buffer = true;
       calc = true;
-      vsnip = true;
       nvim_lsp = true;
       nvim_lua = true;
       spell = true;
@@ -61,5 +60,9 @@ if has_compe then
       treesitter = true
     };
   }
+
+  vim.api.nvim_set_keymap("i", "<c-y>", 'compe#confirm("<c-y>")', { silent = true, noremap = true, expr = true })
+  vim.api.nvim_set_keymap("i", "<c-e>", 'compe#close("<c-e>")', { silent = true, noremap = true, expr = true })
+  vim.api.nvim_set_keymap("i", "<c-space>", "compe#complete()", { silent = true, noremap = true, expr = true })
 end
 

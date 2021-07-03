@@ -6,15 +6,6 @@ if has('autocmd')
       autocmd!
 
       autocmd VimResized * execute "normal! \<c-w>="
-
-        autocmd InsertEnter * lua require'nc.autocmds'.insert_enter()
-        autocmd InsertLeave * lua require'nc.autocmds'.insert_leave()
-        autocmd VimEnter * lua require'nc.autocmds'.vim_enter()
-        autocmd GUIEnter * lua require'nc.autocmds'.win_new()
-        autocmd WinEnter * lua require'nc.autocmds'.vim_enter()
-        autocmd WinLeave * lua require'nc.autocmds'.win_leave()
-        autocmd BufEnter *.{hs,js,jsx,ts,tsx} :syntax sync fromstart
-
       if exists('##TextYankPost')
         autocmd TextYankPost * silent! lua return require'vim.highlight'.on_yank{'Substitute', 150, true}
       endif
