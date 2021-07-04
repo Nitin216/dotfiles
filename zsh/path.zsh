@@ -23,9 +23,8 @@ YARN=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
 NODE=/usr/local/opt/node@12/bin
 RUST=$HOME/.cargo/bin
 LUA=$HOME/.config/lua-5.4.2/src
-DOOM=$HOME/.emacs.d/bin
 
-PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$OPAMS:$XMAKE:$CLANGD:$YARN:$NODE:$RUST:$LUA:$DOOM
+PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$OPAMS:$XMAKE:$CLANGD:$YARN:$NODE:$RUST:$LUA
 export PATH
 
 export LDFLAGS="-L/usr/local/opt/llvm/lib"

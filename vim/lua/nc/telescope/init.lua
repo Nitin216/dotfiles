@@ -24,10 +24,9 @@ require('telescope').setup {
     selection_caret = '❯ ',
 
     winblend = 0,
-    preview_cutoff = 120,
 
     layout_strategy = 'horizontal',
-    layout_defaults = {
+    layout_config = {
       horizontal = {
         width_padding = 0.1,
         height_padding = 0.1,
@@ -37,13 +36,14 @@ require('telescope').setup {
         width_padding = 0.05,
         height_padding = 1,
         preview_height = 0.5,
-      }
+      },
+      prompt_position = "top",
+      preview_cutoff = 120,
     },
 
     selection_strategy = "reset",
     sorting_strategy = "descending",
     scroll_strategy = "cycle",
-    prompt_position = "top",
     color_devicons = true,
 
     mappings = {
