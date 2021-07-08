@@ -38,8 +38,10 @@ nnoremap <silent><C-y> :cprev<CR>
 " nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'
 
 " Mapping split width increase and decrease
-" nnoremap ,+ :vertical resize +5<CR>
-" nnoremap ,- :vertical resize -5<CR>
+nnoremap <silent>“ :vertical resize +1<CR>
+nnoremap <silent>‘ :vertical resize -1<CR>
+nnoremap <silent>¥ :resize +1<CR>
+nnoremap <silent>∫ :resize -1<CR>
 
 " Copied from tj to remove all the hlsearch
 nnoremap <expr> <CR> {-> v:hlsearch ? ":nohl\<CR>" : "\<CR>"}()

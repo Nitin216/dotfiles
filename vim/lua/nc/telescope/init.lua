@@ -167,10 +167,12 @@ end
 function M.lsp_code_actions()
   require('telescope.builtin').lsp_code_actions(themes.get_dropdown {
     previewer = false,
-    winblend = 5,
-    width = 90,
+    winblend = 10,
     result_height = 30,
-    border = true
+    border = true,
+    layout_config = {
+      width = 90,
+    },
   })
 
 end

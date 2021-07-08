@@ -52,7 +52,7 @@ map_tele('<space>pp', 'project_search')
 map_tele('<space>fd', 'fd')
 map_tele('<space>fe', 'file_browser')
 map_tele('<space>cb', 'file_curr_browser')
-map_tele('<space>ba', 'lsp_range_code_actions')
+map_tele('<space>ca', 'lsp_code_actions')
 map_tele('<space>pw', 'watchlist_files')
 map_tele('<space>gt', 'git_stash')
 -- Nvim

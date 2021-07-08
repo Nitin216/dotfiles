@@ -2,6 +2,8 @@
 SYSTEM_PASS=$PATH
 unset PATH
 
+export ANDROID_HOME=$HOME/Library/Android/sdk
+
 PATH=$HOME/bin
 PATH=$PATH:/usr/local/bin
 PATH=$PATH:/bin
@@ -19,12 +21,14 @@ PYTHONS=/Library/Frameworks/Python.framework/Versions/3.7/bin:$HOME/Library/Pyth
 OPAMS=$HOME/.opam/default/bin
 XMAKE=$HOME/xmake-0.9.3-33/bin
 CLANGD=/usr/local/opt/llvm/bin
-YARN=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
 NODE=/usr/local/opt/node@12/bin
 RUST=$HOME/.cargo/bin
 LUA=$HOME/.config/lua-5.4.2/src
+FLUTTER=$HOME/Desktop/Personal\ Work/Flutter/flutter/bin
 
-PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$OPAMS:$XMAKE:$CLANGD:$YARN:$NODE:$RUST:$LUA
+
+PATH=$PATH:$MYSCRIPTS:$CHARLES:$HANA_SETUP:$P4MERGE:$DATASCIENCE:$PYTHONS:$OPAMS:$XMAKE:$CLANGD:$NODE:$RUST:$LUA:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$FLUTTER
+
 export PATH
 
 export LDFLAGS="-L/usr/local/opt/llvm/lib"

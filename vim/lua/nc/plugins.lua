@@ -111,6 +111,13 @@ return require('packer').startup {
     use { 'simrat39/symbols-outline.nvim' }
     use { 'tamago324/lir.nvim' }
     use { 'jpalardy/vim-slime' }
+    -- [[
+    -- Flutter things
+    -- ]]
+    use 'dart-lang/dart-vim-plugin'
+    use 'thosakwe/vim-flutter'
+    -- use 'natebosch/vim-lsc'
+    -- use 'natebosch/vim-lsc-dart'
   end,
   config = {
     _display = {

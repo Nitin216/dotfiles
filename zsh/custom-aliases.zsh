@@ -24,7 +24,11 @@ alias nps="npm run start"
 alias npc="npm run clean"
 
 # using exa instead of ls
-alias ls="exa --icons"
+alias l="exa --icons"
+alias ll="exa -al"
+
+# tree
+alias tree="tree -A -C"
 
 # confirm before doing something
 alias mv="mv -i"

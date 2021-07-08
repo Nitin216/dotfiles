@@ -150,6 +150,16 @@ end
     capabilities = updated_capabilities,
   })
 
+  lspconfig.dartls.setup({
+    on_attach = custom_attach,
+    capabilities = updated_capabilities
+  })
+
+  lspconfig.html.setup({
+    on_attach = custom_attach,
+    capabilities = updated_capabilities
+  })
+
   -- Diagnostic LSP
   local eslint = require('nc.diagnosticls.linters.eslint')
   local tslint = require('nc.diagnosticls.linters.tslint')
