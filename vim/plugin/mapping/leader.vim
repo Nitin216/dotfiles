@@ -29,4 +29,5 @@ nnoremap <M-CR> :let v:hlsearch=!v:hlsearch<CR>
 " Mapping Symbols outline
 nnoremap <silent><leader>o :SymbolsOutline<CR>
 " Mapping Terminal  
-nnoremap <silent><leader><leader>t :terminal<CR>
+nnoremap <silent><leader><leader>t :15sp term://zsh<CR>
+nnoremap <silent><leader><leader>yt :20vsp term://zsh<CR>

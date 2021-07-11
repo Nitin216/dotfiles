@@ -32,22 +32,23 @@ local custom_attach = function(client)
 
   nvim_status.on_attach(client)
 
-  nnoremap { "<space>nd", vim.lsp.diagnostic.goto_next, buffer = 0 }
-  nnoremap { "<space>pd", vim.lsp.diagnostic.goto_prev, buffer = 0 }
+  nnoremap { "<space>dn", vim.lsp.diagnostic.goto_next, buffer = 0 }
+  nnoremap { "<space>dp", vim.lsp.diagnostic.goto_prev, buffer = 0 }
   nnoremap { "<space>sl", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
 
   nnoremap { "<space>gi", vim.lsp.buf.implementation, buffer = 0}
   nnoremap { "<c-]>", vim.lsp.buf.definition, buffer = 0 }
   nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
-  nnoremap { "gr", vim.lsp.buf.references, buffer = 0 }
   nnoremap { "<space>ff", vim.lsp.buf.formatting, buffer = 0 }
 
   mapper('n', '<space>cr', 'MyLspRename()')
 
   telescope_mapper('gr', 'lsp_references', {
     layout_strategy = "vertical",
+    layout_config = {
+      prompt_position = "top",
+    },
     sorting_strategy = "ascending",
-    prompt_position = "top",
     ignore_filename = true,
   }, true)
 

@@ -14,9 +14,20 @@ end
 
 reloader()
 
-local actions = require('telescope.actions')
-local sorters = require('telescope.sorters')
-local themes = require('telescope.themes')
+local actions = require"telescope.actions"
+local action_state = require "telescope.actions.state"
+local sorters = require"telescope.sorters"
+local themes = require"telescope.themes"
+
+local set_prompt_to_entry_value = function(prompt_bufnr)
+  local entry = action_state.get_selected_entry()
+  if not entry or not type(entry) == "table" then
+    return
+  end
+  action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
+end
+
+local _ = pcall(require, "nvim-nonicons")
 
 require('telescope').setup {
   defaults = {
@@ -27,18 +38,28 @@ require('telescope').setup {
 
     layout_strategy = 'horizontal',
     layout_config = {
+      width = 0.95,
+      height = 0.85,
+      prompt_position = "top",
       horizontal = {
-        width_padding = 0.1,
-        height_padding = 0.1,
-        preview_width = 0.6,
+        preview_width = function(_, cols, _)
+          if cols > 200 then
+            return math.floor(cols * 0.4)
+          else
+            return math.floor(cols * 0.6)
+          end
+        end,
       },
       vertical = {
-        width_padding = 0.05,
-        height_padding = 1,
+        width = 0.9,
+        height = 0.95,
         preview_height = 0.5,
       },
-      prompt_position = "top",
-      preview_cutoff = 120,
+      flex = {
+        horizontal = {
+          preview_width = 0.9,
+        },
+      },
     },
 
     selection_strategy = "reset",
@@ -50,13 +71,15 @@ require('telescope').setup {
       i = {
         ["<C-x>"] = false,
         ["<C-s>"] = actions.select_horizontal,
+        ["<C-j>"] = actions.cycle_history_next,
+        ["<C-k>"] = actions.cycle_history_prev,
 
         -- Experimental
         ["<tab>"] = actions.toggle_selection,
+        ["<C-y>"] = set_prompt_to_entry_value,
 
         ["<C-q>"] = actions.send_to_qflist,
         ["<C-l>"] = actions.delete_buffer,
-        -- ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
     },
 
@@ -69,15 +92,15 @@ require('telescope').setup {
   },
 
   extensions = {
-    -- fzy_native = {
-    --   override_generic_sorter = false,
-    --   override_file_sorter = true,
-    -- },
-    -- fzf_writer = {
-    --   use_highlighter = true,
-    --   minimum_grep_characters = 2,
-    --   minimum_file_characters = 2,
-    -- },
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true,
+    },
+    fzf_writer = {
+      use_highlighter = false,
+      minimum_grep_characters = 6,
+      -- minimum_file_characters = 2,
+    },
     fzf = {
       fuzzy = true,
       override_generic_sorter = true,
@@ -115,34 +138,28 @@ end
 
 function M.git_files()
   local opts = themes.get_dropdown {
-    winblend = 10,
+    winblend = 20,
     border = true,
     previewer = false,
-    shorten_path = true,
-    results_height = 20,
-    width = 90
+    layout_config = {
+      height = 30,
+      width = 100,
+    }
   }
   require('telescope.builtin').git_files(opts)
 end
 
 function M.dotfiles()
   require('telescope.builtin').find_files {
-    prompt_title = "Dotfiles",
+    prompt_title = "~ dotfiles ~",
     winblend = 5,
-    border = true,
-    cwd = "~/dotfiles"
+    cwd = "~/dotfiles",
+    layout_strategy = "horizontal",
+    layout_config = {
+      width = 0.9,
+      preview_width = 0.4
+    },
   }
-end
-
-function M.watchlist_files()
-  require('telescope.builtin').find_files ( themes.get_ivy {
-    prompt_title = "Watchlist",
-    winblend = 5,
-    shorten_path = false,
-    border = true,
-    cwd = "~/git/orca_cloud/fpa-bi/watchlist"
-  }
-)
 end
 
 function M.buffer_git_files()
@@ -165,15 +182,14 @@ function M.git_branches()
 end
 
 function M.lsp_code_actions()
-  require('telescope.builtin').lsp_code_actions(themes.get_dropdown {
+  local opts = themes.get_dropdown {
     previewer = false,
     winblend = 10,
     result_height = 30,
     border = true,
-    layout_config = {
-      width = 90,
-    },
-  })
+  }
+
+  require('telescope.builtin').lsp_code_actions(opts)
 
 end
 
@@ -202,13 +218,22 @@ end
 
 function M.fd()
   require('telescope.builtin').fd( themes.get_ivy {
-    winblend = 5,
-    results_height = 100,
+    winblend = 15,
     layout_config = {
       height = 20,
     },
   })
 end
+ function M.curbuf()
+   local opts = themes.get_dropdown {
+     winblend = 10,
+     border = 10,
+     previewer = false,
+     shorten_path = false
+   }
+
+   require("telescope.builtin").current_buffer_fuzzy_find(opts)
+ end
 
 function M.builtin()
   require('telescope.builtin').builtin()
@@ -242,7 +267,7 @@ end
 
 function M.buffers()
   require('telescope.builtin').buffers ( themes.get_ivy {
-    shorten_path = true,
+    path_display = true,
   })
 end
 
